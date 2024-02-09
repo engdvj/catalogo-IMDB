@@ -15,21 +15,21 @@ public class ServiceAtor {
 
     /**
      * Hashmap que armazena os atores e seus respectivos filmes.
-     * A chave do mapa é uma String representando o nome do diretor.
+     * A chave do mapa é uma String representando o nome do ator.
      */
     private static HashMap<String, List<ModelFilme>> atoresMap = new HashMap<>();
 
     /**
      * Adiciona um ator ao sistema.
      *
-     * @param ator O objeto ModelDiretor a ser adicionado.
+     * @param ator O objeto ModelAtor a ser adicionado.
      */
     public void adicionarAtor(ModelAtor ator) {}
 
     /**
      * Edita os detalhes de um ator existente no sistema.
      *
-     * @param ator O objeto ModelDiretor com as informações atualizadas.
+     * @param ator O objeto ModelAtor com as informações atualizadas.
      */
     public void editarAtor(ModelAtor ator) {}
 
@@ -48,22 +48,22 @@ public class ServiceAtor {
     /**
      * Fornece os dados de um ator específico.
      *
-     * @param ator O objeto ModelDiretor cujos dados são necessários.
+     * @param ator O objeto ModelAtor cujos dados são necessários.
      */
     public void dadosAtor(ModelAtor ator) {}
 
     /**
-     * Associa um filme a um diretor.
+     * Associa um filme a um ator.
      *
-     * @param ator O objeto ModelDiretor ao qual o filme será associado.
+     * @param ator O objeto ModelAtor ao qual o filme será associado.
      * @param filme O objeto ModelFilme a ser associado ao diretor.
      */
     public void associarFilme(ModelAtor ator, ModelFilme filme) {}
 
     /**
-     * Desassocia um filme de um diretor.
+     * Desassocia um filme de um ator.
      *
-     * @param ator O objeto ModelDiretor do qual o filme será desassociado.
+     * @param ator O objeto ModelAtor do qual o filme será desassociado.
      * @param filme O objeto ModelFilme a ser desassociado do diretor.
      */
     public void desassociarFilme(ModelAtor ator, ModelFilme filme) {}
