@@ -8,13 +8,13 @@ import java.time.LocalDate;
  * @ModelPessoa - Classe abstrata mãe que possui atributos e métodos próprios
  */
 public class ModelAtor extends ModelPessoa {
-    int quantidadeDePapel;
-    String tipodePapel;
+    private int quantidadeDePapel;
+    private String tipoDePapel;
 
-    public ModelAtor(String nome, String cpf, LocalDate dataDeNascimento, int quantidadeDePapel, String tipodePapel) {
+    public ModelAtor(String nome, String cpf, LocalDate dataDeNascimento, int quantidadeDePapel, String tipoDePapel) {
         super(nome, cpf, dataDeNascimento);
         this.quantidadeDePapel = quantidadeDePapel;
-        this.tipodePapel = tipodePapel;
+        this.tipoDePapel = tipoDePapel;
     }
 
     public int getQuantidadeDePapel() {
@@ -25,11 +25,11 @@ public class ModelAtor extends ModelPessoa {
         this.quantidadeDePapel = quantidadeDePapel;
     }
 
-    public String getTipodePapel() {
-        return tipodePapel;
+    public String getTipoDePapel() {
+        return tipoDePapel;
     }
 
-    public void setTipodePapel(String tipodePapel) {
-        this.tipodePapel = tipodePapel;
+    public void setTipoDePapel(String tipoDePapel) {
+        this.tipoDePapel = tipoDePapel;
     }
 }

@@ -9,8 +9,8 @@ import java.time.LocalDate;
  */
 public class ModelRoterista extends ModelPessoa {
 
-    int quantidadeDeRoteirosEscritos;
-    String area;
+    private int quantidadeDeRoteirosEscritos;
+    private String area;
 
     public ModelRoterista(String nome, String cpf, LocalDate dataDeNascimento, int quantidadeDeRoteirosEscritos, String area) {
         super(nome, cpf, dataDeNascimento);

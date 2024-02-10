@@ -8,9 +8,9 @@ import java.time.LocalDate;
  */
 public abstract class ModelPessoa {
 
-    String nome;
-    String cpf;
-    LocalDate dataDeNascimento;
+    protected String nome;
+    protected String cpf;
+    protected LocalDate dataDeNascimento;
 
     public ModelPessoa(String nome, String cpf, LocalDate dataDeNascimento) {
         this.nome = nome;

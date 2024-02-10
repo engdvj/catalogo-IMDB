@@ -9,8 +9,8 @@ import java.time.LocalDate;
  */
 public class ModelDiretor extends ModelPessoa {
 
-    int quantidadeDeFilmesDirigidos;
-    String area;
+    private int quantidadeDeFilmesDirigidos;
+    private String area;
 
     public ModelDiretor(String nome, String cpf, LocalDate dataDeNascimento, int quantidadeDeFilmesDirigidos, String area) {
         super(nome, cpf, dataDeNascimento);

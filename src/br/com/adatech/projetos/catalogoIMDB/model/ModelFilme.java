@@ -1,7 +1,10 @@
 package br.com.adatech.projetos.catalogoIMDB.model;
 
+import br.com.adatech.projetos.catalogoIMDB.util.Util.Genero;
+
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * Classe que representa um Filme
@@ -11,31 +14,23 @@ public class ModelFilme {
 
     //Dei uma olhada no site do IMDb e esses são os principais parametros de filme, que aparecem no primeiro bloco. Teria os streaming tbm, mas achei sem necessidade
 
-    String titulo;
-    String descricao;
-    String genero;
-    int classificacaoIndicativa;
-    LocalDate dataDeLancamento;
-    Duration duracao;
-    String direcao;
-    String artistas;
-    String roteiristas;
-    double orcamento;
-    double avaliacao;
+    private String titulo;
+    private String descricao;
+    private Genero genero;
+    private int classificacaoIndicativa;
+    private LocalDate dataDeLancamento;
+    private Duration duracao;
+    private ModelDiretor direcao;
+    private ArrayList<ModelAtor> artistas;
+    private ArrayList<ModelRoterista> roteiristas;
+    private double orcamento;
+    private double avaliacao;
 
-    //Fiz um construtor geral, assim a medida que fomos sentido a necessidade podemos ir quebrando o construtor em menores.
-    public ModelFilme(String titulo, String descricao, String genero, int classificacaoIndicativa, LocalDate dataDeLancamento, Duration duracao, String direcao, String artistas, String roteiristas, double orcamento, double avaliacao) {
+    public ModelFilme(String titulo, ModelDiretor direcao, ArrayList<ModelAtor> artistas, ArrayList<ModelRoterista> roteiristas) {
         this.titulo = titulo;
-        this.descricao = descricao;
-        this.genero = genero;
-        this.classificacaoIndicativa = classificacaoIndicativa;
-        this.dataDeLancamento = dataDeLancamento;
-        this.duracao = duracao;
         this.direcao = direcao;
         this.artistas = artistas;
         this.roteiristas = roteiristas;
-        this.orcamento = orcamento;
-        this.avaliacao = avaliacao;
     }
 
     public String getTitulo() {
@@ -54,11 +49,11 @@ public class ModelFilme {
         this.descricao = descricao;
     }
 
-    public String getGenero() {
+    public Genero getGenero() {
         return genero;
     }
 
-    public void setGenero(String genero) {
+    public void setGenero(Genero genero) {
         this.genero = genero;
     }
 
@@ -86,27 +81,27 @@ public class ModelFilme {
         this.duracao = duracao;
     }
 
-    public String getDirecao() {
+    public ModelDiretor getDirecao() {
         return direcao;
     }
 
-    public void setDirecao(String direcao) {
+    public void setDirecao(ModelDiretor direcao) {
         this.direcao = direcao;
     }
 
-    public String getArtistas() {
+    public ArrayList<ModelAtor> getArtistas() {
         return artistas;
     }
 
-    public void setArtistas(String artistas) {
+    public void setArtistas(ArrayList<ModelAtor> artistas) {
         this.artistas = artistas;
     }
 
-    public String getRoteiristas() {
+    public ArrayList<ModelRoterista> getRoteiristas() {
         return roteiristas;
     }
 
-    public void setRoteiristas(String roteiristas) {
+    public void setRoteiristas(ArrayList<ModelRoterista> roteiristas) {
         this.roteiristas = roteiristas;
     }
 
