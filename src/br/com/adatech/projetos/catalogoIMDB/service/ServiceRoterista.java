@@ -52,19 +52,4 @@ public class ServiceRoterista {
      */
     public void dadosAtor(ModelRoterista roterista) {}
 
-    /**
-     * Associa um filme a um roterista.
-     *
-     * @param roterista O objeto ModelRoterista ao qual o filme será associado.
-     * @param filme O objeto ModelFilme a ser associado ao roterista.
-     */
-    public void associarFilme(ModelRoterista roterista, ModelFilme filme) {}
-
-    /**
-     * Desassocia um filme de um roterista.
-     *
-     * @param roterista O objeto ModelRoterista do qual o filme será desassociado.
-     * @param filme O objeto ModelFilme a ser desassociado do diretor.
-     */
-    public void desassociarFilme(ModelRoterista roterista, ModelFilme filme) {}
 }

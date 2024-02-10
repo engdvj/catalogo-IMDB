@@ -52,19 +52,4 @@ public class ServiceDiretor {
      */
     public void dadosDiretor(ModelDiretor diretor) {}
 
-    /**
-     * Associa um filme a um diretor.
-     *
-     * @param diretor O objeto ModelDiretor ao qual o filme será associado.
-     * @param filme O objeto ModelFilme a ser associado ao diretor.
-     */
-    public void associarFilme(ModelDiretor diretor, ModelFilme filme) {}
-
-    /**
-     * Desassocia um filme de um diretor.
-     *
-     * @param diretor O objeto ModelDiretor do qual o filme será desassociado.
-     * @param filme O objeto ModelFilme a ser desassociado do diretor.
-     */
-    public void desassociarFilme(ModelDiretor diretor, ModelFilme filme) {}
 }

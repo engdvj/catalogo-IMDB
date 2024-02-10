@@ -52,19 +52,4 @@ public class ServiceAtor {
      */
     public void dadosAtor(ModelAtor ator) {}
 
-    /**
-     * Associa um filme a um ator.
-     *
-     * @param ator O objeto ModelAtor ao qual o filme será associado.
-     * @param filme O objeto ModelFilme a ser associado ao diretor.
-     */
-    public void associarFilme(ModelAtor ator, ModelFilme filme) {}
-
-    /**
-     * Desassocia um filme de um ator.
-     *
-     * @param ator O objeto ModelAtor do qual o filme será desassociado.
-     * @param filme O objeto ModelFilme a ser desassociado do diretor.
-     */
-    public void desassociarFilme(ModelAtor ator, ModelFilme filme) {}
 }
