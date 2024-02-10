@@ -5,4 +5,11 @@ package br.com.adatech.projetos.catalogoIMDB.util;
  * Contém métodos específicos para todas as funcionalidades propostas
  */
 public class Util {
+
+    public enum Genero {
+        COMÉDIA,
+        DRAMA,
+        ROMANCE,
+        TERROR
+    }
 }
