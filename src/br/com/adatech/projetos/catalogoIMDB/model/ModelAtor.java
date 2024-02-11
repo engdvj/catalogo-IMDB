@@ -32,4 +32,9 @@ public class ModelAtor extends ModelPessoa {
     public void setTipoDePapel(String tipoDePapel) {
         this.tipoDePapel = tipoDePapel;
     }
+
+    @Override
+    public String toString() {
+        return  "\n   Nome:" + nome + "'\'   Papel:" + tipoDePapel;
+    }
 }

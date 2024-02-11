@@ -33,4 +33,10 @@ public class ModelRoterista extends ModelPessoa {
     public void setArea(String area) {
         this.area = area;
     }
+
+    @Override
+    public String toString() {
+        return  "\n   Nome:" + nome +
+                "\n   Area:" + area;
+    }
 }

@@ -14,12 +14,6 @@ import java.util.List;
 public class ServiceDiretor {
 
     /**
-     * Hashmap que armazena os diretores e seus respectivos filmes.
-     * A chave do mapa é uma String representando o nome do diretor.
-     */
-    private static HashMap<String, List<ModelFilme>> diretoresMap = new HashMap<>();
-
-    /**
      * Adiciona um diretor ao sistema.
      *
      * @param diretor O objeto ModelDiretor a ser adicionado.

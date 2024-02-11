@@ -5,5 +5,5 @@ package br.com.adatech.projetos.catalogoIMDB.model;
  * Contém construtores, parâmetros, além de getters e setters
  */
 public class ModelMenu {
-
+    
 }

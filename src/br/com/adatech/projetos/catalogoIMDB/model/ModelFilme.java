@@ -21,11 +21,12 @@ public class ModelFilme {
     private LocalDate dataDeLancamento;
     private Duration duracao;
     private ModelDiretor direcao;
-    private ArrayList<ModelAtor> artistas;
-    private ArrayList<ModelRoterista> roteiristas;
+    private ArrayList<ModelAtor> artistas = new ArrayList<>();
+    private ArrayList<ModelRoterista> roteiristas = new ArrayList<>();
     private double orcamento;
     private double avaliacao;
 
+    public ModelFilme(){}
     public ModelFilme(String titulo, ModelDiretor direcao, ArrayList<ModelAtor> artistas, ArrayList<ModelRoterista> roteiristas) {
         this.titulo = titulo;
         this.direcao = direcao;
@@ -93,16 +94,16 @@ public class ModelFilme {
         return artistas;
     }
 
-    public void setArtistas(ArrayList<ModelAtor> artistas) {
-        this.artistas = artistas;
+    public void setArtistas(ModelAtor artistas) {
+        this.artistas.add(artistas);
     }
 
     public ArrayList<ModelRoterista> getRoteiristas() {
         return roteiristas;
     }
 
-    public void setRoteiristas(ArrayList<ModelRoterista> roteiristas) {
-        this.roteiristas = roteiristas;
+    public void setRoteiristas(ModelRoterista roteiristas) {
+        this.roteiristas.add(roteiristas);
     }
 
     public double getOrcamento() {
@@ -119,5 +120,21 @@ public class ModelFilme {
 
     public void setAvaliacao(double avaliacao) {
         this.avaliacao = avaliacao;
+    }
+
+    @Override
+    public String toString() {
+        return  "titulo:'" + titulo +
+                "\n descricao:'" + descricao +
+                "\n genero:" + genero +
+                "\n classificacaoIndicativa:" + classificacaoIndicativa +
+                "\n dataDeLancamento:" + dataDeLancamento +
+                "\n duracao:" + duracao +
+                "\n direcao:" + direcao +
+                "\n artistas:" + artistas +
+                "\n roteiristas:" + roteiristas +
+                "\n orcamento:" + orcamento +
+                "\n avaliacao:" + avaliacao +
+                '}';
     }
 }

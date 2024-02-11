@@ -41,4 +41,5 @@ public abstract class ModelPessoa {
     public void setDataDeNascimento(LocalDate dataDeNascimento) {
         this.dataDeNascimento = dataDeNascimento;
     }
+
 }

@@ -33,5 +33,10 @@ public class ModelDiretor extends ModelPessoa {
     public void setArea(String area) {
         this.area = area;
     }
+
+    @Override
+    public String toString() {
+        return  "\n   Nome:'" + nome + "'\'   Area:'" + area;
+    }
 }
 

@@ -14,12 +14,6 @@ import java.util.List;
 public class ServiceRoterista {
 
     /**
-     * Hashmap que armazena os roteristas e seus respectivos filmes.
-     * A chave do mapa é uma String representando o nome do ator.
-     */
-    private static HashMap<String, List<ModelFilme>> roteristasMap = new HashMap<>();
-
-    /**
      * Adiciona um roterista ao sistema.
      *
      * @param roterista O objeto ModelAtor a ser adicionado.
