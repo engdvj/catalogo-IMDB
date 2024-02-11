@@ -13,5 +13,26 @@ public class ServiceMenu {
      * Inicia o programa exibindo opções de menu e permitindo ao usuário escolher ações.
      */
     public static void iniciarPrograma(){
+
+        do {
+            // Tamanho da moldura
+            int tamanhoMoldura = 26;
+
+            menu.barraMenu(tamanhoMoldura);
+
+            menu.tituloMenu(tamanhoMoldura);
+
+            menu.barraMenu(tamanhoMoldura);
+
+            for (int i = 0; i < menu.getOpcoesMenu().size(); i++) {
+                System.out.printf("| (%d) - %-18s |\n", i + 1, menu.getOpcoesMenu().get(i));
+            }
+
+            menu.barraMenu(tamanhoMoldura);
+            int escolheu = menu.escolhaUsuario();
+            menu.retornoUsuario(escolheu);
+
+        } while (true);
+
     }
 }
