@@ -7,7 +7,7 @@ package br.com.adatech.projetos.catalogoIMDB.util;
 public class Util {
 
     public enum Genero {
-        COMÉDIA,
+        COMEDIA,
         DRAMA,
         ROMANCE,
         TERROR
