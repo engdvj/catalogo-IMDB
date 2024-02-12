@@ -46,9 +46,6 @@ public class ServiceFilme {
      * @param filme O objeto ModelFilme cujos dados são necessários.
      */
     public void fichaTecnica(ModelFilme filme) {}
+}
 
-<<<<<<< Updated upstream
-}
-=======
-}
->>>>>>> Stashed changes
+

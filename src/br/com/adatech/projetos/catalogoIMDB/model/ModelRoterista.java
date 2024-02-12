@@ -36,11 +36,7 @@ public class ModelRoterista extends ModelPessoa {
 
     @Override
     public String toString() {
-        return  "\n   Nome:" + nome +
+        return "\n   Nome:" + nome +
                 "\n   Area:" + area;
     }
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes

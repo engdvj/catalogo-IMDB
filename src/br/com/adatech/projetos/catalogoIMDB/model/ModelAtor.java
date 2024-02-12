@@ -35,10 +35,6 @@ public class ModelAtor extends ModelPessoa {
 
     @Override
     public String toString() {
-        return  "\n   Nome:" + nome + "'\'   Papel:" + tipoDePapel;
+        return "\n   Nome:" + nome + "'\'   Papel:" + tipoDePapel;
     }
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes

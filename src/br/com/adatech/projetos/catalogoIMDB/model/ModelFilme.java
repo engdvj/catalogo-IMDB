@@ -26,7 +26,9 @@ public class ModelFilme {
     private double orcamento;
     private double avaliacao;
 
-    public ModelFilme(){}
+    public ModelFilme() {
+    }
+
     public ModelFilme(String titulo, ModelDiretor direcao, ArrayList<ModelAtor> artistas, ArrayList<ModelRoterista> roteiristas) {
         this.titulo = titulo;
         this.direcao = direcao;
@@ -124,7 +126,7 @@ public class ModelFilme {
 
     @Override
     public String toString() {
-        return  "titulo:'" + titulo +
+        return "titulo:'" + titulo +
                 "\n descricao:'" + descricao +
                 "\n genero:" + genero +
                 "\n classificacaoIndicativa:" + classificacaoIndicativa +
@@ -137,8 +139,4 @@ public class ModelFilme {
                 "\n avaliacao:" + avaliacao +
                 '}';
     }
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes

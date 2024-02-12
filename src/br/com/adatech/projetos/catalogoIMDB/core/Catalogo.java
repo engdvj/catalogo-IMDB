@@ -37,19 +37,18 @@ public class Catalogo {
      * Associa uma pessoa a um filme.
      *
      * @param pessoa O objeto ModelPessoa ao qual o filme será associado.
-     * @param filme O objeto ModelFilme a ser associado ao diretor.
+     * @param filme  O objeto ModelFilme a ser associado ao diretor.
      */
-    public void associarFilme(ModelPessoa pessoa, ModelFilme filme) {}
+    public void associarFilme(ModelPessoa pessoa, ModelFilme filme) {
+    }
 
     /**
      * Desassocia uma pessoa de um filme.
      *
      * @param pessoa O objeto ModelPessoa do qual o filme será desassociado.
-     * @param filme O objeto ModelFilme a ser desassociado do diretor.
+     * @param filme  O objeto ModelFilme a ser desassociado do diretor.
      */
-    public void desassociarFilme(ModelPessoa pessoa, ModelFilme filme) {}
-<<<<<<< Updated upstream
+    public void desassociarFilme(ModelPessoa pessoa, ModelFilme filme) {
+    }
 }
-=======
-}
->>>>>>> Stashed changes
+
