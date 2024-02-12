@@ -40,7 +40,6 @@ public class Menu {
             }
         }
     }
-
     private static void menuCadastrar() {
         String[] opcoesMenu = new String[] {"Cadastrar Ator", "Cadastrar Diretor",
                 "Cadastrar Roteirista", "Cadastrar Filme", "Voltar para o menu anterior"};
@@ -74,28 +73,26 @@ public class Menu {
         }
 }
     private static void imprimirMenu(String[] opcoesMenu) {
-        barraMenu();
-        tituloMenu();
-        barraMenu();
-        imprimirOpcoes(opcoesMenu);
-        barraMenu();
-    }
-    private static void imprimirOpcoes(String[] opcoesMenu) {
-        for (int i = 0; i < opcoesMenu.length; i++) {
-            System.out.printf("| (%d) - %-40s |\n", i + 1, opcoesMenu[i]);
-        }
-    }
-    public static void tituloMenu() {
+        //Barra
+        System.out.println("+" + "-".repeat(tamanhoMoldura) + "+");
+
+        //Título
         int espacoTotal = tamanhoMoldura - titulo.length();
         int espacoEsquerda = espacoTotal / 2;
         int espacoDireita = espacoTotal - espacoEsquerda;
-
         System.out.printf("|%s%s%s|\n",
-                " ".repeat(espacoEsquerda),
-                titulo.toUpperCase(),
+                " ".repeat(espacoEsquerda),titulo.toUpperCase(),
                 " ".repeat(espacoDireita));
-    }
-    public static void barraMenu(){
+
+        //Barra
+        System.out.println("+" + "-".repeat(tamanhoMoldura) + "+");
+
+        //Opções
+        for (int i = 0; i < opcoesMenu.length; i++) {
+            System.out.printf("| (%d) - %-40s |\n", i + 1, opcoesMenu[i]);
+        }
+
+        //Barra
         System.out.println("+" + "-".repeat(tamanhoMoldura) + "+");
     }
     public static int escolhaUsuario(){
