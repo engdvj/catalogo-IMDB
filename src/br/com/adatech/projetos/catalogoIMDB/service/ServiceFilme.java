@@ -47,4 +47,8 @@ public class ServiceFilme {
      */
     public void fichaTecnica(ModelFilme filme) {}
 
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

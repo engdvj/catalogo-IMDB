@@ -39,4 +39,8 @@ public class ModelRoterista extends ModelPessoa {
         return  "\n   Nome:" + nome +
                 "\n   Area:" + area;
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

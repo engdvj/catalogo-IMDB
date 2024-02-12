@@ -37,4 +37,8 @@ public class ModelAtor extends ModelPessoa {
     public String toString() {
         return  "\n   Nome:" + nome + "'\'   Papel:" + tipoDePapel;
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

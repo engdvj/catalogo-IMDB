@@ -137,4 +137,8 @@ public class ModelFilme {
                 "\n avaliacao:" + avaliacao +
                 '}';
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

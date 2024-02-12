@@ -48,4 +48,8 @@ public class Catalogo {
      * @param filme O objeto ModelFilme a ser desassociado do diretor.
      */
     public void desassociarFilme(ModelPessoa pessoa, ModelFilme filme) {}
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

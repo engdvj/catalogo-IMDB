@@ -33,10 +33,18 @@ public class ModelDiretor extends ModelPessoa {
     public void setArea(String area) {
         this.area = area;
     }
+<<<<<<< Updated upstream
 
     @Override
     public String toString() {
         return  "\n   Nome:'" + nome + "'\'   Area:'" + area;
     }
 }
+=======
+>>>>>>> Stashed changes
 
+    @Override
+    public String toString() {
+        return  "\n   Nome:'" + nome + "'\'   Area:'" + area;
+    }
+}
