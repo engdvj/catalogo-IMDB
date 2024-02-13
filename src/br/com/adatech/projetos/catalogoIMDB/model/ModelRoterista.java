@@ -12,19 +12,18 @@ public class ModelRoterista extends ModelPessoa {
     private int quantidadeDeRoteirosEscritos;
     private String area;
 
-    public ModelRoterista(String nome, String cpf, LocalDate dataDeNascimento, int quantidadeDeRoteirosEscritos, String area) {
-        super(nome, cpf, dataDeNascimento);
-        this.quantidadeDeRoteirosEscritos = quantidadeDeRoteirosEscritos;
-        this.area = area;
+    public ModelRoterista(String dados []) {
+        super.nome = dados [0];
+        super.cpf = dados[1];
+        setDataDeNascimento(dados[2]);
+        this.area = "não atribuída";
     }
 
     public int getQuantidadeDeRoteirosEscritos() {
         return quantidadeDeRoteirosEscritos;
     }
 
-    public void setQuantidadeDeRoteirosEscritos(int quantidadeDeRoteirosEscritos) {
-        this.quantidadeDeRoteirosEscritos = quantidadeDeRoteirosEscritos;
-    }
+    public void novoRoteiroEscrito() { this.quantidadeDeRoteirosEscritos++; }
 
     public String getArea() {
         return area;
@@ -36,7 +35,12 @@ public class ModelRoterista extends ModelPessoa {
 
     @Override
     public String toString() {
-        return "\n   Nome:" + nome +
-                "\n   Area:" + area;
+        return "\nDADOS PESSOAIS\n" +
+                "\nNome: " + nome +
+                "\nCPF: " + cpf +
+                "\nDN: " + dataDeNascimento +
+
+                "\n\nPARTICIPAÇÕES:";
+
     }
 }
