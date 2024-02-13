@@ -1,6 +1,7 @@
 package br.com.adatech.projetos.catalogoIMDB.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Classe abstrata que representa uma Pessoa
@@ -12,11 +13,8 @@ public abstract class ModelPessoa {
     protected String cpf;
     protected LocalDate dataDeNascimento;
 
-    public ModelPessoa(String nome, String cpf, LocalDate dataDeNascimento) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.dataDeNascimento = dataDeNascimento;
-    }
+
+    public ModelPessoa(){}
 
     public String getNome() {
         return nome;
@@ -38,8 +36,9 @@ public abstract class ModelPessoa {
         return dataDeNascimento;
     }
 
-    public void setDataDeNascimento(LocalDate dataDeNascimento) {
-        this.dataDeNascimento = dataDeNascimento;
+    public void setDataDeNascimento(String dataNascimento) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.dataDeNascimento = LocalDate.parse(dataNascimento, formatter);
     }
 
 }
