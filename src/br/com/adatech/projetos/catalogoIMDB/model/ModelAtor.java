@@ -11,10 +11,11 @@ public class ModelAtor extends ModelPessoa {
     private int quantidadeDePapel;
     private String tipoDePapel;
 
-    public ModelAtor(String nome, String cpf, LocalDate dataDeNascimento, int quantidadeDePapel, String tipoDePapel) {
-        super(nome, cpf, dataDeNascimento);
-        this.quantidadeDePapel = quantidadeDePapel;
-        this.tipoDePapel = tipoDePapel;
+    public ModelAtor(String dados []) {
+        super.nome = dados [0];
+        super.cpf = dados[1];
+        setDataDeNascimento(dados[2]);
+        this.tipoDePapel = "não definido";
     }
 
     public int getQuantidadeDePapel() {
