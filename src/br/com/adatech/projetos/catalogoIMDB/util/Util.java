@@ -20,11 +20,14 @@ public class Util {
         EDICAO,
         PESQUISA,
         REVISAO,
+        INDEFINIDO
     }
 
     public static int escolhaUsuario(){
         Scanner sc = new Scanner(System.in);
         System.out.print("Qual sua escolha -> ");
-        return sc.nextInt();
+        int escolha = sc.nextInt();
+        sc.nextLine();
+        return escolha;
     }
 }

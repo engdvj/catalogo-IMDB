@@ -1,6 +1,8 @@
 package br.com.adatech.projetos.catalogoIMDB.model;
 
-import java.time.LocalDate;
+import br.com.adatech.projetos.catalogoIMDB.util.Util.AreaRoteirista;
+
+import java.util.ArrayList;
 
 /**
  * Classe que representa um Roteirista de filme
@@ -10,13 +12,13 @@ import java.time.LocalDate;
 public class ModelRoterista extends ModelPessoa {
 
     private int quantidadeDeRoteirosEscritos;
-    private String area;
+    private ArrayList<AreaRoteirista> area = new ArrayList<>();
 
     public ModelRoterista(String dados []) {
         super.nome = dados [0];
         super.cpf = dados[1];
         setDataDeNascimento(dados[2]);
-        this.area = "não atribuída";
+        area.add(AreaRoteirista.INDEFINIDO);
     }
 
     public int getQuantidadeDeRoteirosEscritos() {
@@ -24,14 +26,6 @@ public class ModelRoterista extends ModelPessoa {
     }
 
     public void novoRoteiroEscrito() { this.quantidadeDeRoteirosEscritos++; }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
 
     @Override
     public String toString() {

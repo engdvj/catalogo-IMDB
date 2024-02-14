@@ -5,10 +5,7 @@ import br.com.adatech.projetos.catalogoIMDB.model.ModelFilme;
 import br.com.adatech.projetos.catalogoIMDB.model.ModelRoterista;
 import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 
 /**
@@ -21,12 +18,12 @@ public class ServiceRoterista {
      * Adiciona um roterista ao sistema.
      */
     public static void adicionarRoterista() {
-        String dados[] = new String [3];
-        System.out.println("Informe o nome:");
+        String[] dados = new String [3];
+        System.out.print("Informe o nome: ");
         dados[0] = Menu.sc.nextLine();
-        System.out.println("Informe o CPF:");
+        System.out.print("Informe o CPF: ");
         dados[1] = Menu.sc.nextLine();
-        System.out.println("Informe a data de nascimento:");
+        System.out.print("Informe a data de nascimento: ");
         dados[2] = Menu.sc.nextLine();
         ModelRoterista roterista = new ModelRoterista(dados);
         Catalogo.getRoteristas().put(roterista,Catalogo.getCatalogo());
@@ -35,19 +32,55 @@ public class ServiceRoterista {
 
     /**
      * Edita os detalhes de um roterista existente no sistema.
-     *
-     * @param roterista O objeto ModelRoterista com as informações atualizadas.
      */
-    public void editarRoterista(ModelRoterista roterista) {}
+    public static void editarRoterista() {
+        listarRoteristas();
+        System.out.print("Digite o nome do roterista que gostaria de alterar: ");
+        String informacao = Menu.sc.nextLine();
+        ModelRoterista roterista = getRoteristaByName(informacao);
+        System.out.println("Qual informação gostaria de editar?");
+        System.out.println("""
+                (1) - Nome
+                (2) - CPF
+                (3) - Data de Nascimento
+                """);
+        int escolha = Menu.sc.nextInt();
+        Menu.sc.nextLine();
+        switch (escolha) {
+            case 1:
+                System.out.println("Digite o novo nome:");
+                informacao = Menu.sc.nextLine();
+                roterista.setNome(informacao);
+                System.out.println("Nome alterado!");
+                break;
+            case 2:
+                System.out.println("Digite o novo CPF:");
+                informacao = Menu.sc.nextLine();
+                roterista.setCpf(informacao);
+                System.out.println("CPF alterado!");
+                break;
+            case 3:
+                System.out.println("Digite a nova data de nascimento:");
+                informacao = Menu.sc.nextLine();
+                roterista.setDataDeNascimento(informacao);
+                System.out.println("Data de nascimento alterada!");
+                break;
+            default:
+                System.out.println("Escolha uma opção valida!!\n");
+                break;
+        }
+    }
 
     /**
      * Remove um roterista do sistema.
-     *
-     * @param roterista O objeto ModelRoterista a ser removido.
      */
-    public static void removerRoterista(ModelRoterista roterista) {
-        Catalogo.getRoteristas().remove(roterista,Catalogo.getCatalogo());
-        System.out.println("Roteirista Removido!");
+    public static void removerRoterista() {
+        listarRoteristas();
+        System.out.println("Digite o nome do roterista que gostaria de remover:");
+        String nome = Menu.sc.nextLine();
+        if(Catalogo.getRoteristas().remove(getRoteristaByName(nome))!=null){
+            System.out.println("Roteirista " + nome + " Removido!");
+        }
     }
 
     /**
@@ -55,9 +88,9 @@ public class ServiceRoterista {
      */
     public static void listarRoteristas() {
         int i=1;
-    for(HashMap.Entry<ModelRoterista, List<ModelFilme>> roterista:Catalogo.getRoteristas().entrySet()){
-        System.out.print("Roteirista " + i + " - ");
-        System.out.print(roterista.getKey().getNome() + "\n");
+        System.out.println("Roteiristas Cadastrados:");
+    for(HashMap.Entry<ModelRoterista, ArrayList<ModelFilme>> roterista:Catalogo.getRoteristas().entrySet()){
+        System.out.println(" - " + roterista.getKey().getNome());
         i++;
         }
     }
@@ -66,6 +99,7 @@ public class ServiceRoterista {
      * Fornece os dados de um roterista específico.
      */
     public static void exibirDadosRoterista() {
+        listarRoteristas();
         System.out.println("Digite o nome do roterista:");
         String nome = Menu.sc.nextLine();
         System.out.println(getRoteristaByName(nome));
@@ -73,7 +107,7 @@ public class ServiceRoterista {
 
     public static ModelRoterista getRoteristaByName(String nome){
         try {
-            for(Map.Entry<ModelRoterista, List<ModelFilme>> roterista: Catalogo.getRoteristas().entrySet()){
+            for(Map.Entry<ModelRoterista, ArrayList<ModelFilme>> roterista: Catalogo.getRoteristas().entrySet()){
                 if(roterista.getKey().getNome().equals(nome)){
                     return roterista.getKey();
                 }

@@ -4,7 +4,6 @@ import br.com.adatech.projetos.catalogoIMDB.model.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Catalogo {
 
@@ -18,9 +17,9 @@ public class Catalogo {
      * Hashmap que armazena os roteristas e seus respectivos filmes.
      * A chave do mapa é uma String representando o nome do roteirista.
      */
-    private static HashMap<ModelRoterista, List<ModelFilme>> mapRoteristasFilmes = new HashMap<>();
+    private static HashMap<ModelRoterista, ArrayList<ModelFilme>> mapRoteristasFilmes = new HashMap<>();
 
-    public static HashMap<ModelRoterista, List<ModelFilme>> getRoteristas() {
+    public static HashMap<ModelRoterista, ArrayList<ModelFilme>> getRoteristas() {
         return mapRoteristasFilmes;
     }
 
@@ -32,13 +31,13 @@ public class Catalogo {
      * Hashmap que armazena os diretores e seus respectivos filmes.
      * A chave do mapa é uma String representando o nome do diretor.
      */
-    private static HashMap<ModelDiretor, List<ModelFilme>> mapDiretores = new HashMap<>();
+    private static HashMap<ModelDiretor, ArrayList<ModelFilme>> mapDiretores = new HashMap<>();
 
     /**
      * Hashmap que armazena os atores e seus respectivos filmes.
      * A chave do mapa é uma String representando o nome do ator.
      */
-    private static HashMap<ModelAtor, List<ModelFilme>> mapAtores = new HashMap<>();
+    private static HashMap<ModelAtor, ArrayList<ModelFilme>> mapAtores = new HashMap<>();
 
     /**
      * Associa uma pessoa a um filme.

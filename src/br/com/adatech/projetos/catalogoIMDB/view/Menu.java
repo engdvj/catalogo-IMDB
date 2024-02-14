@@ -32,8 +32,9 @@ public class Menu {
                     break;
                 case 2:
                     consultarCatalogo();
+                    break;
                 case 3:
-                    System.out.println("Implementar Menu edição...");
+                    alterarInformacoes();
                     break;
                 case 4:
                     continuarNoMenu = false;
@@ -92,6 +93,7 @@ public class Menu {
                     break;
                 case 2:
                     listagemColetiva();
+                    break;
                 case 3:
                     continuarNoMenu = false;
                     titulo = "Menu Inicial";
@@ -102,7 +104,6 @@ public class Menu {
             }
         }
     }
-
     private static void listagemIndividual() {
         String[] opcoesMenu = new String[] {"Listar dados de um Ator", "Listar dados de um Diretor"
                 ,"Listar dados de um Roterista", "Listar dados de um filme"
@@ -173,7 +174,101 @@ public class Menu {
             }
         }
     }
+    private static void alterarInformacoes() {
+        String[] opcoesMenu = new String[] {"Editar uma Informação", "Remover uma informação","Voltar para o menu anterior"};
+        titulo = "Menu Escolha";
+        boolean continuarNoMenu = true;
 
+        while (continuarNoMenu) {
+            imprimirMenu(opcoesMenu);
+            int escolheu = Util.escolhaUsuario();
+            switch (escolheu) {
+                case 1:
+                    editarInformacoes();
+                    break;
+                case 2:
+                    removerInformacoes();
+                    break;
+                case 3:
+                    continuarNoMenu = false;
+                    titulo = "Menu Inicial";
+                    break;
+                default:
+                    System.out.println("Escolha uma opção valida!!\n");
+                    break;
+            }
+        }
+    }
+    private static void editarInformacoes() {
+        String[] opcoesMenu = new String[] {"Alterar informações de um Ator"
+                ,"Alterar informações de um Diretor"
+                ,"Alterar informações de um Roterista"
+                ,"Alterar informações de um  filme"
+                ,"Voltar para o menu anterior"};
+
+        titulo = "Menu Alterar Informações";
+        boolean continuarNoMenu = true;
+
+        while (continuarNoMenu) {
+            imprimirMenu(opcoesMenu);
+            int escolheu = Util.escolhaUsuario();
+            switch (escolheu) {
+                case 1:
+                    System.out.println("Implementar Alterar informações de um ator...");
+                    break;
+                case 2:
+                    System.out.println("Implementar Alterar informações de um diretor...");
+                    break;
+                case 3:
+                    ServiceRoterista.editarRoterista();
+                    break;
+                case 4:
+                    System.out.println("Implementar Alterar informações de um filme...");
+                    break;
+                case 5:
+                    continuarNoMenu = false;
+                    titulo = "Menu Escolha";
+                    break;
+                default:
+                    System.out.println("Escolha uma opção valida!!\n");
+                    break;
+            }
+        }
+    }
+    private static void removerInformacoes() {
+        String[] opcoesMenu = new String[] {"Remover um Ator", "Remover um Diretor"
+                ,"Remover um Roterista", "Remover um filme"
+                ,"Voltar para o menu anterior"};
+
+        titulo = "Menu Remover Informações";
+        boolean continuarNoMenu = true;
+
+        while (continuarNoMenu) {
+            imprimirMenu(opcoesMenu);
+            int escolheu = Util.escolhaUsuario();
+            switch (escolheu) {
+                case 1:
+                    System.out.println("Implementar Remover um ator...");
+                    break;
+                case 2:
+                    System.out.println("Implementar Remover um diretor...");
+                    break;
+                case 3:
+                    ServiceRoterista.removerRoterista();
+                    break;
+                case 4:
+                    System.out.println("Implementar Remover um filme...");
+                    break;
+                case 5:
+                    continuarNoMenu = false;
+                    titulo = "Menu Escolha";
+                    break;
+                default:
+                    System.out.println("Escolha uma opção valida!!\n");
+                    break;
+            }
+        }
+    }
     private static void imprimirMenu(String[] opcoesMenu) {
         //Barra
         System.out.println("+" + "-".repeat(tamanhoMoldura) + "+");
