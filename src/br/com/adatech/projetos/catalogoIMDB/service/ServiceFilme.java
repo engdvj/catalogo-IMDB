@@ -1,14 +1,10 @@
 package br.com.adatech.projetos.catalogoIMDB.service;
 
 import br.com.adatech.projetos.catalogoIMDB.model.ModelFilme;
-import br.com.adatech.projetos.catalogoIMDB.model.ModelRoterista;
 import br.com.adatech.projetos.catalogoIMDB.util.Util;
 import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 import br.com.adatech.projetos.catalogoIMDB.core.Catalogo;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 
@@ -70,10 +66,17 @@ public class ServiceFilme {
 
     /**
      * Remove um diretor do sistema.
-     *
-     * @param filme O objeto ModelFilme a ser removido.
      */
-    public void removerFilme(ModelFilme filme) {
+    public static void removerFilme() {
+        listarFilmes();
+        System.out.println("Digite o titulo que gostaria de remover:");
+        String titulo = Menu.sc.nextLine();
+
+        if (titulo != null && Catalogo.getCatalogo().remove(titulo)) {
+            System.out.println("Filme " + titulo + " Removido!");
+        } else {
+            System.out.println("Filme não encontrado ou não pode ser removido.");
+        }
     }
 
     /**

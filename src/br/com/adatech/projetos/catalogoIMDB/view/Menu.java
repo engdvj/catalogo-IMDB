@@ -267,7 +267,7 @@ public class Menu {
                     ServiceRoterista.removerRoterista();
                     break;
                 case 4:
-                    System.out.println("Implementar Remover um filme...");
+                    ServiceFilme.removerFilme();
                     break;
                 case 5:
                     continuarNoMenu = false;
