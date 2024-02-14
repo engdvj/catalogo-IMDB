@@ -1,5 +1,6 @@
 package br.com.adatech.projetos.catalogoIMDB.view;
 
+import br.com.adatech.projetos.catalogoIMDB.service.ServiceFilme;
 import br.com.adatech.projetos.catalogoIMDB.service.ServiceRoterista;
 import br.com.adatech.projetos.catalogoIMDB.util.Util;
 
@@ -14,10 +15,12 @@ public class Menu {
     public static Scanner sc = new Scanner(System.in);
     private static String titulo;
     private static final int tamanhoMoldura = 48;
-    public static void iniciarPrograma(){
-         menuInicial();
-         sc.close();
+
+    public static void iniciarPrograma() {
+        menuInicial();
+        sc.close();
     }
+
     private static void menuInicial() {
         String[] opcoesMenu = new String[]{"Cadastrar dados", "Consultar catálogo",
                 "Alterar informações", "Sair"};
@@ -46,8 +49,9 @@ public class Menu {
             }
         }
     }
+
     private static void menuCadastrar() {
-        String[] opcoesMenu = new String[] {"Cadastrar Ator", "Cadastrar Diretor",
+        String[] opcoesMenu = new String[]{"Cadastrar Ator", "Cadastrar Diretor",
                 "Cadastrar Roteirista", "Cadastrar Filme", "Voltar para o menu anterior"};
         titulo = "Menu Cadastro";
         boolean continuarNoMenu = true;
@@ -66,7 +70,7 @@ public class Menu {
                     ServiceRoterista.adicionarRoterista();
                     break;
                 case 4:
-                    System.out.println("Implementar Cadasto de filme...");
+                    ServiceFilme.adicionarFilme();
                     break;
                 case 5:
                     continuarNoMenu = false;
@@ -78,8 +82,9 @@ public class Menu {
             }
         }
     }
+
     private static void consultarCatalogo() {
-        String[] opcoesMenu = new String[] {"Listagem Individual", "Listagem Coletiva",
+        String[] opcoesMenu = new String[]{"Listagem Individual", "Listagem Coletiva",
                 "Voltar para o menu anterior"};
         titulo = "Menu Catálogo";
         boolean continuarNoMenu = true;
@@ -104,10 +109,11 @@ public class Menu {
             }
         }
     }
+
     private static void listagemIndividual() {
-        String[] opcoesMenu = new String[] {"Listar dados de um Ator", "Listar dados de um Diretor"
-                ,"Listar dados de um Roterista", "Listar dados de um filme"
-                ,"Voltar para o menu anterior"};
+        String[] opcoesMenu = new String[]{"Listar dados de um Ator", "Listar dados de um Diretor"
+                , "Listar dados de um Roterista", "Listar dados de um filme"
+                , "Voltar para o menu anterior"};
 
         titulo = "Menu Listagem Individual";
         boolean continuarNoMenu = true;
@@ -123,7 +129,7 @@ public class Menu {
                     System.out.println("Implementar listar dados de um diretor...");
                     break;
                 case 3:
-                    ServiceRoterista.exibirDadosRoterista();
+                    ServiceRoterista.fichaTecnicaRoterista();
                     break;
                 case 4:
                     System.out.println("Implementar listar dados de um filme...");
@@ -138,12 +144,13 @@ public class Menu {
             }
         }
     }
+
     private static void listagemColetiva() {
-        String[] opcoesMenu = new String[] {"Listar todos os atores cadastrados"
-                ,"Listar todos os diretores cadastrados"
-                ,"Listar todos os Roteristas cadastrados"
-                ,"Listar todos os filmes cadastrados"
-                ,"Voltar para o menu anterior"};
+        String[] opcoesMenu = new String[]{"Listar todos os atores cadastrados"
+                , "Listar todos os diretores cadastrados"
+                , "Listar todos os Roteristas cadastrados"
+                , "Listar todos os filmes cadastrados"
+                , "Voltar para o menu anterior"};
 
         titulo = "Menu Listagem Coletiva";
         boolean continuarNoMenu = true;
@@ -162,7 +169,7 @@ public class Menu {
                     ServiceRoterista.listarRoteristas();
                     break;
                 case 4:
-                    System.out.println("Implementar listar todos os filmes cadastrados...");
+                    ServiceFilme.listarFilmes();
                     break;
                 case 5:
                     continuarNoMenu = false;
@@ -174,8 +181,9 @@ public class Menu {
             }
         }
     }
+
     private static void alterarInformacoes() {
-        String[] opcoesMenu = new String[] {"Editar uma Informação", "Remover uma informação","Voltar para o menu anterior"};
+        String[] opcoesMenu = new String[]{"Editar uma Informação", "Remover uma informação", "Voltar para o menu anterior"};
         titulo = "Menu Escolha";
         boolean continuarNoMenu = true;
 
@@ -199,12 +207,13 @@ public class Menu {
             }
         }
     }
+
     private static void editarInformacoes() {
-        String[] opcoesMenu = new String[] {"Alterar informações de um Ator"
-                ,"Alterar informações de um Diretor"
-                ,"Alterar informações de um Roterista"
-                ,"Alterar informações de um  filme"
-                ,"Voltar para o menu anterior"};
+        String[] opcoesMenu = new String[]{"Alterar informações de um Ator"
+                , "Alterar informações de um Diretor"
+                , "Alterar informações de um Roterista"
+                , "Alterar informações de um  filme"
+                , "Voltar para o menu anterior"};
 
         titulo = "Menu Alterar Informações";
         boolean continuarNoMenu = true;
@@ -235,10 +244,11 @@ public class Menu {
             }
         }
     }
+
     private static void removerInformacoes() {
-        String[] opcoesMenu = new String[] {"Remover um Ator", "Remover um Diretor"
-                ,"Remover um Roterista", "Remover um filme"
-                ,"Voltar para o menu anterior"};
+        String[] opcoesMenu = new String[]{"Remover um Ator", "Remover um Diretor"
+                , "Remover um Roterista", "Remover um filme"
+                , "Voltar para o menu anterior"};
 
         titulo = "Menu Remover Informações";
         boolean continuarNoMenu = true;
@@ -269,6 +279,7 @@ public class Menu {
             }
         }
     }
+
     private static void imprimirMenu(String[] opcoesMenu) {
         //Barra
         System.out.println("+" + "-".repeat(tamanhoMoldura) + "+");
@@ -278,7 +289,7 @@ public class Menu {
         int espacoEsquerda = espacoTotal / 2;
         int espacoDireita = espacoTotal - espacoEsquerda;
         System.out.printf("|%s%s%s|\n",
-                " ".repeat(espacoEsquerda),titulo.toUpperCase(),
+                " ".repeat(espacoEsquerda), titulo.toUpperCase(),
                 " ".repeat(espacoDireita));
 
         //Barra

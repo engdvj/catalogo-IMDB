@@ -23,6 +23,7 @@ public class Catalogo {
         return mapRoteristasFilmes;
     }
 
+
     public static ArrayList<ModelFilme> getCatalogo() {
         return catalogo;
     }

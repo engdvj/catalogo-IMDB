@@ -8,12 +8,43 @@ import java.util.Scanner;
  */
 public class Util {
 
+    private String valor;
+
+    public enum ClassificacaoIndicativa {
+        LIVRE("Livre"),
+        R("R"),
+        DEZ("10"),
+        DOZE("12"),
+        QUATORZE("14"),
+        DEZESSEIS("16"),
+        DEZOITO("18"),
+        INDEFINIDA("Indefinida");
+        private final String valor;
+        ClassificacaoIndicativa(String valor) {
+            this.valor = valor;
+        }
+        public String getValor() {
+            return valor;
+        }
+        public static ClassificacaoIndicativa fromString(String valor) {
+            for (ClassificacaoIndicativa ci : ClassificacaoIndicativa.values()) {
+                if (ci.getValor().equalsIgnoreCase(valor)) {
+                    return ci;
+                }
+            }
+            return INDEFINIDA;
+        }
+    }
+
+
     public enum Genero {
         COMEDIA,
         DRAMA,
         ROMANCE,
-        TERROR
+        TERROR,
+        INDEFINIDO
     }
+
     public enum AreaRoteirista {
         ADAPTACAO,
         CRIACAO,

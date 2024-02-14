@@ -18,7 +18,7 @@ public class ServiceRoterista {
      * Adiciona um roterista ao sistema.
      */
     public static void adicionarRoterista() {
-        String[] dados = new String [3];
+        String[] dados = new String[3];
         System.out.print("Informe o nome: ");
         dados[0] = Menu.sc.nextLine();
         System.out.print("Informe o CPF: ");
@@ -26,8 +26,8 @@ public class ServiceRoterista {
         System.out.print("Informe a data de nascimento: ");
         dados[2] = Menu.sc.nextLine();
         ModelRoterista roterista = new ModelRoterista(dados);
-        Catalogo.getRoteristas().put(roterista,Catalogo.getCatalogo());
-        System.out.println("Roterista "+ roterista.getNome() + " Cadastrado");
+        Catalogo.getRoteristas().put(roterista, Catalogo.getCatalogo());
+        System.out.println("Roterista " + roterista.getNome() + " Cadastrado");
     }
 
     /**
@@ -78,7 +78,7 @@ public class ServiceRoterista {
         listarRoteristas();
         System.out.println("Digite o nome do roterista que gostaria de remover:");
         String nome = Menu.sc.nextLine();
-        if(Catalogo.getRoteristas().remove(getRoteristaByName(nome))!=null){
+        if (Catalogo.getRoteristas().remove(getRoteristaByName(nome)) != null) {
             System.out.println("Roteirista " + nome + " Removido!");
         }
     }
@@ -87,28 +87,26 @@ public class ServiceRoterista {
      * Lista todos os roteristas cadastrados no sistema.
      */
     public static void listarRoteristas() {
-        int i=1;
         System.out.println("Roteiristas Cadastrados:");
-    for(HashMap.Entry<ModelRoterista, ArrayList<ModelFilme>> roterista:Catalogo.getRoteristas().entrySet()){
-        System.out.println(" - " + roterista.getKey().getNome());
-        i++;
+        for (HashMap.Entry<ModelRoterista, ArrayList<ModelFilme>> roterista : Catalogo.getRoteristas().entrySet()) {
+            System.out.println(" - " + roterista.getKey().getNome());
         }
     }
 
     /**
      * Fornece os dados de um roterista específico.
      */
-    public static void exibirDadosRoterista() {
+    public static void fichaTecnicaRoterista() {
         listarRoteristas();
         System.out.println("Digite o nome do roterista:");
         String nome = Menu.sc.nextLine();
         System.out.println(getRoteristaByName(nome));
     }
 
-    public static ModelRoterista getRoteristaByName(String nome){
+    public static ModelRoterista getRoteristaByName(String nome) {
         try {
-            for(Map.Entry<ModelRoterista, ArrayList<ModelFilme>> roterista: Catalogo.getRoteristas().entrySet()){
-                if(roterista.getKey().getNome().equals(nome)){
+            for (Map.Entry<ModelRoterista, ArrayList<ModelFilme>> roterista : Catalogo.getRoteristas().entrySet()) {
+                if (roterista.getKey().getNome().equals(nome)) {
                     return roterista.getKey();
                 }
             }
