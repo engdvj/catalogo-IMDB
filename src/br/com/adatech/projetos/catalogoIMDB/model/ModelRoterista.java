@@ -29,12 +29,39 @@ public class ModelRoterista extends ModelPessoa {
 
     @Override
     public String toString() {
-        return "\nDADOS PESSOAIS\n" +
-                "\nNome: " + nome +
-                "\nCPF: " + cpf +
-                "\nDN: " + dataDeNascimento +
+        String topBottomBorder = "*".repeat(50);
+        String middleBar = "-".repeat(50);
+        String spaceBar = " ".repeat(50);
+        String title = centerString("INFORMAÇÕES DO ROTERISTA", 50);
 
-                "\n\nPARTICIPAÇÕES:";
+        return topBottomBorder + "\n" +
+                title +
+                topBottomBorder + "\n" +
+                formatLine("DADOS PESSOAIS", "*") +
+                middleBar + "\n" +
+                formatLine("- Nome -", nome) +
+                formatLine("- CPF -", cpf) +
+                formatLine("- Data de Nascimento -", String.valueOf(dataDeNascimento)) +
+                middleBar + "\n" +
+                formatLine("PARTICIPAÇÕES", "") +
+                topBottomBorder + "\n";
+    }
 
+    private String centerString(String text, int width) {
+        if (text == null || text.trim().isEmpty()) {
+            text = "N/A";
+        }
+        else if(text == "*"){
+            return "";
+        }
+        int paddingSize = (width - text.length()) / 2;
+        String padding = " ".repeat(Math.max(0, paddingSize));
+        return padding + text + padding + (text.length() % 2 == 1 ? " " : "") + "\n";
+    }
+
+    private String formatLine(String label, String content) {
+        String centeredLabel = centerString(label, 50);
+        String centeredContent = centerString(content != null ? content : "N/A", 50);
+        return centeredLabel + centeredContent;
     }
 }

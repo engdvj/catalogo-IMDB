@@ -39,18 +39,39 @@ public class ModelFilme {
 
     @Override
     public String toString() {
-        return "titulo:'" + titulo +
-                "\n descricao:'" + descricao +
-                "\n genero:" + genero +
-                "\n classificacaoIndicativa:" + classificacaoIndicativa +
-                "\n dataDeLancamento:" + dataDeLancamento +
-                "\n duracao:" + duracao +
-                "\n direcao:" + diretor +
-                "\n artistas:" + artistas +
-                "\n roteiristas:" + roteiristas +
-                "\n orcamento:" + orcamento +
-                "\n avaliacao:" + avaliacao +
-                '}';
+        String topBottomBorder = "*".repeat(50);
+        String title = centerString("DADOS DO FILME", 50);
+
+        return topBottomBorder + "\n" +
+                title +
+                topBottomBorder + "\n" +
+                formatLine("- Título -", titulo) +
+                formatLine("- Descrição -", descricao) +
+                formatLine("- Gênero -", genero != null ? genero.toString() : "N/A") +
+                formatLine("- Classificação Indicativa -", classificacaoIndicativa != null ? classificacaoIndicativa.getValor() : "N/A") +
+                formatLine("- Data de Lançamento -", String.valueOf(dataDeLancamento)) +
+                formatLine("- Duração -", String.valueOf(duracao)) +
+                formatLine("- Orçamento -", String.valueOf(orcamento)) +
+                formatLine("- Avaliação -", String.valueOf(avaliacao)) +
+                formatLine("- Diretor -", String.valueOf(diretor)) +
+                formatLine("- Artistas -", String.valueOf(artistas)) +
+                formatLine("- Roteiristas -", String.valueOf(roteiristas)) +
+                topBottomBorder + "\n";
+
     }
 
+    private String centerString(String text, int width) {
+        if (text == null) {
+            text = "N/A";
+        }
+        int paddingSize = (width - text.length()) / 2;
+        String padding = " ".repeat(Math.max(0, paddingSize));
+        return padding + text + padding + (text.length() % 2 == 1 ? " " : "") + "\n";
+    }
+
+    private String formatLine(String label, String content) {
+        String centeredLabel = centerString(label, 50);
+        String centeredContent = centerString(content != null ? content : "N/A", 50);
+        return centeredLabel + centeredContent;
+    }
 }

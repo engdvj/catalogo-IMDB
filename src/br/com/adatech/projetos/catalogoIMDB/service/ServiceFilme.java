@@ -8,6 +8,8 @@ import br.com.adatech.projetos.catalogoIMDB.core.Catalogo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 
 /**
@@ -22,24 +24,37 @@ public class ServiceFilme {
     public static void adicionarFilme() {
         System.out.print("Informe o titulo do filme: ");
         String titulo = Menu.sc.nextLine();
-        listarGeneros();
-        System.out.print("\nInforme o Genero do filme: ");
-        Util.Genero generoEscolhido = Util.Genero.INDEFINIDO;
-        Util.ClassificacaoIndicativa indicacao = Util.ClassificacaoIndicativa.INDEFINIDA;
-        try {
-            String generoInput = Menu.sc.nextLine();
-            generoEscolhido = Util.Genero.valueOf(generoInput.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            System.out.println("Genero inválido!");
-        }
-        listarClassificacaoIndicativa();
-        System.out.print("\nInforme a classificação indicativa: ");
-        try {
-            String indicacaoInput = Menu.sc.nextLine();
-            indicacao = Util.ClassificacaoIndicativa.fromString(indicacaoInput);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Classificação Indicativa inválida!");
-        }
+
+        Util.Genero generoEscolhido;
+        do {
+            listarGeneros();
+            System.out.print("\nInforme o Genero do filme: ");
+            try {
+                String generoInput = Menu.sc.nextLine();
+                generoEscolhido = Util.Genero.valueOf(generoInput.toUpperCase());
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Genero inválido! Tente novamente.");
+            }
+        } while (true);
+
+        Util.ClassificacaoIndicativa indicacao;
+        do {
+            listarClassificacaoIndicativa();
+            System.out.print("\nInforme a classificação indicativa: ");
+            try {
+                String indicacaoInput = Menu.sc.nextLine();
+                indicacao = Util.ClassificacaoIndicativa.fromString(indicacaoInput);
+                if (indicacao != Util.ClassificacaoIndicativa.INDEFINIDA) {
+                    break;
+                } else {
+                    System.out.println("Classificação Indicativa inválida! Tente novamente.");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Classificação Indicativa inválida! Tente novamente.");
+            }
+        } while (true);
+
         ModelFilme filme = new ModelFilme(titulo, generoEscolhido, indicacao);
         Catalogo.getCatalogo().add(filme);
         System.out.println("Filme " + filme.getTitulo() + " Cadastrado");
@@ -74,10 +89,12 @@ public class ServiceFilme {
 
     /**
      * Fornece os dados de um diretor específico.
-     *
-     * @param filme O objeto ModelFilme cujos dados são necessários.
      */
-    public void fichaTecnicaFilme(ModelFilme filme) {
+    public static void fichaTecnicaFilme() {
+        listarFilmes();
+        System.out.println("Digite o titulo do Filme:");
+        String titulo = Menu.sc.nextLine();
+        System.out.println(getFilmeByTitulo(titulo));
     }
 
     public static void listarGeneros() {
@@ -95,6 +112,7 @@ public class ServiceFilme {
         }
         System.out.println("");
     }
+
     public static void listarClassificacaoIndicativa() {
         System.out.println("\nClassificações Indicativas disponíveis:");
         for (Util.ClassificacaoIndicativa ci : Util.ClassificacaoIndicativa.values()) {
@@ -106,6 +124,20 @@ public class ServiceFilme {
             }
         }
         System.out.println("");
+    }
+
+    private static ModelFilme getFilmeByTitulo(String titulo) {
+        try {
+            for (ModelFilme catalogo : Catalogo.getCatalogo()) {
+                if (catalogo.getTitulo().equals(titulo)) {
+                    return catalogo;
+                }
+            }
+            throw new NoSuchElementException("Filme com o titulo '" + titulo + "' não encontrado.");
+        } catch (NoSuchElementException e) {
+            System.err.println(e.getMessage());
+            return null;
+        }
     }
 }
 

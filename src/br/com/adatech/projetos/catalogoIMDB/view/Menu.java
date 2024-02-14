@@ -132,7 +132,7 @@ public class Menu {
                     ServiceRoterista.fichaTecnicaRoterista();
                     break;
                 case 4:
-                    System.out.println("Implementar listar dados de um filme...");
+                    ServiceFilme.fichaTecnicaFilme();
                     break;
                 case 5:
                     continuarNoMenu = false;
