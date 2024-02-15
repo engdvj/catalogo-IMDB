@@ -31,7 +31,6 @@ public class ModelRoterista extends ModelPessoa {
     public String toString() {
         String topBottomBorder = "*".repeat(50);
         String middleBar = "-".repeat(50);
-        String spaceBar = " ".repeat(50);
         String title = centerString("INFORMAÇÕES DO ROTERISTA", 50);
 
         return topBottomBorder + "\n" +

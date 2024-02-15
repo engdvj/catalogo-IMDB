@@ -8,8 +8,6 @@ import java.util.Scanner;
  */
 public class Util {
 
-    private String valor;
-
     public enum ClassificacaoIndicativa {
         LIVRE("Livre"),
         R("R"),
