@@ -1,55 +1,121 @@
 package br.com.adatech.projetos.catalogoIMDB.service;
 
-import br.com.adatech.projetos.catalogoIMDB.model.ModelRoterista;
+import br.com.adatech.projetos.catalogoIMDB.core.Catalogo;
 import br.com.adatech.projetos.catalogoIMDB.model.ModelFilme;
+import br.com.adatech.projetos.catalogoIMDB.model.ModelRoterista;
+import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+
 
 /**
  * Classe que gerencia as operações relacionadas a roteristas no sistema de catálogo de filmes.
- * Esta classe oferece funcionalidades para adicionar, editar, remover e listar atores,
- * além de associar e desassociar filmes cadastrados.
+ * Esta classe oferece funcionalidades para adicionar, editar, remover e listar roteristas,
  */
 public class ServiceRoterista {
 
     /**
-     * Hashmap que armazena os roteristas e seus respectivos filmes.
-     * A chave do mapa é uma String representando o nome do ator.
-     */
-    private static HashMap<String, List<ModelFilme>> roteristasMap = new HashMap<>();
-
-    /**
      * Adiciona um roterista ao sistema.
-     *
-     * @param roterista O objeto ModelAtor a ser adicionado.
      */
-    public void adicionarRoterista(ModelRoterista roterista) {}
+    public static void adicionarRoterista() {
+        String[] dados = new String[3];
+        System.out.print("Informe o nome: ");
+        dados[0] = Menu.sc.nextLine();
+        System.out.print("Informe o CPF: ");
+        dados[1] = Menu.sc.nextLine();
+        System.out.print("Informe a data de nascimento: ");
+        dados[2] = Menu.sc.nextLine();
+        ModelRoterista roterista = new ModelRoterista(dados);
+        Catalogo.getRoteristas().put(roterista, Catalogo.getCatalogo());
+        System.out.println("Roterista " + roterista.getNome() + " Cadastrado");
+    }
 
     /**
      * Edita os detalhes de um roterista existente no sistema.
-     *
-     * @param roterista O objeto ModelRoterista com as informações atualizadas.
      */
-    public void editarAtor(ModelRoterista roterista) {}
+    public static void editarRoterista() {
+        listarRoteristas();
+        System.out.print("Digite o nome do roterista que gostaria de alterar: ");
+        String informacao = Menu.sc.nextLine();
+        ModelRoterista roterista = getRoteristaByName(informacao);
+        System.out.println("Qual informação gostaria de editar?");
+        System.out.println("""
+                (1) - Nome
+                (2) - CPF
+                (3) - Data de Nascimento
+                """);
+        int escolha = Menu.sc.nextInt();
+        Menu.sc.nextLine();
+        switch (escolha) {
+            case 1:
+                System.out.println("Digite o novo nome:");
+                informacao = Menu.sc.nextLine();
+                roterista.setNome(informacao);
+                System.out.println("Nome alterado!");
+                break;
+            case 2:
+                System.out.println("Digite o novo CPF:");
+                informacao = Menu.sc.nextLine();
+                roterista.setCpf(informacao);
+                System.out.println("CPF alterado!");
+                break;
+            case 3:
+                System.out.println("Digite a nova data de nascimento:");
+                informacao = Menu.sc.nextLine();
+                roterista.setDataDeNascimento(informacao);
+                System.out.println("Data de nascimento alterada!");
+                break;
+            default:
+                System.out.println("Escolha uma opção valida!!\n");
+                break;
+        }
+    }
 
     /**
      * Remove um roterista do sistema.
-     *
-     * @param roterista O objeto ModelRoterista a ser removido.
      */
-    public void removerAtor(ModelRoterista roterista) {}
+    public static void removerRoterista() {
+        listarRoteristas();
+        System.out.println("Digite o nome do roterista que gostaria de remover:");
+        String nome = Menu.sc.nextLine();
+        if (Catalogo.getRoteristas().remove(getRoteristaByName(nome)) != null) {
+            System.out.println("Roteirista " + nome + " Removido!");
+        }
+    }
 
     /**
      * Lista todos os roteristas cadastrados no sistema.
      */
-    public void listarRoteristas() {}
+    public static void listarRoteristas() {
+        System.out.println("Roteiristas Cadastrados:");
+        for (HashMap.Entry<ModelRoterista, ArrayList<ModelFilme>> roterista : Catalogo.getRoteristas().entrySet()) {
+            System.out.println(" - " + roterista.getKey().getNome());
+        }
+    }
 
     /**
      * Fornece os dados de um roterista específico.
-     *
-     * @param roterista O objeto ModelRoterista cujos dados são necessários.
      */
-    public void dadosAtor(ModelRoterista roterista) {}
+    public static void fichaTecnicaRoterista() {
+        listarRoteristas();
+        System.out.println("Digite o nome do roterista:");
+        String nome = Menu.sc.nextLine();
+        System.out.println(getRoteristaByName(nome));
+    }
+
+    public static ModelRoterista getRoteristaByName(String nome) {
+        try {
+            for (Map.Entry<ModelRoterista, ArrayList<ModelFilme>> roterista : Catalogo.getRoteristas().entrySet()) {
+                if (roterista.getKey().getNome().equals(nome)) {
+                    return roterista.getKey();
+                }
+            }
+            throw new NoSuchElementException("Roterista com o nome '" + nome + "' não encontrado.");
+        } catch (NoSuchElementException e) {
+            System.err.println(e.getMessage());
+            return null;
+        }
+    }
+
 
 }

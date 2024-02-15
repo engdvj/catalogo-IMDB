@@ -13,12 +13,6 @@ import java.util.List;
 public class ServiceAtor {
 
     /**
-     * Hashmap que armazena os atores e seus respectivos filmes.
-     * A chave do mapa é uma String representando o nome do ator.
-     */
-    private static HashMap<String, List<ModelFilme>> atoresMap = new HashMap<>();
-
-    /**
      * Adiciona um ator ao sistema.
      *
      * @param ator O objeto ModelAtor a ser adicionado.

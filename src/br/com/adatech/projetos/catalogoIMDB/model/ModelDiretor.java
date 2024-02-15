@@ -12,10 +12,11 @@ public class ModelDiretor extends ModelPessoa {
     private int quantidadeDeFilmesDirigidos;
     private String area;
 
-    public ModelDiretor(String nome, String cpf, LocalDate dataDeNascimento, int quantidadeDeFilmesDirigidos, String area) {
-        super(nome, cpf, dataDeNascimento);
-        this.quantidadeDeFilmesDirigidos = quantidadeDeFilmesDirigidos;
-        this.area = area;
+    public ModelDiretor(String dados []) {
+        super.nome = dados [0];
+        super.cpf = dados[1];
+        setDataDeNascimento(dados[2]);
+        this.area = "não definida";
     }
 
     public int getQuantidadeDeFilmesDirigidos() {
@@ -33,5 +34,8 @@ public class ModelDiretor extends ModelPessoa {
     public void setArea(String area) {
         this.area = area;
     }
+    @Override
+    public String toString() {
+        return  "\n   Nome:'" + nome + "'\'   Area:'" + area;
+    }
 }
-
