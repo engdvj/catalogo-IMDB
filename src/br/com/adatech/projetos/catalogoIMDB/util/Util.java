@@ -85,7 +85,6 @@ public class Util {
         boolean entradaValida = false;
 
         while (!entradaValida) {
-            System.out.println("Digite a data de nascimento (formato DD/MM/YYYY):");
             String validacao = sc.nextLine();
 
             try {

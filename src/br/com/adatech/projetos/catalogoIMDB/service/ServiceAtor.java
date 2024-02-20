@@ -3,6 +3,7 @@ package br.com.adatech.projetos.catalogoIMDB.service;
 import br.com.adatech.projetos.catalogoIMDB.core.Catalogo;
 import br.com.adatech.projetos.catalogoIMDB.model.ModelAtor;
 import br.com.adatech.projetos.catalogoIMDB.model.ModelFilme;
+import br.com.adatech.projetos.catalogoIMDB.util.Util;
 import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 
 import java.util.ArrayList;
@@ -21,13 +22,12 @@ public class ServiceAtor {
     public static void adicionarAtor() {
 
         String[] dados = new String[3];
-
-        System.out.print("Digite o nome do ator:");
+        System.out.print("Digite o nome completo:");
         dados[0] = Menu.sc.nextLine();
-        System.out.print("Digite o CPF do ator:");
-        dados[1] = Menu.sc.nextLine();
-        System.out.print("Digite a data de nascimento do ator (no formato YYYY-MM-DD):");
-        dados[2] = Menu.sc.nextLine();
+        System.out.print("Digite o CPF:");
+        dados[1] = Util.validarCPF();
+        System.out.println("Digite a data de nascimento (formato DD/MM/YYYY):");
+        dados[2] = Util.validarDataNascimento();
         ModelAtor ator = new ModelAtor(dados);
 
         Catalogo.getAtores().put(ator, Catalogo.getCatalogo());
@@ -40,7 +40,7 @@ public class ServiceAtor {
     public static void editarAtor() {
         HashMap<ModelAtor, ArrayList<ModelFilme>> listaDeAtores = Catalogo.getAtores();
         System.out.println(listarNomesAtores());
-        System.out.print("Digite o nome do ator que deseja editar: ");
+        System.out.print("Digite o nome do ator que gostaria de alterar: ");
         String nomeAtorEditar = Menu.sc.nextLine();
 
         // Busca o ator pelo nome fornecido
@@ -53,12 +53,10 @@ public class ServiceAtor {
         }
 
         if (atorParaEditar != null) {
-            System.out.println("O que deseja editar?");
+            System.out.println("Qual informação gostaria de editar?");
             System.out.println("(1)- Nome" + "\n(2)- CPF" + "\n(3)- Data de Nascimento");
             System.out.print("->");
-
             int opcao = Menu.sc.nextInt();
-
             Menu.sc.nextLine();
 
             switch (opcao) {
@@ -66,21 +64,23 @@ public class ServiceAtor {
                     System.out.print("Digite o novo nome: ");
                     String novoNome = Menu.sc.nextLine();
                     atorParaEditar.setNome(novoNome);
+                    System.out.println("Nome alterado!");
                     break;
                 case 2:
                     System.out.print("Digite o novo CPF: ");
-                    String novoCPF = Menu.sc.nextLine();
+                    String novoCPF = Util.validarCPF();
                     atorParaEditar.setCpf(novoCPF);
+                    System.out.println("CPF alterado!");
                     break;
                 case 3:
                     System.out.print("Digite a nova data de nascimento (no formato YYYY-MM-DD): ");
-                    String novaDataNascimento = Menu.sc.nextLine();
+                    String novaDataNascimento = Util.validarDataNascimento();
                     atorParaEditar.setDataDeNascimento(novaDataNascimento);
+                    System.out.println("Data de nascimento alterada!");
                     break;
                 default:
                     System.out.println("Opção inválida.");
             }
-            System.out.println("As informações do ator foram atualizadas com sucesso!");
         } else {
             System.out.println("Ator não encontrado.");
         }
@@ -114,7 +114,7 @@ public class ServiceAtor {
      * Fornece os dados de um ator específico.
      *
      */
-    public static void dadosAtor() {
+    public static void fichaTecnicaAtor() {
         HashMap<ModelAtor, ArrayList<ModelFilme>> listaDeAtores = Catalogo.getAtores();
         ModelAtor dadosAtor = null;
         System.out.println(listarNomesAtores());
@@ -148,10 +148,15 @@ public class ServiceAtor {
     public static String listarNomesAtores() {
         HashMap<ModelAtor, ArrayList<ModelFilme>> listaDeAtores = Catalogo.getAtores();
         StringBuilder nomesFormatados = new StringBuilder();
+        int i = 0;
 
         if (!listaDeAtores.isEmpty()) {
             for (ModelAtor ator : listaDeAtores.keySet()) {
-                nomesFormatados.append("-").append(ator.getNome()).append("\n");
+                nomesFormatados.append(" - ").append(ator.getNome());
+                if ( i < listaDeAtores.size() - 1){
+                    nomesFormatados.append("\n");
+                }
+                i++;
             }
         } else {
             nomesFormatados.append("A lista de atores está vazia");

@@ -3,6 +3,7 @@ package br.com.adatech.projetos.catalogoIMDB.service;
 import br.com.adatech.projetos.catalogoIMDB.core.Catalogo;
 import br.com.adatech.projetos.catalogoIMDB.model.ModelDiretor;
 import br.com.adatech.projetos.catalogoIMDB.model.ModelFilme;
+import br.com.adatech.projetos.catalogoIMDB.util.Util;
 import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 
 import java.util.ArrayList;
@@ -22,12 +23,12 @@ public class ServiceDiretor {
 
         String[] dados = new String[3];
 
-        System.out.print("Digite o nome do diretor:");
+        System.out.print("Digite o nome completo:");
         dados[0] = Menu.sc.nextLine();
-        System.out.print("Digite o CPF do diretor:");
-        dados[1] = Menu.sc.nextLine();
-        System.out.print("Digite a data de nascimento do diretor (no formato YYYY-MM-DD):");
-        dados[2] = Menu.sc.nextLine();
+        System.out.print("Digite o CPF:");
+        dados[1] = Util.validarCPF();
+        System.out.println("Digite a data de nascimento (formato DD/MM/YYYY):");
+        dados[2] = Util.validarDataNascimento();
         ModelDiretor diretor = new ModelDiretor(dados);
 
         Catalogo.getDiretores().put(diretor, Catalogo.getCatalogo());
@@ -51,36 +52,35 @@ public class ServiceDiretor {
 
         if (diretorParaEditar != null) {
             System.out.println("O que deseja editar?");
-            System.out.println("1- Nome");
-            System.out.println("2- CPF");
-            System.out.println("3- Data de Nascimento");
-
+            System.out.println("(1)- Nome" + "\n(2)- CPF" + "\n(3)- Data de Nascimento");
             System.out.print("->");
-            Menu.sc.nextLine();
             int opcao = Menu.sc.nextInt();
             Menu.sc.nextLine();
+
             switch (opcao) {
                 case 1:
                     System.out.print("Digite o novo nome: ");
                     String novoNome = Menu.sc.nextLine();
                     diretorParaEditar.setNome(novoNome);
+                    System.out.println("Nome alterado!");
                     break;
                 case 2:
                     System.out.print("Digite o novo CPF: ");
-                    String novoCPF = Menu.sc.nextLine();
+                    String novoCPF = Util.validarCPF();
                     diretorParaEditar.setCpf(novoCPF);
+                    System.out.println("CPF alterado!");
                     break;
                 case 3:
                     System.out.print("Digite a nova data de nascimento (no formato YYYY-MM-DD): ");
-                    String novaDataNascimento = Menu.sc.nextLine();
+                    String novaDataNascimento = Util.validarDataNascimento();
                     diretorParaEditar.setDataDeNascimento(novaDataNascimento);
+                    System.out.println("Data de nascimento alterada!");
                     break;
                 default:
                     System.out.println("Opção inválida.");
             }
-            System.out.println("As informações do diretor foram atualizadas com sucesso!");
         } else {
-            System.out.println("diretor não encontrado.");
+            System.out.println("Diretor não encontrado.");
         }
     }
     /**
@@ -109,7 +109,7 @@ public class ServiceDiretor {
     /**
      * Fornece os dados de um diretor específico.
      */
-    public static void dadosDiretor() {
+    public static void fichaTecnicaDiretor() {
 
         HashMap<ModelDiretor, ArrayList<ModelFilme>> listaDeDiretores = Catalogo.getDiretores();
         ModelDiretor dadosDiretor = null;
@@ -141,13 +141,18 @@ public class ServiceDiretor {
     public static String listarNomesDiretores() {
         HashMap<ModelDiretor, ArrayList<ModelFilme>> listaDeDiretores = Catalogo.getDiretores();
         StringBuilder nomesFormatados = new StringBuilder();
+        int i = 0;
 
         if (!listaDeDiretores.isEmpty()) {
             for (ModelDiretor diretor : listaDeDiretores.keySet()) {
-                nomesFormatados.append("-").append(diretor.getNome()).append("\n");
+                nomesFormatados.append(" - ").append(diretor.getNome());
+                if ( i < listaDeDiretores.size() -1){
+                    nomesFormatados.append("\n");
+                }
+                i++;
             }
         } else {
-            nomesFormatados.append("A lista de diretor está vazia");
+            nomesFormatados.append("A lista de diretores está vazia");
         }
         return nomesFormatados.toString();
     }
