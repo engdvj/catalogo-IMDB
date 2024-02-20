@@ -1,5 +1,10 @@
 package br.com.adatech.projetos.catalogoIMDB.util;
 
+import br.com.adatech.projetos.catalogoIMDB.view.Menu;
+
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
@@ -18,12 +23,15 @@ public class Util {
         DEZOITO("18"),
         INDEFINIDA("Indefinida");
         private final String valor;
+
         ClassificacaoIndicativa(String valor) {
             this.valor = valor;
         }
+
         public String getValor() {
             return valor;
         }
+
         public static ClassificacaoIndicativa fromString(String valor) {
             for (ClassificacaoIndicativa ci : ClassificacaoIndicativa.values()) {
                 if (ci.getValor().equalsIgnoreCase(valor)) {
@@ -52,11 +60,42 @@ public class Util {
         INDEFINIDO
     }
 
-    public static int escolhaUsuario(){
+    public static int escolhaUsuario() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Qual sua escolha -> ");
         int escolha = sc.nextInt();
         sc.nextLine();
         return escolha;
+    }
+
+    public static String validarCPF(){
+        Scanner sc = new Scanner(System.in);
+        String cpf = sc.nextLine();
+        while (cpf.length() != 11){
+            System.out.println("O CPF é inválido! Digite novamente.");
+            cpf = sc.nextLine();
+        }
+        return cpf;
+    }
+
+        public static String validarDataNascimento(){
+
+        LocalDate dataNascimento = null;
+        Scanner sc = new Scanner(System.in);
+        boolean entradaValida = false;
+
+        while (!entradaValida) {
+            System.out.println("Digite a data de nascimento (formato DD/MM/YYYY):");
+            String validacao = sc.nextLine();
+
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                dataNascimento = LocalDate.parse(validacao, formatter);
+                entradaValida = true;
+            } catch (DateTimeException e){
+                System.out.println("Formato de data inválido. Por favor, tente novamente.");
+            }
+        }
+        return dataNascimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 }
