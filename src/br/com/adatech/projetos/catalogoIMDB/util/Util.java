@@ -1,7 +1,5 @@
 package br.com.adatech.projetos.catalogoIMDB.util;
 
-import br.com.adatech.projetos.catalogoIMDB.view.Menu;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -41,8 +39,6 @@ public class Util {
             return INDEFINIDA;
         }
     }
-
-
     public enum Genero {
         COMEDIA,
         DRAMA,
@@ -50,7 +46,6 @@ public class Util {
         TERROR,
         INDEFINIDO
     }
-
     public enum AreaRoteirista {
         ADAPTACAO,
         CRIACAO,
@@ -59,7 +54,12 @@ public class Util {
         REVISAO,
         INDEFINIDO
     }
-
+    public enum PapelAtor {
+        COADJUVANTE,
+        PRINCIPAL,
+        DUBLE,
+        INDEFINIDO
+    }
     public static int escolhaUsuario() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Qual sua escolha -> ");
@@ -67,7 +67,6 @@ public class Util {
         sc.nextLine();
         return escolha;
     }
-
     public static String validarCPF(){
         Scanner sc = new Scanner(System.in);
         String cpf = sc.nextLine();
@@ -77,8 +76,7 @@ public class Util {
         }
         return cpf;
     }
-
-        public static String validarDataNascimento(){
+    public static String validarDataNascimento(){
 
         LocalDate dataNascimento = null;
         Scanner sc = new Scanner(System.in);
