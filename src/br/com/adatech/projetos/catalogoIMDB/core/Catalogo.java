@@ -1,6 +1,9 @@
 package br.com.adatech.projetos.catalogoIMDB.core;
 
 import br.com.adatech.projetos.catalogoIMDB.model.*;
+import br.com.adatech.projetos.catalogoIMDB.service.*;
+import br.com.adatech.projetos.catalogoIMDB.util.Util.*;
+import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,8 +25,6 @@ public class Catalogo {
     public static HashMap<ModelRoterista, ArrayList<ModelFilme>> getRoteristas() {
         return mapRoteristasFilmes;
     }
-
-
     public static ArrayList<ModelFilme> getCatalogo() {
         return catalogo;
     }
@@ -48,20 +49,60 @@ public class Catalogo {
 
     /**
      * Associa uma pessoa a um filme.
-     *
-     * @param pessoa O objeto ModelPessoa ao qual o filme será associado.
-     * @param filme  O objeto ModelFilme a ser associado ao diretor.
      */
-    public void associarFilme(ModelPessoa pessoa, ModelFilme filme) {
+    public static void associarFilme() {
+        ServiceFilme.listarFilmes();
+        System.out.println("Escolha o filme que gostaria de associar:");
+        String informacao = Menu.sc.nextLine();
+        ModelFilme filme = ServiceFilme.getFilmeByTitulo(informacao);
+        int escolha;
+        do {
+            System.out.println("Qual entidade gostaria de vincular ao filme?");
+            System.out.println("""
+                    (1) - Ator
+                    (2) - Diretor
+                    (3) - Roterista
+                    (4) - Voltar ao menu anterior""");
+            escolha = Menu.sc.nextInt();
+            Menu.sc.nextLine();
+
+            switch (escolha) {
+
+                case 1:
+                    ServiceAtor.listarAtores();
+                    System.out.println("Escolha o Ator que gostaria de associar:");
+                    informacao = Menu.sc.nextLine();
+                    ModelAtor ator = ServiceAtor.getAtorByName(informacao);
+                    PapelAtor papelAtor = ServiceAtor.escolherPapelAtor();
+                    filme.addPessoa(ator, papelAtor);
+                    break;
+                case 2:
+                    ServiceDiretor.listarDiretores();
+                    System.out.println("Escolha o Diretor que gostaria de associar:");
+                    informacao = Menu.sc.nextLine();
+                    ModelDiretor diretor = ServiceDiretor.getDiretorByName(informacao);
+                    filme.addPessoa(diretor);
+                    break;
+                case 3:
+                    ServiceRoterista.listarRoteristas();
+                    System.out.println("Escolha o Roterista que gostaria de associar:");
+                    informacao = Menu.sc.nextLine();
+                    ModelRoterista roterista = ServiceRoterista.getRoteristaByName(informacao);
+                    AreaRoteirista area = ServiceRoterista.escolherAreaRoterista();
+                    filme.addPessoa(roterista, area);
+                    break;
+                default:
+                    System.out.println("Escolha uma opção válida!!\n");
+                    break;
+            }
+        } while (escolha != 4);
     }
 
     /**
      * Desassocia uma pessoa de um filme.
-     *
-     * @param pessoa O objeto ModelPessoa do qual o filme será desassociado.
-     * @param filme  O objeto ModelFilme a ser desassociado do diretor.
      */
-    public void desassociarFilme(ModelPessoa pessoa, ModelFilme filme) {
+    public static void desassociarFilme() {
+        System.out.println("Em aguardo...");
     }
 }
 
