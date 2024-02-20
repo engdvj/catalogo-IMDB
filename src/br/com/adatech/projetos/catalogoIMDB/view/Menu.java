@@ -25,14 +25,14 @@ public class Menu {
     }
 
     private static void menuInicial() {
-        String[] opcoesMenu = new String[]{"Cadastrar dados", "Consultar catálogo",
-                "Alterar informações", "Sair"};
+        String[] opcoesMenu = new String[]{"Cadastrar Dados", "Consultar Catálogo",
+                "Alterar Informações", "Sair"};
         titulo = "Menu Inicial";
         boolean continuarNoMenu = true;
         while (continuarNoMenu) {
             imprimirMenu(opcoesMenu);
-            int escolheu = Util.escolhaUsuario();
-            switch (escolheu) {
+            int escolher = Util.escolhaUsuario();
+            switch (escolher) {
                 case 1:
                     menuCadastrar();
                     break;
@@ -47,7 +47,7 @@ public class Menu {
                     System.out.println("Saindo...");
                     break;
                 default:
-                    System.out.println("Escolha uma opção valida!!\n");
+                    System.out.println("Escolha uma opção válida!!\n");
                     break;
             }
         }
@@ -61,8 +61,8 @@ public class Menu {
 
         while (continuarNoMenu) {
             imprimirMenu(opcoesMenu);
-            int escolheu = Util.escolhaUsuario();
-            switch (escolheu) {
+            int escolher = Util.escolhaUsuario();
+            switch (escolher) {
                 case 1:
                     ServiceAtor.adicionarAtor();
                     break;
@@ -80,24 +80,24 @@ public class Menu {
                     titulo = "Menu Inicial";
                     break;
                 default:
-                    System.out.println("Escolha uma opção valida!!\n");
+                    System.out.println("Escolha uma opção válida!!\n");
                     break;
             }
         }
     }
 
     private static void consultarCatalogo() {
-        String[] opcoesMenu = new String[]{"Listagem Individual", "Listagem Coletiva",
+        String[] opcoesMenu = new String[]{"Ficha Técnica", "Lista Completa",
                 "Voltar para o menu anterior"};
         titulo = "Menu Catálogo";
         boolean continuarNoMenu = true;
 
         while (continuarNoMenu) {
             imprimirMenu(opcoesMenu);
-            int escolheu = Util.escolhaUsuario();
-            switch (escolheu) {
+            int escolher = Util.escolhaUsuario();
+            switch (escolher) {
                 case 1:
-                    listagemIndividual();
+                    fichaTecnica();
                     break;
                 case 2:
                     listagemColetiva();
@@ -107,29 +107,29 @@ public class Menu {
                     titulo = "Menu Inicial";
                     break;
                 default:
-                    System.out.println("Escolha uma opção valida!!\n");
+                    System.out.println("Escolha uma opção válida!!\n");
                     break;
             }
         }
     }
 
-    private static void listagemIndividual() {
+    private static void fichaTecnica() {
         String[] opcoesMenu = new String[]{"Listar dados de um Ator", "Listar dados de um Diretor"
-                , "Listar dados de um Roterista", "Listar dados de um filme"
+                , "Listar dados de um Roterista", "Listar dados de um Filme"
                 , "Voltar para o menu anterior"};
 
-        titulo = "Menu Listagem Individual";
+        titulo = "Menu Ficha Técnica";
         boolean continuarNoMenu = true;
 
         while (continuarNoMenu) {
             imprimirMenu(opcoesMenu);
-            int escolheu = Util.escolhaUsuario();
-            switch (escolheu) {
+            int escolher = Util.escolhaUsuario();
+            switch (escolher) {
                 case 1:
-                    ServiceAtor.dadosAtor();
+                    ServiceAtor.fichaTecnicaAtor();
                     break;
                 case 2:
-                    ServiceDiretor.dadosDiretor();
+                    ServiceDiretor.fichaTecnicaDiretor();
                     break;
                 case 3:
                     ServiceRoterista.fichaTecnicaRoterista();
@@ -142,26 +142,26 @@ public class Menu {
                     titulo = "Menu Catálogo";
                     break;
                 default:
-                    System.out.println("Escolha uma opção valida!!\n");
+                    System.out.println("Escolha uma opção válida!!\n");
                     break;
             }
         }
     }
 
     private static void listagemColetiva() {
-        String[] opcoesMenu = new String[]{"Listar todos os atores cadastrados"
-                , "Listar todos os diretores cadastrados"
+        String[] opcoesMenu = new String[]{"Listar todos os Atores cadastrados"
+                , "Listar todos os Diretores cadastrados"
                 , "Listar todos os Roteristas cadastrados"
-                , "Listar todos os filmes cadastrados"
+                , "Listar todos os Filmes cadastrados"
                 , "Voltar para o menu anterior"};
 
-        titulo = "Menu Listagem Coletiva";
+        titulo = "Menu Catálogo";
         boolean continuarNoMenu = true;
 
         while (continuarNoMenu) {
             imprimirMenu(opcoesMenu);
-            int escolheu = Util.escolhaUsuario();
-            switch (escolheu) {
+            int escolher = Util.escolhaUsuario();
+            switch (escolher) {
                 case 1:
                     ServiceAtor.listarAtores();
                     break;
@@ -179,21 +179,21 @@ public class Menu {
                     titulo = "Menu Catálogo";
                     break;
                 default:
-                    System.out.println("Escolha uma opção valida!!\n");
+                    System.out.println("Escolha uma opção válida!!\n");
                     break;
             }
         }
     }
 
     private static void alterarInformacoes() {
-        String[] opcoesMenu = new String[]{"Editar uma Informação", "Remover uma informação", "Voltar para o menu anterior"};
+        String[] opcoesMenu = new String[]{"Editar uma Informação", "Remover uma Informação", "Voltar para o Menu Anterior"};
         titulo = "Menu Escolha";
         boolean continuarNoMenu = true;
 
         while (continuarNoMenu) {
             imprimirMenu(opcoesMenu);
-            int escolheu = Util.escolhaUsuario();
-            switch (escolheu) {
+            int escolher = Util.escolhaUsuario();
+            switch (escolher) {
                 case 1:
                     editarInformacoes();
                     break;
@@ -205,7 +205,7 @@ public class Menu {
                     titulo = "Menu Inicial";
                     break;
                 default:
-                    System.out.println("Escolha uma opção valida!!\n");
+                    System.out.println("Escolha uma opção válida!!\n");
                     break;
             }
         }
@@ -215,7 +215,7 @@ public class Menu {
         String[] opcoesMenu = new String[]{"Alterar informações de um Ator"
                 , "Alterar informações de um Diretor"
                 , "Alterar informações de um Roterista"
-                , "Alterar informações de um  filme"
+                , "Alterar informações de um Filme"
                 , "Voltar para o menu anterior"};
 
         titulo = "Menu Alterar Informações";
@@ -223,8 +223,8 @@ public class Menu {
 
         while (continuarNoMenu) {
             imprimirMenu(opcoesMenu);
-            int escolheu = Util.escolhaUsuario();
-            switch (escolheu) {
+            int escolher = Util.escolhaUsuario();
+            switch (escolher) {
                 case 1:
                     ServiceAtor.editarAtor();
                     break;
@@ -242,7 +242,7 @@ public class Menu {
                     titulo = "Menu Escolha";
                     break;
                 default:
-                    System.out.println("Escolha uma opção valida!!\n");
+                    System.out.println("Escolha uma opção válida!!\n");
                     break;
             }
         }
@@ -250,16 +250,16 @@ public class Menu {
 
     private static void removerInformacoes() {
         String[] opcoesMenu = new String[]{"Remover um Ator", "Remover um Diretor"
-                , "Remover um Roterista", "Remover um filme"
-                , "Voltar para o menu anterior"};
+                , "Remover um Roterista", "Remover um Filme"
+                , "Voltar para o Menu Anterior"};
 
         titulo = "Menu Remover Informações";
         boolean continuarNoMenu = true;
 
         while (continuarNoMenu) {
             imprimirMenu(opcoesMenu);
-            int escolheu = Util.escolhaUsuario();
-            switch (escolheu) {
+            int escolher = Util.escolhaUsuario();
+            switch (escolher) {
                 case 1:
                     ServiceAtor.removerAtor();
                     break;
@@ -277,7 +277,7 @@ public class Menu {
                     titulo = "Menu Escolha";
                     break;
                 default:
-                    System.out.println("Escolha uma opção valida!!\n");
+                    System.out.println("Escolha uma opção válida!!\n");
                     break;
             }
         }
