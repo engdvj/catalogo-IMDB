@@ -1,7 +1,6 @@
 package br.com.adatech.projetos.catalogoIMDB.model;
 
-import br.com.adatech.projetos.catalogoIMDB.util.Util.ClassificacaoIndicativa;
-import br.com.adatech.projetos.catalogoIMDB.util.Util.Genero;
+import br.com.adatech.projetos.catalogoIMDB.util.Util.*;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -72,6 +71,18 @@ public class ModelFilme {
         this.avaliacao = avaliacao;
     }
 
+    public void addPessoa(ModelAtor ator, PapelAtor papelAtor){
+        artistas.add(ator);
+        ator.novoPapel(papelAtor);
+    }
+    public void addPessoa(ModelDiretor diretor){
+        this.diretor = diretor;
+        diretor.novoFilme();
+    }
+    public void addPessoa(ModelRoterista roterista, AreaRoteirista area){
+        roteiristas.add(roterista);
+        roterista.novoRoteiro(area);
+    }
     @Override
     public String toString() {
         String topBottomBorder = "*".repeat(50);
@@ -88,9 +99,9 @@ public class ModelFilme {
                 formatLine("- Duração -", formatDuracao()) +
                 formatLine("- Orçamento -", String.valueOf(orcamento)) +
                 formatLine("- Avaliação -", String.valueOf(avaliacao)+"/10") +
-                formatLine("- Diretor -", String.valueOf(diretor)) +
-                formatLine("- Artistas -", String.valueOf(artistas)) +
-                formatLine("- Roteiristas -", String.valueOf(roteiristas)) +
+                formatLine("- Diretor -", String.valueOf(diretor.getNome())) +
+                formatLine("- Artistas -", getDadosArtistas()) +
+                formatLine("- Roteiristas -", getDadosRoteiristas()) +
                 topBottomBorder + "\n";
 
     }
@@ -117,5 +128,42 @@ public class ModelFilme {
         long horas = duracao.toHours();
         int minutos = duracao.toMinutesPart();
         return String.format("%02dh:%02dm", horas, minutos);
+    }
+    private String getDadosArtistas() {
+        StringBuilder nomes = new StringBuilder();
+        for (ModelAtor ator : artistas) {
+            if (nomes.length() > 0) {
+                nomes.append(", ");
+            }
+            nomes.append(ator.getNome()).append(" - Papel: ");
+            nomes.append(papeisAtorToString(ator.getPapelAtor()));
+        }
+        return nomes.toString();
+    }
+
+    private String papeisAtorToString(ArrayList<PapelAtor> papeis) {
+        StringBuilder papeisStr = new StringBuilder();
+        for (int i = 0; i < papeis.size(); i++) {
+            if (papeis.get(i) == PapelAtor.INDEFINIDO) {
+                continue; // Pula para a próxima iteração se o papel for INDEFINIDO
+            }
+
+            if (papeisStr.length() > 0) {
+                papeisStr.append(", ");
+            }
+            papeisStr.append(papeis.get(i));
+        }
+        return papeisStr.toString();
+    }
+
+    private String getDadosRoteiristas() {
+        StringBuilder nomes = new StringBuilder();
+        for (ModelRoterista roteirista : roteiristas) {
+            if (nomes.length() > 0) {
+                nomes.append(", ");
+            }
+            nomes.append(roteirista.getNome()); // Supondo que ModelRoterista tem um método getNome
+        }
+        return nomes.toString();
     }
 }

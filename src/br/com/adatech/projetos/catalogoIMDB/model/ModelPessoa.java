@@ -14,7 +14,8 @@ public abstract class ModelPessoa {
     protected LocalDate dataDeNascimento;
 
 
-    public ModelPessoa(){}
+    public ModelPessoa() {
+    }
 
     public String getNome() {
         return nome;
@@ -40,5 +41,4 @@ public abstract class ModelPessoa {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.dataDeNascimento = LocalDate.parse(dataNascimento, formatter);
     }
-
 }

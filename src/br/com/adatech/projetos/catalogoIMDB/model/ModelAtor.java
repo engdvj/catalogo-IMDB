@@ -1,39 +1,39 @@
 package br.com.adatech.projetos.catalogoIMDB.model;
 
+import br.com.adatech.projetos.catalogoIMDB.util.Util.*;
+
+import java.util.ArrayList;
+
+
 /**
  * Classe que representa um Ator de filme
  * Contém construtores, parâmetros, além de getters e setters
- * @ModelPessoa - Classe abstrata mãe que possui atributos e métodos próprios
  */
 public class ModelAtor extends ModelPessoa {
     private int quantidadeDePapel;
-    private String tipoDePapel;
+    private ArrayList<PapelAtor> area = new ArrayList<>();
+    private ArrayList<ModelFilme> participacoes = new ArrayList<>();
 
     public ModelAtor(String [] dados) {
         super.nome = dados [0];
         super.cpf = dados[1];
         setDataDeNascimento(dados[2]);
-        this.tipoDePapel = "Indefinido";
-
+        area.add(PapelAtor.INDEFINIDO);
     }
 
     public int getQuantidadeDePapel() {
         return quantidadeDePapel;
     }
 
-    public void setQuantidadeDePapel(int quantidadeDePapel) {
-        this.quantidadeDePapel = quantidadeDePapel;
+    public void novoPapel(PapelAtor papelAtor) {
+        quantidadeDePapel++;
+        area.add(papelAtor);
     }
-
-    public String getTipoDePapel() {
-        return tipoDePapel;
-    }
-
-    public void setTipoDePapel(String tipoDePapel) {
-        this.tipoDePapel = tipoDePapel;
+    public ArrayList<PapelAtor> getPapelAtor() {
+        return area;
     }
 
     @Override
     public String toString() {
-        return "\nNome: " + nome + "\nCPF: "+ cpf + "\nData de nascimento: "+dataDeNascimento+"\nPapel: " + tipoDePapel +"\n" ;  }
+        return "\nNome: " + nome + "\nCPF: "+ cpf + "\nData de nascimento: "+dataDeNascimento+"\nPapel: " + quantidadeDePapel +"\n" ;  }
 }

@@ -1,6 +1,6 @@
 package br.com.adatech.projetos.catalogoIMDB.model;
 
-import br.com.adatech.projetos.catalogoIMDB.util.Util.AreaRoteirista;
+import br.com.adatech.projetos.catalogoIMDB.util.Util.*;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,10 @@ public class ModelRoterista extends ModelPessoa {
         return quantidadeDeRoteirosEscritos;
     }
 
-    public void novoRoteiroEscrito() { this.quantidadeDeRoteirosEscritos++; }
+    public void novoRoteiro(AreaRoteirista area) {
+        quantidadeDeRoteirosEscritos++;
+        this.area.add(area);
+    }
 
     @Override
     public String toString() {
@@ -42,7 +45,7 @@ public class ModelRoterista extends ModelPessoa {
                 formatLine("- CPF -", cpf) +
                 formatLine("- Data de Nascimento -", String.valueOf(dataDeNascimento)) +
                 middleBar + "\n" +
-                formatLine("PARTICIPAÇÕES", "") +
+                formatLine("PARTICIPAÇÕES", String.valueOf(quantidadeDeRoteirosEscritos)) +
                 topBottomBorder + "\n";
     }
 

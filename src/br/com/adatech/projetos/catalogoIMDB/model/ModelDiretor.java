@@ -1,6 +1,5 @@
 package br.com.adatech.projetos.catalogoIMDB.model;
 
-import java.time.LocalDate;
 
 /**
  * Classe que representa um Diretor de filme
@@ -23,8 +22,8 @@ public class ModelDiretor extends ModelPessoa {
         return quantidadeDeFilmesDirigidos;
     }
 
-    public void setQuantidadeDeFilmesDirigidos(int quantidadeDeFilmesDirigidos) {
-        this.quantidadeDeFilmesDirigidos = quantidadeDeFilmesDirigidos;
+    public void novoFilme() {
+        quantidadeDeFilmesDirigidos++;
     }
 
     public String getArea() {
