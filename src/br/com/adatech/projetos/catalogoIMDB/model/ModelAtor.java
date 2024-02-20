@@ -1,7 +1,5 @@
 package br.com.adatech.projetos.catalogoIMDB.model;
 
-import java.time.LocalDate;
-
 /**
  * Classe que representa um Ator de filme
  * Contém construtores, parâmetros, além de getters e setters
@@ -11,11 +9,12 @@ public class ModelAtor extends ModelPessoa {
     private int quantidadeDePapel;
     private String tipoDePapel;
 
-    public ModelAtor(String dados []) {
+    public ModelAtor(String [] dados) {
         super.nome = dados [0];
         super.cpf = dados[1];
         setDataDeNascimento(dados[2]);
-        this.tipoDePapel = "não definido";
+        this.tipoDePapel = "Indefinido";
+
     }
 
     public int getQuantidadeDePapel() {
@@ -36,6 +35,5 @@ public class ModelAtor extends ModelPessoa {
 
     @Override
     public String toString() {
-        return "\n   Nome:" + nome + "'\'   Papel:" + tipoDePapel;
-    }
+        return "\nNome: " + nome + "\nCPF: "+ cpf + "\nData de nascimento: "+dataDeNascimento+"\nPapel: " + tipoDePapel +"\n" ;  }
 }

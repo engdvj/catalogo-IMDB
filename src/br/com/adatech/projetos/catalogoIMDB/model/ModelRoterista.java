@@ -14,7 +14,7 @@ public class ModelRoterista extends ModelPessoa {
     private int quantidadeDeRoteirosEscritos;
     private ArrayList<AreaRoteirista> area = new ArrayList<>();
 
-    public ModelRoterista(String dados []) {
+    public ModelRoterista(String [] dados) {
         super.nome = dados [0];
         super.cpf = dados[1];
         setDataDeNascimento(dados[2]);

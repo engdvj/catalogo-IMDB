@@ -12,7 +12,7 @@ public class ModelDiretor extends ModelPessoa {
     private int quantidadeDeFilmesDirigidos;
     private String area;
 
-    public ModelDiretor(String dados []) {
+    public ModelDiretor(String [] dados) {
         super.nome = dados [0];
         super.cpf = dados[1];
         setDataDeNascimento(dados[2]);

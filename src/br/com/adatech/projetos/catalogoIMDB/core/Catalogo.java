@@ -33,12 +33,18 @@ public class Catalogo {
      * A chave do mapa é uma String representando o nome do diretor.
      */
     private static HashMap<ModelDiretor, ArrayList<ModelFilme>> mapDiretores = new HashMap<>();
-
+    public static HashMap<ModelDiretor, ArrayList<ModelFilme>> getDiretores() {
+        return mapDiretores;
+    }
     /**
      * Hashmap que armazena os atores e seus respectivos filmes.
      * A chave do mapa é uma String representando o nome do ator.
      */
     private static HashMap<ModelAtor, ArrayList<ModelFilme>> mapAtores = new HashMap<>();
+
+    public static HashMap<ModelAtor, ArrayList<ModelFilme>> getAtores() {
+        return mapAtores;
+    }
 
     /**
      * Associa uma pessoa a um filme.

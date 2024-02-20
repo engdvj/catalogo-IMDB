@@ -1,5 +1,7 @@
 package br.com.adatech.projetos.catalogoIMDB.view;
 
+import br.com.adatech.projetos.catalogoIMDB.service.ServiceAtor;
+import br.com.adatech.projetos.catalogoIMDB.service.ServiceDiretor;
 import br.com.adatech.projetos.catalogoIMDB.service.ServiceFilme;
 import br.com.adatech.projetos.catalogoIMDB.service.ServiceRoterista;
 import br.com.adatech.projetos.catalogoIMDB.util.Util;
@@ -15,6 +17,7 @@ public class Menu {
     public static Scanner sc = new Scanner(System.in);
     private static String titulo;
     private static final int tamanhoMoldura = 48;
+
 
     public static void iniciarPrograma() {
         menuInicial();
@@ -61,10 +64,10 @@ public class Menu {
             int escolheu = Util.escolhaUsuario();
             switch (escolheu) {
                 case 1:
-                    System.out.println("Implementar Cadasto de  Ator...");
+                    ServiceAtor.adicionarAtor();
                     break;
                 case 2:
-                    System.out.println("Implementar Cadasto de  Diretor...");
+                    ServiceDiretor.adicionarDiretor();
                     break;
                 case 3:
                     ServiceRoterista.adicionarRoterista();
@@ -123,10 +126,10 @@ public class Menu {
             int escolheu = Util.escolhaUsuario();
             switch (escolheu) {
                 case 1:
-                    System.out.println("Implementar listar dados de um ator...");
+                    ServiceAtor.dadosAtor();
                     break;
                 case 2:
-                    System.out.println("Implementar listar dados de um diretor...");
+                    ServiceDiretor.dadosDiretor();
                     break;
                 case 3:
                     ServiceRoterista.fichaTecnicaRoterista();
@@ -160,10 +163,10 @@ public class Menu {
             int escolheu = Util.escolhaUsuario();
             switch (escolheu) {
                 case 1:
-                    System.out.println("Implementar listar todos os atores cadastrados...");
+                    ServiceAtor.listarAtores();
                     break;
                 case 2:
-                    System.out.println("Implementar listar todos os diretores cadastrados...");
+                    ServiceDiretor.listarDiretores();
                     break;
                 case 3:
                     ServiceRoterista.listarRoteristas();
@@ -223,10 +226,10 @@ public class Menu {
             int escolheu = Util.escolhaUsuario();
             switch (escolheu) {
                 case 1:
-                    System.out.println("Implementar Alterar informações de um ator...");
+                    ServiceAtor.editarAtor();
                     break;
                 case 2:
-                    System.out.println("Implementar Alterar informações de um diretor...");
+                    ServiceDiretor.editarDiretor();
                     break;
                 case 3:
                     ServiceRoterista.editarRoterista();
@@ -258,10 +261,10 @@ public class Menu {
             int escolheu = Util.escolhaUsuario();
             switch (escolheu) {
                 case 1:
-                    System.out.println("Implementar Remover um ator...");
+                    ServiceAtor.removerAtor();
                     break;
                 case 2:
-                    System.out.println("Implementar Remover um diretor...");
+                    ServiceDiretor.removerDiretor();
                     break;
                 case 3:
                     ServiceRoterista.removerRoterista();
