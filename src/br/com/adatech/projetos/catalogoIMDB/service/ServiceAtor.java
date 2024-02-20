@@ -1,13 +1,14 @@
 package br.com.adatech.projetos.catalogoIMDB.service;
 
 import br.com.adatech.projetos.catalogoIMDB.core.Catalogo;
-import br.com.adatech.projetos.catalogoIMDB.model.ModelAtor;
-import br.com.adatech.projetos.catalogoIMDB.model.ModelFilme;
+import br.com.adatech.projetos.catalogoIMDB.model.*;
 import br.com.adatech.projetos.catalogoIMDB.util.Util;
 import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 /**
  * Classe que gerencia as operações relacionadas a atores no sistema de catálogo de filmes.
@@ -54,7 +55,10 @@ public class ServiceAtor {
 
         if (atorParaEditar != null) {
             System.out.println("Qual informação gostaria de editar?");
-            System.out.println("(1)- Nome" + "\n(2)- CPF" + "\n(3)- Data de Nascimento");
+            System.out.println("""
+            (1)- Nome
+            (2)- CPF
+            (3)- Data de Nascimento""");
             System.out.print("->");
             int opcao = Menu.sc.nextInt();
             Menu.sc.nextLine();
@@ -163,5 +167,47 @@ public class ServiceAtor {
         }
         return nomesFormatados.toString();
     }
-
+    public static ModelAtor getAtorByName(String nome) {
+        try {
+            for (Map.Entry<ModelAtor, ArrayList<ModelFilme>> ator : Catalogo.getAtores().entrySet()) {
+                if (ator.getKey().getNome().equalsIgnoreCase(nome)) {
+                    return ator.getKey();
+                }
+            }
+            throw new NoSuchElementException("Ator com o nome '" + nome + "' não encontrado.");
+        } catch (NoSuchElementException e) {
+            System.err.println(e.getMessage());
+            return null;
+        }
+    }
+    public static Util.PapelAtor escolherPapelAtor() {
+        Util.PapelAtor papelEscolhido;
+        do {
+            listarPapeis();
+            System.out.println("Escolha o Papel do Ator");
+            try {
+                String papelInput = Menu.sc.nextLine();
+                papelEscolhido = Util.PapelAtor.valueOf(papelInput.toUpperCase());
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Papel inválido! Tente novamente.");
+            }
+        } while (true);
+        return papelEscolhido;
+    }
+    public static void listarPapeis() {
+        System.out.println("\nPapeis disponíveis:");
+        Util.PapelAtor[] papeis = Util.PapelAtor.values();
+        for (int i = 0; i < papeis.length; i++) {
+            if (papeis[i] != Util.PapelAtor.INDEFINIDO) {
+                String nome = papeis[i].name().toLowerCase();
+                nome = Character.toUpperCase(nome.charAt(0)) + nome.substring(1);
+                System.out.print(nome);
+                if (i < papeis.length - 2) {
+                    System.out.print(" - ");
+                }
+            }
+        }
+        System.out.println();
+    }
 }

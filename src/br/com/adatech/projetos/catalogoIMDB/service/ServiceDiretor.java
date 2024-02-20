@@ -1,13 +1,14 @@
 package br.com.adatech.projetos.catalogoIMDB.service;
 
 import br.com.adatech.projetos.catalogoIMDB.core.Catalogo;
-import br.com.adatech.projetos.catalogoIMDB.model.ModelDiretor;
-import br.com.adatech.projetos.catalogoIMDB.model.ModelFilme;
-import br.com.adatech.projetos.catalogoIMDB.util.Util;
+import br.com.adatech.projetos.catalogoIMDB.model.*;
+import br.com.adatech.projetos.catalogoIMDB.util.*;
 import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 /**
  * Classe que gerencia as operações relacionadas a diretores no sistema de catálogo de filmes.
@@ -52,7 +53,10 @@ public class ServiceDiretor {
 
         if (diretorParaEditar != null) {
             System.out.println("O que deseja editar?");
-            System.out.println("(1)- Nome" + "\n(2)- CPF" + "\n(3)- Data de Nascimento");
+            System.out.println("""
+                (1)- Nome
+                (2)- CPF
+                (3)- Data de Nascimento""");
             System.out.print("->");
             int opcao = Menu.sc.nextInt();
             Menu.sc.nextLine();
@@ -155,6 +159,19 @@ public class ServiceDiretor {
             nomesFormatados.append("A lista de diretores está vazia");
         }
         return nomesFormatados.toString();
+    }
+    public static ModelDiretor getDiretorByName(String nome) {
+        try {
+            for (Map.Entry<ModelDiretor, ArrayList<ModelFilme>> diretor : Catalogo.getDiretores().entrySet()) {
+                if (diretor.getKey().getNome().equalsIgnoreCase(nome)) {
+                    return diretor.getKey();
+                }
+            }
+            throw new NoSuchElementException("Ator com o nome '" + nome + "' não encontrado.");
+        } catch (NoSuchElementException e) {
+            System.err.println(e.getMessage());
+            return null;
+        }
     }
 
 }

@@ -1,7 +1,7 @@
 package br.com.adatech.projetos.catalogoIMDB.service;
 
 import br.com.adatech.projetos.catalogoIMDB.model.ModelFilme;
-import br.com.adatech.projetos.catalogoIMDB.util.Util;
+import br.com.adatech.projetos.catalogoIMDB.util.Util.*;
 import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 import br.com.adatech.projetos.catalogoIMDB.core.Catalogo;
 
@@ -21,9 +21,9 @@ public class ServiceFilme {
         System.out.print("Informe o titulo do filme: ");
         String titulo = Menu.sc.nextLine();
 
-        Util.Genero generoEscolhido = escolherGenero();
+        Genero generoEscolhido = escolherGenero();
 
-        Util.ClassificacaoIndicativa indicacao = escolherClassificacaoIndicativa();
+        ClassificacaoIndicativa indicacao = escolherClassificacaoIndicativa();
 
         ModelFilme filme = new ModelFilme(titulo, generoEscolhido, indicacao);
         Catalogo.getCatalogo().add(filme);
@@ -64,12 +64,12 @@ public class ServiceFilme {
                 System.out.println("Descrição do filme alterada!");
                 break;
             case 3:
-                Util.Genero generoEscolhido = escolherGenero();
+                Genero generoEscolhido = escolherGenero();
                 filme.setGenero(generoEscolhido);
                 System.out.println("Genero do filme alterado!");
                 break;
             case 4:
-                Util.ClassificacaoIndicativa indicacao = escolherClassificacaoIndicativa();
+                ClassificacaoIndicativa indicacao = escolherClassificacaoIndicativa();
                 filme.setClassificacaoIndicativa(indicacao);
                 System.out.println("Classificação Indicativa do filme alterada!");
                 break;
@@ -105,7 +105,7 @@ public class ServiceFilme {
     }
 
     /**
-     * Remove um diretor do sistema.
+     * Remove um filme do sistema.
      */
     public static void removerFilme() {
         listarFilmes();
@@ -131,7 +131,7 @@ public class ServiceFilme {
 
 
     /**
-     * Fornece os dados de um diretor específico.
+     * Fornece a ficha técnica de um filme específico.
      */
     public static void fichaTecnicaFilme() {
         listarFilmes();
@@ -142,9 +142,9 @@ public class ServiceFilme {
 
     public static void listarGeneros() {
         System.out.println("\nGeneros disponíveis:");
-        Util.Genero[] valores = Util.Genero.values();
+        Genero[] valores = Genero.values();
         for (int i = 0; i < valores.length; i++) {
-            if (valores[i] != Util.Genero.INDEFINIDO) {
+            if (valores[i] != Genero.INDEFINIDO) {
                 String nome = valores[i].name().toLowerCase();
                 nome = Character.toUpperCase(nome.charAt(0)) + nome.substring(1);
                 System.out.print(nome);
@@ -158,10 +158,10 @@ public class ServiceFilme {
 
     public static void listarClassificacaoIndicativa() {
         System.out.println("\nClassificações Indicativas disponíveis:");
-        for (Util.ClassificacaoIndicativa ci : Util.ClassificacaoIndicativa.values()) {
-            if (ci != Util.ClassificacaoIndicativa.INDEFINIDA) {
+        for (ClassificacaoIndicativa ci : ClassificacaoIndicativa.values()) {
+            if (ci != ClassificacaoIndicativa.INDEFINIDA) {
                 System.out.print(ci.getValor());
-                if (ci != Util.ClassificacaoIndicativa.values()[Util.ClassificacaoIndicativa.values().length - 2]) {
+                if (ci != ClassificacaoIndicativa.values()[ClassificacaoIndicativa.values().length - 2]) {
                     System.out.print(" - ");
                 }
             }
@@ -169,7 +169,7 @@ public class ServiceFilme {
         System.out.println();
     }
 
-    private static ModelFilme getFilmeByTitulo(String titulo) {
+    public static ModelFilme getFilmeByTitulo(String titulo) {
         try {
             for (ModelFilme catalogo : Catalogo.getCatalogo()) {
                 if (catalogo.getTitulo().equals(titulo)) {
@@ -182,14 +182,14 @@ public class ServiceFilme {
             return null;
         }
     }
-    private static Util.Genero escolherGenero() {
-        Util.Genero generoEscolhido;
+    private static Genero escolherGenero() {
+        Genero generoEscolhido;
         do {
             listarGeneros();
             System.out.println("Escolha o genero do filme");
             try {
                 String generoInput = Menu.sc.nextLine();
-                generoEscolhido = Util.Genero.valueOf(generoInput.toUpperCase());
+                generoEscolhido = Genero.valueOf(generoInput.toUpperCase());
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println("Genero inválido! Tente novamente.");
@@ -198,15 +198,15 @@ public class ServiceFilme {
         return generoEscolhido;
     }
 
-    private static Util.ClassificacaoIndicativa escolherClassificacaoIndicativa() {
-        Util.ClassificacaoIndicativa indicacao;
+    private static ClassificacaoIndicativa escolherClassificacaoIndicativa() {
+        ClassificacaoIndicativa indicacao;
         do {
             listarClassificacaoIndicativa();
             System.out.println("Informe a classificação indicativa: ");
             try {
                 String indicacaoInput = Menu.sc.nextLine();
-                indicacao = Util.ClassificacaoIndicativa.fromString(indicacaoInput);
-                if (indicacao != Util.ClassificacaoIndicativa.INDEFINIDA) {
+                indicacao = ClassificacaoIndicativa.fromString(indicacaoInput);
+                if (indicacao != ClassificacaoIndicativa.INDEFINIDA) {
                     break;
                 } else {
                     System.out.println("Classificação Indicativa inválida! Tente novamente.");

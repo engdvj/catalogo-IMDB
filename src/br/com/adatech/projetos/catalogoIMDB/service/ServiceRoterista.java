@@ -1,9 +1,8 @@
 package br.com.adatech.projetos.catalogoIMDB.service;
 
 import br.com.adatech.projetos.catalogoIMDB.core.Catalogo;
-import br.com.adatech.projetos.catalogoIMDB.model.ModelFilme;
-import br.com.adatech.projetos.catalogoIMDB.model.ModelRoterista;
-import br.com.adatech.projetos.catalogoIMDB.util.Util;
+import br.com.adatech.projetos.catalogoIMDB.model.*;
+import br.com.adatech.projetos.catalogoIMDB.util.*;
 import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 
 import java.util.*;
@@ -120,6 +119,35 @@ public class ServiceRoterista {
             return null;
         }
     }
-
+    public static Util.AreaRoteirista escolherAreaRoterista() {
+        Util.AreaRoteirista areaRoteirista;
+        do {
+            listarAreas();
+            System.out.println("Escolha a Area do Roterista");
+            try {
+                String areaInput = Menu.sc.nextLine();
+                areaRoteirista = Util.AreaRoteirista.valueOf(areaInput.toUpperCase());
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Area inválido! Tente novamente.");
+            }
+        } while (true);
+        return areaRoteirista;
+    }
+    public static void listarAreas() {
+        System.out.println("\nAreas disponíveis:");
+        Util.AreaRoteirista[] areas = Util.AreaRoteirista.values();
+        for (int i = 0; i < areas.length; i++) {
+            if (areas[i] != Util.AreaRoteirista.INDEFINIDO) {
+                String nome = areas[i].name().toLowerCase();
+                nome = Character.toUpperCase(nome.charAt(0)) + nome.substring(1);
+                System.out.print(nome);
+                if (i < areas.length - 2) {
+                    System.out.print(" - ");
+                }
+            }
+        }
+        System.out.println();
+    }
 
 }
