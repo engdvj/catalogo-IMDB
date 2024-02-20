@@ -5,6 +5,7 @@ import br.com.adatech.projetos.catalogoIMDB.util.Util.Genero;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -37,6 +38,40 @@ public class ModelFilme {
         return titulo;
     }
 
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public void setGenero(Genero genero) {
+        this.genero = genero;
+    }
+
+    public void setClassificacaoIndicativa(ClassificacaoIndicativa classificacaoIndicativa) {
+        this.classificacaoIndicativa = classificacaoIndicativa;
+    }
+
+    public void setDataDeLancamento(String dataDeLancamento) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.dataDeLancamento = LocalDate.parse(dataDeLancamento, formatter);
+    }
+
+    public void setDuracao(String duracao) {
+        Duration fromString = Duration.parse(duracao);
+        this.duracao = fromString;
+    }
+
+    public void setOrcamento(double orcamento) {
+        this.orcamento = orcamento;
+    }
+
+    public void setAvaliacao(double avaliacao) {
+        this.avaliacao = avaliacao;
+    }
+
     @Override
     public String toString() {
         String topBottomBorder = "*".repeat(50);
@@ -50,9 +85,9 @@ public class ModelFilme {
                 formatLine("- Gênero -", genero != null ? genero.toString() : "N/A") +
                 formatLine("- Classificação Indicativa -", classificacaoIndicativa != null ? classificacaoIndicativa.getValor() : "N/A") +
                 formatLine("- Data de Lançamento -", String.valueOf(dataDeLancamento)) +
-                formatLine("- Duração -", String.valueOf(duracao)) +
+                formatLine("- Duração -", formatDuracao()) +
                 formatLine("- Orçamento -", String.valueOf(orcamento)) +
-                formatLine("- Avaliação -", String.valueOf(avaliacao)) +
+                formatLine("- Avaliação -", String.valueOf(avaliacao)+"/10") +
                 formatLine("- Diretor -", String.valueOf(diretor)) +
                 formatLine("- Artistas -", String.valueOf(artistas)) +
                 formatLine("- Roteiristas -", String.valueOf(roteiristas)) +
@@ -73,5 +108,14 @@ public class ModelFilme {
         String centeredLabel = centerString(label, 50);
         String centeredContent = centerString(content != null ? content : "N/A", 50);
         return centeredLabel + centeredContent;
+    }
+
+    public String formatDuracao() {
+        if (duracao == null) {
+            return "00h:00m";
+        }
+        long horas = duracao.toHours();
+        int minutos = duracao.toMinutesPart();
+        return String.format("%02dh:%02dm", horas, minutos);
     }
 }

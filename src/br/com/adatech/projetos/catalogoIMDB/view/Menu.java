@@ -235,7 +235,7 @@ public class Menu {
                     ServiceRoterista.editarRoterista();
                     break;
                 case 4:
-                    System.out.println("Implementar Alterar informações de um filme...");
+                    ServiceFilme.editarFilme();
                     break;
                 case 5:
                     continuarNoMenu = false;
