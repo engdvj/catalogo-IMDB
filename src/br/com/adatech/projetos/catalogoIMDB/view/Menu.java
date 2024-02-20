@@ -1,9 +1,8 @@
 package br.com.adatech.projetos.catalogoIMDB.view;
 
-import br.com.adatech.projetos.catalogoIMDB.service.ServiceAtor;
-import br.com.adatech.projetos.catalogoIMDB.service.ServiceDiretor;
-import br.com.adatech.projetos.catalogoIMDB.service.ServiceFilme;
-import br.com.adatech.projetos.catalogoIMDB.service.ServiceRoterista;
+import br.com.adatech.projetos.catalogoIMDB.core.Catalogo;
+import br.com.adatech.projetos.catalogoIMDB.model.*;
+import br.com.adatech.projetos.catalogoIMDB.service.*;
 import br.com.adatech.projetos.catalogoIMDB.util.Util;
 
 import java.util.Scanner;
@@ -20,8 +19,26 @@ public class Menu {
 
 
     public static void iniciarPrograma() {
+        dadosParaTeste();
         menuInicial();
         sc.close();
+    }
+    private static void dadosParaTeste() {
+        String []dadosAtor = new String []{"Joao Gomes","65498732155","01/12/2000"};
+        String []dadosDiretor = new String []{"Mateus Brito","12345678911","01/01/1990"};
+        String []dadosRoterista = new String []{"Sabrina Prina","98765432122","15/09/1992"};
+
+        ModelAtor ator1 = new ModelAtor(dadosAtor);
+        Catalogo.getAtores().put(ator1, Catalogo.getCatalogo());
+
+        ModelDiretor diretor1 = new ModelDiretor(dadosDiretor);
+        Catalogo.getDiretores().put(diretor1, Catalogo.getCatalogo());
+
+        ModelRoterista roterista1 = new ModelRoterista(dadosRoterista);
+        Catalogo.getRoteristas().put(roterista1, Catalogo.getCatalogo());
+
+        ModelFilme filme1 = new ModelFilme("Viva", Util.Genero.COMEDIA, Util.ClassificacaoIndicativa.DEZ);
+        Catalogo.getCatalogo().add(filme1);
     }
 
     private static void menuInicial() {
@@ -184,9 +201,11 @@ public class Menu {
             }
         }
     }
-
     private static void alterarInformacoes() {
-        String[] opcoesMenu = new String[]{"Editar uma Informação", "Remover uma Informação", "Voltar para o Menu Anterior"};
+        String[] opcoesMenu = new String[]{"Editar uma Informação"
+                , "Remover uma Informação"
+                , "Vincular uma Informação"
+                , "Voltar para o Menu Anterior"};
         titulo = "Menu Escolha";
         boolean continuarNoMenu = true;
 
@@ -201,6 +220,9 @@ public class Menu {
                     removerInformacoes();
                     break;
                 case 3:
+                    vincularInformacoes();
+                    break;
+                case 4:
                     continuarNoMenu = false;
                     titulo = "Menu Inicial";
                     break;
@@ -210,7 +232,6 @@ public class Menu {
             }
         }
     }
-
     private static void editarInformacoes() {
         String[] opcoesMenu = new String[]{"Alterar informações de um Ator"
                 , "Alterar informações de um Diretor"
@@ -247,7 +268,6 @@ public class Menu {
             }
         }
     }
-
     private static void removerInformacoes() {
         String[] opcoesMenu = new String[]{"Remover um Ator", "Remover um Diretor"
                 , "Remover um Roterista", "Remover um Filme"
@@ -282,7 +302,35 @@ public class Menu {
             }
         }
     }
+    private static void vincularInformacoes() {
+        String[] opcoesMenu = new String[]{"Vincular pessoas aos filmes"
+                , "Desvincular pessoas aos filmes"
+                , "Voltar para o menu anterior"};
 
+        titulo = "Menu Vincular Informações";
+        boolean continuarNoMenu = true;
+
+        while (continuarNoMenu) {
+            imprimirMenu(opcoesMenu);
+            int escolher = Util.escolhaUsuario();
+            switch (escolher) {
+                case 1:
+                    Catalogo.associarFilme();
+                    break;
+                case 2:
+                    Catalogo.desassociarFilme();
+                    break;
+                case 3:
+                    continuarNoMenu = false;
+                    titulo = "Menu Escolha";
+                    break;
+                default:
+                    System.out.println("Escolha uma opção válida!!\n");
+                    break;
+            }
+        }
+
+    }
     private static void imprimirMenu(String[] opcoesMenu) {
         //Barra
         System.out.println("+" + "-".repeat(tamanhoMoldura) + "+");
