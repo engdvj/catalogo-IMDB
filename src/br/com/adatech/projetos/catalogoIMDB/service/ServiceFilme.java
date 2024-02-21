@@ -21,34 +21,84 @@ public class ServiceFilme {
      * Adiciona um filme ao sistema.
      */
     public static void adicionarFilme() {
+        String titulo;
+
         System.out.print("Informe o titulo do filme: ");
-        String titulo = Menu.sc.nextLine();
+        titulo = verificaTituloFilme();
 
-        System.out.println("Informe a descrição do filme: ");
-        String descricao = Menu.sc.nextLine();
+        System.out.print("Informe a descrição do filme: ");
+        String descricao = Menu.sc.nextLine().trim();
+        descricao = descricao.isEmpty() ? "N/A" : descricao;
 
-        Genero generoEscolhido = escolherGenero();
+        Genero generoEscolhido = escolherGenero(); // Supondo que escolherGenero pode lidar com escolhas inválidas
 
-        ClassificacaoIndicativa indicacao = escolherClassificacaoIndicativa();
+        ClassificacaoIndicativa indicacao = escolherClassificacaoIndicativa(); // Supondo que escolherClassificacaoIndicativa pode lidar com escolhas inválidas
 
-        System.out.println("Informe a data de lançamento - (DD/MM/YYYY)");
-        String data = Util.validarData();
+        System.out.print("Informe a data de lançamento: - (DD/MM/YYYY) ");
+        String data = Util.validarData(); // Supondo que validarData retorna "N/A" para datas inválidas
 
-        System.out.println("Informe a duração do filme: - (1h30m)");
-        String duracao = Menu.sc.nextLine();
-        duracao = "PT" + duracao.toUpperCase();
+        System.out.print("Informe a duração do filme: - (Ex. 1h30m) ");
+        String duracao = Menu.sc.nextLine().trim();
+        duracao = duracao.isEmpty() ? "PT00H00M" : "PT" + duracao.toUpperCase();
 
-        System.out.println("Informe o orçamento do filme: ");
-        Double orcamento = Menu.sc.nextDouble();
+        System.out.print("Informe o orçamento do filme: ");
+        String orcamentoInput = Menu.sc.nextLine().trim();
+        Double orcamento;
+        if (orcamentoInput.isEmpty()) {
+            orcamento = 0.0; // Valor padrão
+        } else {
+            try {
+                orcamento = Double.parseDouble(orcamentoInput);
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Orçamento definido como 0.");
+                orcamento = 0.0;
+            }
+        }
 
-        System.out.println("Informe a avaliacao do filme: ");
-        Double avaliacao = Menu.sc.nextDouble();
+        System.out.print("Informe a avaliacao do filme: ");
+        String avaliacaoInput = Menu.sc.nextLine().trim();
+        Double avaliacao;
+        if (avaliacaoInput.isEmpty()) {
+            avaliacao = 0.0; // Valor padrão
+        } else {
+            try {
+                avaliacao = Double.parseDouble(avaliacaoInput);
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Avaliação definida como 0.");
+                avaliacao = 0.0;
+            }
+        }
 
-        ModelFilme filme = new ModelFilme(titulo,descricao, generoEscolhido, indicacao, data,duracao, orcamento,avaliacao);
+        ModelFilme filme = new ModelFilme(titulo, descricao, generoEscolhido, indicacao, data, duracao, orcamento, avaliacao);
         Catalogo.getCatalogoFilmes().add(filme);
-        Menu.sc.nextLine();
         System.out.println("Filme " + filme.getTitulo() + " Cadastrado");
+        Menu.sc.nextLine();
     }
+
+    private static String verificaTituloFilme() {
+        String titulo;
+        boolean tituloUnico;
+        do {
+            System.out.print("Informe o titulo do filme: ");
+            titulo = Menu.sc.nextLine().trim();
+            tituloUnico = true;
+
+            for (ModelFilme filme : Catalogo.getCatalogoFilmes()) {
+                if (filme.getTitulo().equalsIgnoreCase(titulo)) {
+                    tituloUnico = false; // Define como falso se encontrar um filme existente com o mesmo título
+                    System.out.println("Já existe um filme com esse título! Por favor, insira um título diferente.");
+                    break; // Sai do loop for se encontrar um título existente
+                }
+            }
+
+            if (titulo.isEmpty()) {
+                System.out.println("O título do filme é obrigatório. Por favor, insira um título.");
+            }
+        } while (titulo.isEmpty() || !tituloUnico);
+
+        return titulo;
+    }
+
     /**
      * Edita os detalhes de um filme existente no sistema.
      */
@@ -57,6 +107,10 @@ public class ServiceFilme {
         System.out.print("Digite o titulo do filme que gostaria de alterar: ");
         String informacao = Menu.sc.nextLine();
         ModelFilme filme = getFilmeByTitulo(informacao);
+        if(filme==null){
+            System.out.println("");
+            return;
+        }
         System.out.println("Qual informação gostaria de editar?");
         System.out.println("""
                 (1) - Titulo
@@ -73,7 +127,7 @@ public class ServiceFilme {
         switch (escolha) {
             case 1:
                 System.out.println("Digite o novo titulo:");
-                informacao = Menu.sc.nextLine();
+                informacao = verificaTituloFilme();
                 filme.setTitulo(informacao);
                 System.out.println("Titulo alterado!");
                 break;
@@ -206,7 +260,7 @@ public class ServiceFilme {
         Genero generoEscolhido;
         do {
             listarGeneros();
-            System.out.println("Escolha o genero do filme");
+            System.out.print("Escolha o Genero principal do filme: ");
             try {
                 String generoInput = Menu.sc.nextLine();
                 generoEscolhido = Genero.valueOf(generoInput.toUpperCase());
@@ -222,7 +276,7 @@ public class ServiceFilme {
         ClassificacaoIndicativa indicacao;
         do {
             listarClassificacaoIndicativa();
-            System.out.println("Informe a classificação indicativa: ");
+            System.out.print("Informe a Classificação Indicativa: ");
             try {
                 String indicacaoInput = Menu.sc.nextLine();
                 indicacao = ClassificacaoIndicativa.fromString(indicacaoInput);

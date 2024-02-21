@@ -75,8 +75,12 @@ public class Catalogo {
                     System.out.println("Escolha o Ator que gostaria de associar:");
                     informacao = Menu.sc.nextLine();
                     ModelAtor ator = ServiceAtor.getAtorByName(informacao);
-                    PapelAtor papelAtor = ServiceAtor.escolherPapelAtor();
-                    filme.addPessoa(ator, papelAtor,filme);
+                    if(!filme.getArtistas().contains(ator)) {
+                        PapelAtor papelAtor = ServiceAtor.escolherPapelAtor();
+                        filme.addPessoa(ator, papelAtor, filme);
+                    }else{
+                        System.out.println("O Artista escolhido já está vinculado nesse filme!");
+                    }
                     break;
                 case 2:
                     if(filme.getDiretor()==null){
@@ -96,8 +100,13 @@ public class Catalogo {
                     System.out.println("Escolha o Roteirista que gostaria de associar:");
                     informacao = Menu.sc.nextLine();
                     ModelRoteirista roteirista = ServiceRoteirista.getRoteiristaByName(informacao);
-                    AreaRoteirista area = ServiceRoteirista.escolherAreaRoteirista();
-                    filme.addPessoa(roteirista,area,filme);
+                    if(!filme.getRoteiristas().contains(roteirista)) {
+                        AreaRoteirista area = ServiceRoteirista.escolherAreaRoteirista();
+                        filme.addPessoa(roteirista, area, filme);
+                    }
+                    else{
+                        System.out.println("O Roteirista escolhido já está vinculado nesse filme!");
+                    }
                     break;
                 case 4:
                     System.out.println("Voltando ao menu anterior..");

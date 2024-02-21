@@ -49,6 +49,14 @@ public class ModelFilme {
         return diretor;
     }
 
+    public ArrayList<ModelAtor> getArtistas() {
+        return artistas;
+    }
+
+    public ArrayList<ModelRoteirista> getRoteiristas() {
+        return roteiristas;
+    }
+
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
