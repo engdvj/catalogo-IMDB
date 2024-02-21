@@ -12,7 +12,7 @@ import java.util.*;
 public class Util {
      public static <T> List<T> getSortedCopy(List<T> originalList, Comparator<T> comparator) {
          List<T> copy = new ArrayList<>(originalList);
-         Collections.sort(copy, comparator);
+         copy.sort(comparator);
          return copy;
      }
     public enum ClassificacaoIndicativa {

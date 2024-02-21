@@ -6,8 +6,6 @@ import br.com.adatech.projetos.catalogoIMDB.util.Util.*;
 import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 import br.com.adatech.projetos.catalogoIMDB.core.Catalogo;
 
-import java.time.Duration;
-import java.time.LocalDate;
 import java.util.NoSuchElementException;
 
 
@@ -43,7 +41,7 @@ public class ServiceFilme {
 
         System.out.print("Informe o orçamento do filme: ");
         String orcamentoInput = Menu.sc.nextLine().trim();
-        Double orcamento;
+        double orcamento;
         if (orcamentoInput.isEmpty()) {
             orcamento = 0.0; // Valor padrão
         } else {
@@ -57,7 +55,7 @@ public class ServiceFilme {
 
         System.out.print("Informe a avaliacao do filme: ");
         String avaliacaoInput = Menu.sc.nextLine().trim();
-        Double avaliacao;
+        double avaliacao;
         if (avaliacaoInput.isEmpty()) {
             avaliacao = 0.0; // Valor padrão
         } else {
@@ -108,7 +106,7 @@ public class ServiceFilme {
         String informacao = Menu.sc.nextLine();
         ModelFilme filme = getFilmeByTitulo(informacao);
         if(filme==null){
-            System.out.println("");
+            System.out.println("\n");
             return;
         }
         System.out.println("Qual informação gostaria de editar?");
@@ -185,8 +183,7 @@ public class ServiceFilme {
         listarFilmes();
         System.out.println("Digite o titulo que gostaria de remover:");
         String titulo = Menu.sc.nextLine();
-
-        if (titulo != null && Catalogo.getCatalogoFilmes().remove(titulo)) {
+        if (titulo != null && Catalogo.getCatalogoFilmes().remove(getFilmeByTitulo(titulo))) {
             System.out.println("Filme " + titulo + " Removido!");
         } else {
             System.out.println("Filme não encontrado ou não pode ser removido.");

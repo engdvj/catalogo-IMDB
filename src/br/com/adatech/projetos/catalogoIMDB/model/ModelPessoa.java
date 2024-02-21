@@ -42,5 +42,5 @@ public abstract class ModelPessoa {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.dataDeNascimento = LocalDate.parse(dataNascimento, formatter);
     }
-    public abstract void novaParticipacao(Enum variavel, ModelFilme filme);
+    public abstract void novaParticipacao(Enum<?> variavel, ModelFilme filme);
 }

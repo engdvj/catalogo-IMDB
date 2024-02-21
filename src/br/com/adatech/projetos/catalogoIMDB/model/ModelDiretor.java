@@ -8,12 +8,11 @@ import java.util.HashMap;
 /**
  * Classe que representa um Diretor de filme
  * Contém construtores, parâmetros, além de getters e setters
- * @ModelPessoa - Classe abstrata mãe que possui atributos e métodos próprios
  */
 public class ModelDiretor extends ModelPessoa {
 
     private int quantidadeDeFilmesDirigidos;
-    private HashMap<ModelFilme, Enum> area = new HashMap<ModelFilme, Enum>();
+    private final HashMap<ModelFilme, Enum<?>> area = new HashMap<>();
 
 
     public ModelDiretor(String [] dados) {
@@ -27,13 +26,13 @@ public class ModelDiretor extends ModelPessoa {
     }
 
     @Override
-    public void novaParticipacao(Enum areaDiretor, ModelFilme filme) {
+    public void novaParticipacao(Enum<?> areaDiretor, ModelFilme filme) {
         quantidadeDeFilmesDirigidos++;
         super.participacoes.add(filme);
         area.put(filme,areaDiretor);
     }
     public Util.AreaDiretor getAreaDiretor(String tituloFilme) {
-        for (HashMap.Entry<ModelFilme, Enum> entrada : this.area.entrySet()) {
+        for (HashMap.Entry<ModelFilme, Enum<?>> entrada : this.area.entrySet()) {
             if (entrada.getKey().getTitulo().equals(tituloFilme)) {
                 return (Util.AreaDiretor) entrada.getValue();
             }

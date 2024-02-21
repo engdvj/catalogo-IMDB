@@ -7,12 +7,10 @@ import java.util.*;
 /**
  * Classe que representa um Roteirista de filme
  * Contém construtores, parâmetros, além de getters e setters
- * @ModelPessoa - Classe abstrata mãe que possui atributos e métodos próprios
  */
 public class ModelRoteirista extends ModelPessoa {
 
-    private int quantidadeDeRoteirosEscritos;
-    private HashMap<ModelFilme, Enum> area = new HashMap<>();
+    private final HashMap<ModelFilme, Enum<?>> area = new HashMap<>();
 
     public ModelRoteirista(String [] dados) {
         super.nome = dados [0];
@@ -20,18 +18,13 @@ public class ModelRoteirista extends ModelPessoa {
         setDataDeNascimento(dados[2]);
     }
 
-    public int getQuantidadeDeRoteirosEscritos() {
-        return quantidadeDeRoteirosEscritos;
-    }
-
-    public void novaParticipacao(Enum area,ModelFilme filme) {
-        quantidadeDeRoteirosEscritos++;
+    public void novaParticipacao(Enum<?> area,ModelFilme filme) {
         super.participacoes.add(filme);
         this.area.put(filme,area);
     }
 
     public AreaRoteirista getAreaRoteirista(String tituloFilme) {
-        for (HashMap.Entry<ModelFilme, Enum> entrada : this.area.entrySet()) {
+        for (HashMap.Entry<ModelFilme, Enum<?>> entrada : this.area.entrySet()) {
             if (entrada.getKey().getTitulo().equals(tituloFilme)) {
                 return (AreaRoteirista) entrada.getValue();
             }
@@ -46,10 +39,10 @@ public class ModelRoteirista extends ModelPessoa {
             filmesStr.append(centerString("N/A", 50));
         } else {
             // Ordenando a lista de filmes baseada no título
-            List<Map.Entry<ModelFilme, Enum>> sortedEntries = new ArrayList<>(area.entrySet());
+            List<Map.Entry<ModelFilme, Enum<?>>> sortedEntries = new ArrayList<>(area.entrySet());
             sortedEntries.sort(Map.Entry.comparingByKey(Comparator.comparing(ModelFilme::getTitulo)));
 
-            for (Map.Entry<ModelFilme, Enum> entry : sortedEntries) {
+            for (Map.Entry<ModelFilme, Enum<?>> entry : sortedEntries) {
                 String line = "Filme: " + entry.getKey().getTitulo() + " / Papel: " + entry.getValue();
                 filmesStr.append(centerString(line, 50));
             }
@@ -71,7 +64,7 @@ public class ModelRoteirista extends ModelPessoa {
                 middleBar + "\n" +
                 formatLine("PARTICIPAÇÕES", "*") +
                 middleBar + "\n" +
-                filmesStr.toString() +
+                filmesStr +
                 topBottomBorder + "\n";
     }
 
@@ -79,7 +72,7 @@ public class ModelRoteirista extends ModelPessoa {
         if (text == null || text.trim().isEmpty()) {
             text = "N/A";
         }
-        else if(text == "*"){
+        else if(text.equals("*")){
             return "";
         }
         int paddingSize = (width - text.length()) / 2;

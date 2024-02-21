@@ -24,8 +24,8 @@ public class ModelFilme {
     private double orcamento;
     private double avaliacao;
     private ModelDiretor diretor;
-    private ArrayList<ModelAtor> artistas = new ArrayList<>();
-    private ArrayList<ModelRoteirista> roteiristas = new ArrayList<>();
+    private final ArrayList<ModelAtor> artistas = new ArrayList<>();
+    private final ArrayList<ModelRoteirista> roteiristas = new ArrayList<>();
 
     public ModelFilme(String titulo, String descricao, Genero genero
             , ClassificacaoIndicativa classificacaoIndicativa
@@ -79,8 +79,7 @@ public class ModelFilme {
     }
 
     public void setDuracao(String duracao) {
-        Duration fromString = Duration.parse(duracao);
-        this.duracao = fromString;
+        this.duracao = Duration.parse(duracao);
     }
 
     public void setOrcamento(double orcamento) {
@@ -91,7 +90,7 @@ public class ModelFilme {
         this.avaliacao = avaliacao;
     }
 
-    public void addPessoa(ModelPessoa pessoa, Enum papel, ModelFilme filme){
+    public void addPessoa(ModelPessoa pessoa, Enum<?> papel, ModelFilme filme){
         if(pessoa instanceof ModelAtor) {
             this.artistas.add((ModelAtor) pessoa);
             pessoa.novaParticipacao(papel, filme);
@@ -118,8 +117,8 @@ public class ModelFilme {
                 formatLine("- Classificação Indicativa -", classificacaoIndicativa != null ? classificacaoIndicativa.getValor() : "N/A") +
                 formatLine("- Data de Lançamento -", String.valueOf(dataDeLancamento)) +
                 formatLine("- Duração -", formatDuracao()) +
-                formatLine("- Orçamento -",  "R$ "+String.valueOf(orcamento)) +
-                formatLine("- Avaliação -", String.valueOf(avaliacao)+"/10") +
+                formatLine("- Orçamento -",  "R$ "+ orcamento) +
+                formatLine("- Avaliação -", avaliacao+"/10") +
                 formatLine("- Diretor -", getDadosDiretor()) +
                 formatLine("- Artistas -", getDadosArtistas()) +
                 formatLine("- Roteiristas -", getDadosRoteiristas()) +
@@ -159,7 +158,7 @@ public class ModelFilme {
             StringBuilder nomes = new StringBuilder();
             String infoDiretor = "Nome: " + diretor.getNome() + " / Area: " + diretor.getAreaDiretor(titulo);
             nomes.append(centerString(infoDiretor, 50));
-            if (nomes.length() > 0 && nomes.charAt(nomes.length() - 1) == '\n') {
+            if (!nomes.isEmpty() && nomes.charAt(nomes.length() - 1) == '\n') {
                 nomes.deleteCharAt(nomes.length() - 1);
             }
             return nomes.toString();
@@ -172,9 +171,9 @@ public class ModelFilme {
             StringBuilder nomes = new StringBuilder();
             for (ModelAtor ator : artistas) {
                 String infoArtista = "Nome: " + ator.getNome() + " / Papel: " + ator.getPapelAtor(titulo);
-                nomes.append(centerString(infoArtista, 50)).append("");
+                nomes.append(centerString(infoArtista, 50));
             }
-            if (nomes.length() > 0 && nomes.charAt(nomes.length() - 1) == '\n') {
+            if (!nomes.isEmpty() && nomes.charAt(nomes.length() - 1) == '\n') {
                 nomes.deleteCharAt(nomes.length() - 1);
             }
             return nomes.toString();
@@ -189,7 +188,7 @@ public class ModelFilme {
                 String infoRoteirista = "Nome: " + roteirista.getNome() + " / Area: " + roteirista.getAreaRoteirista(titulo);
                 nomes.append(centerString(infoRoteirista, 50));
             }
-            if (nomes.length() > 0 && nomes.charAt(nomes.length() - 1) == '\n') {
+            if (!nomes.isEmpty() && nomes.charAt(nomes.length() - 1) == '\n') {
                 nomes.deleteCharAt(nomes.length() - 1);
             }
             return nomes.toString();
