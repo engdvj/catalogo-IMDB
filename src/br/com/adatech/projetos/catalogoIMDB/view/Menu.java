@@ -29,16 +29,19 @@ public class Menu {
         String []dadosRoterista = new String []{"Sabrina Prina","98765432122","15/09/1992"};
 
         ModelAtor ator1 = new ModelAtor(dadosAtor);
-        Catalogo.getAtores().put(ator1, Catalogo.getCatalogo());
+        Catalogo.getCatalogoAtores().add(ator1);
 
         ModelDiretor diretor1 = new ModelDiretor(dadosDiretor);
-        Catalogo.getDiretores().put(diretor1, Catalogo.getCatalogo());
+        Catalogo.getCatalogoDiretores().add(diretor1);
 
-        ModelRoterista roterista1 = new ModelRoterista(dadosRoterista);
-        Catalogo.getRoteristas().put(roterista1, Catalogo.getCatalogo());
+        ModelRoteirista roterista1 = new ModelRoteirista(dadosRoterista);
+        Catalogo.getCatalogoRoteiristas().add(roterista1);
 
         ModelFilme filme1 = new ModelFilme("Viva", Util.Genero.COMEDIA, Util.ClassificacaoIndicativa.DEZ);
-        Catalogo.getCatalogo().add(filme1);
+        ModelFilme filme2 = new ModelFilme("Morra", Util.Genero.TERROR, Util.ClassificacaoIndicativa.DEZOITO);
+        Catalogo.getCatalogoFilmes().add(filme1);
+        Catalogo.getCatalogoFilmes().add(filme2);
+
     }
 
     private static void menuInicial() {
@@ -87,7 +90,7 @@ public class Menu {
                     ServiceDiretor.adicionarDiretor();
                     break;
                 case 3:
-                    ServiceRoterista.adicionarRoterista();
+                    ServiceRoteirista.adicionarRoterista();
                     break;
                 case 4:
                     ServiceFilme.adicionarFilme();
@@ -149,7 +152,7 @@ public class Menu {
                     ServiceDiretor.fichaTecnicaDiretor();
                     break;
                 case 3:
-                    ServiceRoterista.fichaTecnicaRoterista();
+                    ServiceRoteirista.fichaTecnicaRoterista();
                     break;
                 case 4:
                     ServiceFilme.fichaTecnicaFilme();
@@ -186,7 +189,7 @@ public class Menu {
                     ServiceDiretor.listarDiretores();
                     break;
                 case 3:
-                    ServiceRoterista.listarRoteristas();
+                    ServiceRoteirista.listarRoteiristas();
                     break;
                 case 4:
                     ServiceFilme.listarFilmes();
@@ -253,7 +256,7 @@ public class Menu {
                     ServiceDiretor.editarDiretor();
                     break;
                 case 3:
-                    ServiceRoterista.editarRoterista();
+                    ServiceRoteirista.editarRoterista();
                     break;
                 case 4:
                     ServiceFilme.editarFilme();
@@ -287,7 +290,7 @@ public class Menu {
                     ServiceDiretor.removerDiretor();
                     break;
                 case 3:
-                    ServiceRoterista.removerRoterista();
+                    ServiceRoteirista.removerRoterista();
                     break;
                 case 4:
                     ServiceFilme.removerFilme();
