@@ -24,21 +24,26 @@ public class Menu {
         sc.close();
     }
     private static void dadosParaTeste() {
-        String []dadosAtor = new String []{"Joao Gomes","65498732155","01/12/2000"};
-        String []dadosDiretor = new String []{"Mateus Brito","12345678911","01/01/1990"};
-        String []dadosRoterista = new String []{"Sabrina Prina","98765432122","15/09/1992"};
 
-        ModelAtor ator1 = new ModelAtor(dadosAtor);
+        ModelAtor ator1 = new ModelAtor(new String []{"Joao","65498732155","01/12/2000"});
+        ModelAtor ator2 = new ModelAtor(new String []{"Maria","65498732155","01/12/2000"});
         Catalogo.getCatalogoAtores().add(ator1);
+        Catalogo.getCatalogoAtores().add(ator2);
 
-        ModelDiretor diretor1 = new ModelDiretor(dadosDiretor);
+        ModelDiretor diretor1 = new ModelDiretor(new String []{"Mateus","12345678911","01/01/1990"});
+        ModelDiretor diretor2 = new ModelDiretor(new String []{"Joana","12345678911","01/01/1990"});
         Catalogo.getCatalogoDiretores().add(diretor1);
+        Catalogo.getCatalogoDiretores().add(diretor2);
 
-        ModelRoteirista roterista1 = new ModelRoteirista(dadosRoterista);
+
+        ModelRoteirista roterista1 = new ModelRoteirista(new String []{"Sabrina","98765432122","15/09/1992"});
+        ModelRoteirista roterista2 = new ModelRoteirista(new String []{"Bruno","98765432122","15/09/1992"});
         Catalogo.getCatalogoRoteiristas().add(roterista1);
+        Catalogo.getCatalogoRoteiristas().add(roterista2);
+
 
         ModelFilme filme1 = new ModelFilme("Viva", Util.Genero.COMEDIA, Util.ClassificacaoIndicativa.DEZ);
-        ModelFilme filme2 = new ModelFilme("Morra", Util.Genero.TERROR, Util.ClassificacaoIndicativa.DEZOITO);
+        ModelFilme filme2 = new ModelFilme("Nemo", Util.Genero.DRAMA, Util.ClassificacaoIndicativa.DOZE);
         Catalogo.getCatalogoFilmes().add(filme1);
         Catalogo.getCatalogoFilmes().add(filme2);
 
