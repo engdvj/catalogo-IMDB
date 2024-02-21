@@ -23,7 +23,7 @@ public class ModelFilme {
     private Duration duracao;
     private ModelDiretor diretor;
     private ArrayList<ModelAtor> artistas = new ArrayList<>();
-    private ArrayList<ModelRoterista> roteiristas = new ArrayList<>();
+    private ArrayList<ModelRoteirista> roteiristas = new ArrayList<>();
     private double orcamento;
     private double avaliacao;
 
@@ -71,17 +71,17 @@ public class ModelFilme {
         this.avaliacao = avaliacao;
     }
 
-    public void addPessoa(ModelAtor ator, PapelAtor papelAtor){
-        artistas.add(ator);
-        ator.novoPapel(papelAtor);
+    public void addPessoa(ModelAtor ator, PapelAtor papelAtor, ModelFilme filme){
+        this.artistas.add(ator);
+        ator.novoPapel(papelAtor,filme);
     }
-    public void addPessoa(ModelDiretor diretor){
+    public void addPessoa(ModelDiretor diretor,ModelFilme filme){
         this.diretor = diretor;
-        diretor.novoFilme();
+        diretor.novoFilme(filme);
     }
-    public void addPessoa(ModelRoterista roterista, AreaRoteirista area){
-        roteiristas.add(roterista);
-        roterista.novoRoteiro(area);
+    public void addPessoa(ModelRoteirista roterista, AreaRoteirista area, ModelFilme filme){
+        this.roteiristas.add(roterista);
+        roterista.novoRoteiro(area,filme);
     }
     @Override
     public String toString() {
@@ -136,33 +136,19 @@ public class ModelFilme {
                 nomes.append(", ");
             }
             nomes.append(ator.getNome()).append(" - Papel: ");
-            nomes.append(papeisAtorToString(ator.getPapelAtor()));
+            nomes.append(ator.getPapelAtor(titulo));
         }
         return nomes.toString();
     }
 
-    private String papeisAtorToString(ArrayList<PapelAtor> papeis) {
-        StringBuilder papeisStr = new StringBuilder();
-        for (int i = 0; i < papeis.size(); i++) {
-            if (papeis.get(i) == PapelAtor.INDEFINIDO) {
-                continue; // Pula para a próxima iteração se o papel for INDEFINIDO
-            }
-
-            if (papeisStr.length() > 0) {
-                papeisStr.append(", ");
-            }
-            papeisStr.append(papeis.get(i));
-        }
-        return papeisStr.toString();
-    }
-
     private String getDadosRoteiristas() {
         StringBuilder nomes = new StringBuilder();
-        for (ModelRoterista roteirista : roteiristas) {
+        for (ModelRoteirista roteirista : roteiristas) {
             if (nomes.length() > 0) {
                 nomes.append(", ");
             }
-            nomes.append(roteirista.getNome()); // Supondo que ModelRoterista tem um método getNome
+            nomes.append(roteirista.getNome()).append(" - Area: ");
+            nomes.append(roteirista.getAreaRoteirista(titulo));
         }
         return nomes.toString();
     }

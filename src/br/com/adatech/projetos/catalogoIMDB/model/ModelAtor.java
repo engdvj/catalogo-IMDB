@@ -2,7 +2,7 @@ package br.com.adatech.projetos.catalogoIMDB.model;
 
 import br.com.adatech.projetos.catalogoIMDB.util.Util.*;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -11,26 +11,30 @@ import java.util.ArrayList;
  */
 public class ModelAtor extends ModelPessoa {
     private int quantidadeDePapel;
-    private ArrayList<PapelAtor> area = new ArrayList<>();
-    private ArrayList<ModelFilme> participacoes = new ArrayList<>();
+    private HashMap<ModelFilme, PapelAtor> area = new HashMap<ModelFilme, PapelAtor>();
 
     public ModelAtor(String [] dados) {
         super.nome = dados [0];
         super.cpf = dados[1];
         setDataDeNascimento(dados[2]);
-        area.add(PapelAtor.INDEFINIDO);
     }
 
     public int getQuantidadeDePapel() {
         return quantidadeDePapel;
     }
 
-    public void novoPapel(PapelAtor papelAtor) {
+    public void novoPapel(PapelAtor papelAtor, ModelFilme filme) {
         quantidadeDePapel++;
-        area.add(papelAtor);
+        super.participacoes.add(filme);
+        area.put(filme,papelAtor);
     }
-    public ArrayList<PapelAtor> getPapelAtor() {
-        return area;
+    public PapelAtor getPapelAtor(String tituloFilme) {
+        for (HashMap.Entry<ModelFilme, PapelAtor> entrada : this.area.entrySet()) {
+            if (entrada.getKey().getTitulo().equals(tituloFilme)) {
+                return entrada.getValue();
+            }
+        }
+        return null;
     }
 
     @Override

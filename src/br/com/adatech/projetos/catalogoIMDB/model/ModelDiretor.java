@@ -9,32 +9,25 @@ package br.com.adatech.projetos.catalogoIMDB.model;
 public class ModelDiretor extends ModelPessoa {
 
     private int quantidadeDeFilmesDirigidos;
-    private String area;
 
     public ModelDiretor(String [] dados) {
         super.nome = dados [0];
         super.cpf = dados[1];
         setDataDeNascimento(dados[2]);
-        this.area = "não definida";
     }
 
     public int getQuantidadeDeFilmesDirigidos() {
         return quantidadeDeFilmesDirigidos;
     }
 
-    public void novoFilme() {
+    public void novoFilme(ModelFilme filme) {
         quantidadeDeFilmesDirigidos++;
+        super.participacoes.add(filme);
+
     }
 
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
     @Override
     public String toString() {
-        return  "\n   Nome:'" + nome + "'\'   Area:'" + area;
+        return  "\n   Nome:'" + nome;
     }
 }
