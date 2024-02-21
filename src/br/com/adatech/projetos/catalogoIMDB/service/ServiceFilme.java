@@ -26,7 +26,7 @@ public class ServiceFilme {
         ClassificacaoIndicativa indicacao = escolherClassificacaoIndicativa();
 
         ModelFilme filme = new ModelFilme(titulo, generoEscolhido, indicacao);
-        Catalogo.getCatalogo().add(filme);
+        Catalogo.getCatalogoFilmes().add(filme);
         System.out.println("Filme " + filme.getTitulo() + " Cadastrado");
     }
     /**
@@ -112,7 +112,7 @@ public class ServiceFilme {
         System.out.println("Digite o titulo que gostaria de remover:");
         String titulo = Menu.sc.nextLine();
 
-        if (titulo != null && Catalogo.getCatalogo().remove(titulo)) {
+        if (titulo != null && Catalogo.getCatalogoFilmes().remove(titulo)) {
             System.out.println("Filme " + titulo + " Removido!");
         } else {
             System.out.println("Filme não encontrado ou não pode ser removido.");
@@ -124,7 +124,7 @@ public class ServiceFilme {
      */
     public static void listarFilmes() {
         System.out.println("Filmes Cadastrados:");
-        for (ModelFilme catalogo : Catalogo.getCatalogo()) {
+        for (ModelFilme catalogo : Catalogo.getCatalogoFilmes()) {
             System.out.println(" - " + catalogo.getTitulo());
         }
     }
@@ -171,7 +171,7 @@ public class ServiceFilme {
 
     public static ModelFilme getFilmeByTitulo(String titulo) {
         try {
-            for (ModelFilme catalogo : Catalogo.getCatalogo()) {
+            for (ModelFilme catalogo : Catalogo.getCatalogoFilmes()) {
                 if (catalogo.getTitulo().equals(titulo)) {
                     return catalogo;
                 }

@@ -12,7 +12,7 @@ import java.util.*;
  * Classe que gerencia as operações relacionadas a roteristas no sistema de catálogo de filmes.
  * Esta classe oferece funcionalidades para adicionar, editar, remover e listar roteristas,
  */
-public class ServiceRoterista {
+public class ServiceRoteirista {
 
     /**
      * Adiciona um roterista ao sistema.
@@ -26,9 +26,8 @@ public class ServiceRoterista {
         dados[1] = Util.validarCPF();
         System.out.println("Digite a data de nascimento (formato DD/MM/YYYY):");
         dados[2] = Util.validarDataNascimento();
-        ModelRoterista roterista = new ModelRoterista(dados);
-
-        Catalogo.getRoteristas().put(roterista, Catalogo.getCatalogo());
+        ModelRoteirista roterista = new ModelRoteirista(dados);
+        Catalogo.getCatalogoRoteiristas().add(roterista);
         System.out.println("Roterista " + roterista.getNome() + " Cadastrado");
     }
 
@@ -36,10 +35,10 @@ public class ServiceRoterista {
      * Edita os detalhes de um roterista existente no sistema.
      */
     public static void editarRoterista() {
-        listarRoteristas();
+        listarRoteiristas();
         System.out.print("Digite o nome do roterista que gostaria de alterar: ");
         String informacao = Menu.sc.nextLine();
-        ModelRoterista roterista = getRoteristaByName(informacao);
+        ModelRoteirista roterista = getRoteiristaByName(informacao);
         if (roterista != null) {
             System.out.println("Qual informação gostaria de editar?");
             System.out.println("""
@@ -78,21 +77,24 @@ public class ServiceRoterista {
      * Remove um roterista do sistema.
      */
     public static void removerRoterista() {
-        listarRoteristas();
+        listarRoteiristas();
         System.out.println("Digite o nome do roterista que gostaria de remover:");
         String nome = Menu.sc.nextLine();
-        if (Catalogo.getRoteristas().remove(getRoteristaByName(nome)) != null) {
+
+        if (nome != null && Catalogo.getCatalogoRoteiristas().remove(getRoteiristaByName(nome))) {
             System.out.println("Roteirista " + nome + " Removido!");
+        } else {
+            System.out.println("Roteirista não encontrado ou não pode ser removido.");
         }
     }
 
     /**
      * Lista todos os roteristas cadastrados no sistema.
      */
-    public static void listarRoteristas() {
+    public static void listarRoteiristas() {
         System.out.println("Roteiristas Cadastrados:");
-        for (HashMap.Entry<ModelRoterista, ArrayList<ModelFilme>> roterista : Catalogo.getRoteristas().entrySet()) {
-            System.out.println(" - " + roterista.getKey().getNome());
+        for (ModelRoteirista roteirista : Catalogo.getCatalogoRoteiristas()) {
+            System.out.println(" - " + roteirista.getNome());
         }
     }
 
@@ -100,17 +102,17 @@ public class ServiceRoterista {
      * Fornece os dados de um roterista específico.
      */
     public static void fichaTecnicaRoterista() {
-        listarRoteristas();
+        listarRoteiristas();
         System.out.println("Digite o nome do roterista:");
         String nome = Menu.sc.nextLine();
-        System.out.println(getRoteristaByName(nome));
+        System.out.println(getRoteiristaByName(nome));
     }
 
-    public static ModelRoterista getRoteristaByName(String nome) {
+    public static ModelRoteirista getRoteiristaByName(String nome) {
         try {
-            for (Map.Entry<ModelRoterista, ArrayList<ModelFilme>> roterista : Catalogo.getRoteristas().entrySet()) {
-                if (roterista.getKey().getNome().equalsIgnoreCase(nome)) {
-                    return roterista.getKey();
+            for (ModelRoteirista roteirista : Catalogo.getCatalogoRoteiristas()) {
+                if (roteirista.getNome().equals(nome)) {
+                    return roteirista;
                 }
             }
             throw new NoSuchElementException("Roterista com o nome '" + nome + "' não encontrado.");
@@ -119,7 +121,7 @@ public class ServiceRoterista {
             return null;
         }
     }
-    public static Util.AreaRoteirista escolherAreaRoterista() {
+    public static Util.AreaRoteirista escolherAreaRoteirista() {
         Util.AreaRoteirista areaRoteirista;
         do {
             listarAreas();

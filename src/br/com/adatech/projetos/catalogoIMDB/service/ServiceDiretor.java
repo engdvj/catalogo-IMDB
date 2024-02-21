@@ -32,19 +32,19 @@ public class ServiceDiretor {
         dados[2] = Util.validarDataNascimento();
         ModelDiretor diretor = new ModelDiretor(dados);
 
-        Catalogo.getDiretores().put(diretor, Catalogo.getCatalogo());
+        Catalogo.getCatalogoDiretores().add(diretor);
         System.out.println("O diretor " + diretor.getNome() + " foi adicionado com sucesso!!\n");}
     /**
      * Edita os detalhes de um diretor existente no sistema.
      */
     public static void editarDiretor() {
-        HashMap<ModelDiretor, ArrayList<ModelFilme>> listaDeDiretores = Catalogo.getDiretores();
+        ArrayList<ModelDiretor> listaDeDiretores = Catalogo.getCatalogoDiretores();
         System.out.println(listarNomesDiretores());
         System.out.print("Digite o nome do Diretor que deseja editar: ");
         String nomeDiretorEditar = Menu.sc.nextLine();
 
         ModelDiretor diretorParaEditar = null;
-        for (ModelDiretor diretor : listaDeDiretores.keySet()) {
+        for (ModelDiretor diretor : listaDeDiretores) {
             if (diretor.getNome().equalsIgnoreCase(nomeDiretorEditar)) {
                 diretorParaEditar = diretor;
                 break;
@@ -91,12 +91,12 @@ public class ServiceDiretor {
      * Remove um diretor do sistema.
      */
     public static void removerDiretor() {
-        HashMap<ModelDiretor, ArrayList<ModelFilme>> listaDeDiretores = Catalogo.getDiretores();
+        ArrayList<ModelDiretor> listaDeDiretores = Catalogo.getCatalogoDiretores();
         System.out.println(listarNomesDiretores());
         System.out.print("Qual Diretor deseja remover? ");
         String diretorParaRemover = Menu.sc.nextLine();
 
-        listaDeDiretores.keySet().removeIf(diretor -> diretor.getNome().equalsIgnoreCase(diretorParaRemover));
+        listaDeDiretores.removeIf(diretor -> diretor.getNome().equalsIgnoreCase(diretorParaRemover));
 
         System.out.println("O diretor " +diretorParaRemover+ " removido com sucesso!");
     }
@@ -115,14 +115,14 @@ public class ServiceDiretor {
      */
     public static void fichaTecnicaDiretor() {
 
-        HashMap<ModelDiretor, ArrayList<ModelFilme>> listaDeDiretores = Catalogo.getDiretores();
+        ArrayList<ModelDiretor> listaDeDiretores = Catalogo.getCatalogoDiretores();
         ModelDiretor dadosDiretor = null;
         System.out.println(listarNomesDiretores());
         if (!listaDeDiretores.isEmpty()) {
             System.out.print("Qual diretor deseja pesquisar?");
             String nomeDoDiretor = Menu.sc.nextLine();
 
-            for (ModelDiretor diretor : listaDeDiretores.keySet()) {
+            for (ModelDiretor diretor : listaDeDiretores) {
                 if (diretor.getNome().equalsIgnoreCase(nomeDoDiretor)) {
                     dadosDiretor = diretor;
                     break;
@@ -143,12 +143,12 @@ public class ServiceDiretor {
         }}
 
     public static String listarNomesDiretores() {
-        HashMap<ModelDiretor, ArrayList<ModelFilme>> listaDeDiretores = Catalogo.getDiretores();
+        ArrayList<ModelDiretor> listaDeDiretores = Catalogo.getCatalogoDiretores();
         StringBuilder nomesFormatados = new StringBuilder();
         int i = 0;
 
         if (!listaDeDiretores.isEmpty()) {
-            for (ModelDiretor diretor : listaDeDiretores.keySet()) {
+            for (ModelDiretor diretor : listaDeDiretores) {
                 nomesFormatados.append(" - ").append(diretor.getNome());
                 if ( i < listaDeDiretores.size() -1){
                     nomesFormatados.append("\n");
@@ -162,9 +162,9 @@ public class ServiceDiretor {
     }
     public static ModelDiretor getDiretorByName(String nome) {
         try {
-            for (Map.Entry<ModelDiretor, ArrayList<ModelFilme>> diretor : Catalogo.getDiretores().entrySet()) {
-                if (diretor.getKey().getNome().equalsIgnoreCase(nome)) {
-                    return diretor.getKey();
+            for (ModelDiretor diretor : Catalogo.getCatalogoDiretores()) {
+                if (diretor.getNome().equalsIgnoreCase(nome)) {
+                    return diretor;
                 }
             }
             throw new NoSuchElementException("Ator com o nome '" + nome + "' não encontrado.");
