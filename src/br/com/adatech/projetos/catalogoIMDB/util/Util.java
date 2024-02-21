@@ -50,6 +50,10 @@ public class Util {
         TERROR,
         INDEFINIDO
     }
+    public enum AreaDiretor {
+        GERAL,
+        INDEFINIDO
+    }
     public enum AreaRoteirista {
         ADAPTACAO,
         CRIACAO,
@@ -80,7 +84,7 @@ public class Util {
         }
         return cpf;
     }
-    public static String validarDataNascimento(){
+    public static String validarData(){
 
         LocalDate dataNascimento = null;
         Scanner sc = new Scanner(System.in);

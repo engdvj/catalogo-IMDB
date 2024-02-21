@@ -6,8 +6,6 @@ import br.com.adatech.projetos.catalogoIMDB.util.*;
 import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 /**
@@ -29,7 +27,7 @@ public class ServiceDiretor {
         System.out.print("Digite o CPF:");
         dados[1] = Util.validarCPF();
         System.out.println("Digite a data de nascimento (formato DD/MM/YYYY):");
-        dados[2] = Util.validarDataNascimento();
+        dados[2] = Util.validarData();
         ModelDiretor diretor = new ModelDiretor(dados);
 
         Catalogo.getCatalogoDiretores().add(diretor);
@@ -76,7 +74,7 @@ public class ServiceDiretor {
                     break;
                 case 3:
                     System.out.print("Digite a nova data de nascimento (no formato YYYY-MM-DD): ");
-                    String novaDataNascimento = Util.validarDataNascimento();
+                    String novaDataNascimento = Util.validarData();
                     diretorParaEditar.setDataDeNascimento(novaDataNascimento);
                     System.out.println("Data de nascimento alterada!");
                     break;
@@ -172,6 +170,36 @@ public class ServiceDiretor {
             System.err.println(e.getMessage());
             return null;
         }
+    }
+    public static Util.AreaDiretor escolherAreaDiretor() {
+        Util.AreaDiretor papelEscolhido;
+        do {
+            listarAreas();
+            System.out.println("Escolha a Area do Diretor");
+            try {
+                String papelInput = Menu.sc.nextLine();
+                papelEscolhido = Util.AreaDiretor.valueOf(papelInput.toUpperCase());
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Area inválida! Tente novamente.");
+            }
+        } while (true);
+        return papelEscolhido;
+    }
+    public static void listarAreas() {
+        System.out.println("\nArea disponíveis:");
+        Util.AreaDiretor[] areas = Util.AreaDiretor.values();
+        for (int i = 0; i < areas.length; i++) {
+            if (areas[i] != Util.AreaDiretor.INDEFINIDO) {
+                String nome = areas[i].name().toLowerCase();
+                nome = Character.toUpperCase(nome.charAt(0)) + nome.substring(1);
+                System.out.print(nome);
+                if (i < areas.length - 2) {
+                    System.out.print(" - ");
+                }
+            }
+        }
+        System.out.println();
     }
 
 }

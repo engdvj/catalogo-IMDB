@@ -6,8 +6,6 @@ import br.com.adatech.projetos.catalogoIMDB.util.Util;
 import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 /**
@@ -28,7 +26,7 @@ public class ServiceAtor {
         System.out.print("Digite o CPF:");
         dados[1] = Util.validarCPF();
         System.out.println("Digite a data de nascimento (formato DD/MM/YYYY):");
-        dados[2] = Util.validarDataNascimento();
+        dados[2] = Util.validarData();
         ModelAtor ator = new ModelAtor(dados);
 
         Catalogo.getCatalogoAtores().add(ator);
@@ -78,7 +76,7 @@ public class ServiceAtor {
                     break;
                 case 3:
                     System.out.print("Digite a nova data de nascimento (no formato YYYY-MM-DD): ");
-                    String novaDataNascimento = Util.validarDataNascimento();
+                    String novaDataNascimento = Util.validarData();
                     atorParaEditar.setDataDeNascimento(novaDataNascimento);
                     System.out.println("Data de nascimento alterada!");
                     break;

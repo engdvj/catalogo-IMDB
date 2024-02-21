@@ -42,11 +42,14 @@ public class Menu {
         Catalogo.getCatalogoRoteiristas().add(roterista2);
 
 
-        ModelFilme filme1 = new ModelFilme("Viva", Util.Genero.COMEDIA, Util.ClassificacaoIndicativa.DEZ);
-        ModelFilme filme2 = new ModelFilme("Nemo", Util.Genero.DRAMA, Util.ClassificacaoIndicativa.DOZE);
+        ModelFilme filme1 = new ModelFilme("Viva","Filme familiar", Util.Genero.COMEDIA
+                , Util.ClassificacaoIndicativa.DEZ,"01/10/2023","PT1H30M"
+                ,300.000,7.5);
+        ModelFilme filme2 = new ModelFilme("Procurando Nemo","Filme da Pixar", Util.Genero.DRAMA
+                , Util.ClassificacaoIndicativa.DOZE,"01/12/2000","PT2H15M"
+                ,350.000,8.5);
         Catalogo.getCatalogoFilmes().add(filme1);
         Catalogo.getCatalogoFilmes().add(filme2);
-
     }
 
     private static void menuInicial() {
@@ -102,6 +105,7 @@ public class Menu {
                     break;
                 case 5:
                     continuarNoMenu = false;
+                    System.out.println("Voltando ao menu anterior..");
                     titulo = "Menu Inicial";
                     break;
                 default:
@@ -129,6 +133,7 @@ public class Menu {
                     break;
                 case 3:
                     continuarNoMenu = false;
+                    System.out.println("Voltando ao menu anterior..");
                     titulo = "Menu Inicial";
                     break;
                 default:
@@ -164,6 +169,7 @@ public class Menu {
                     break;
                 case 5:
                     continuarNoMenu = false;
+                    System.out.println("Voltando ao menu anterior..");
                     titulo = "Menu Catálogo";
                     break;
                 default:
@@ -201,6 +207,7 @@ public class Menu {
                     break;
                 case 5:
                     continuarNoMenu = false;
+                    System.out.println("Voltando ao menu anterior..");
                     titulo = "Menu Catálogo";
                     break;
                 default:
@@ -232,6 +239,7 @@ public class Menu {
                     break;
                 case 4:
                     continuarNoMenu = false;
+                    System.out.println("Voltando ao menu anterior..");
                     titulo = "Menu Inicial";
                     break;
                 default:
@@ -268,6 +276,7 @@ public class Menu {
                     break;
                 case 5:
                     continuarNoMenu = false;
+                    System.out.println("Voltando ao menu anterior..");
                     titulo = "Menu Escolha";
                     break;
                 default:
@@ -302,6 +311,7 @@ public class Menu {
                     break;
                 case 5:
                     continuarNoMenu = false;
+                    System.out.println("Voltando ao menu anterior..");
                     titulo = "Menu Escolha";
                     break;
                 default:
@@ -330,6 +340,7 @@ public class Menu {
                     break;
                 case 3:
                     continuarNoMenu = false;
+                    System.out.println("Voltando ao menu anterior..");
                     titulo = "Menu Escolha";
                     break;
                 default:

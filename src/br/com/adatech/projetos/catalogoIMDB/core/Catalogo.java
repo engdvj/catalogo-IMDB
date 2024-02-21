@@ -12,21 +12,21 @@ public class Catalogo {
     /**
      * Lista que armazena os atores cadastrados no sistema.
      */
-    private static ArrayList<ModelAtor> catalogoAtores = new ArrayList<>();
+    private final static ArrayList<ModelAtor> catalogoAtores = new ArrayList<>();
 
     /**
      * Lista que armazena os diretores cadastrados no sistema.
      */
-    private static ArrayList<ModelDiretor> catalogoDiretores = new ArrayList<>();
+    private final static ArrayList<ModelDiretor> catalogoDiretores = new ArrayList<>();
 
     /**
      * Lista que armazena os filmes cadastrados no sistema.
      */
-    private static ArrayList<ModelFilme> catalogoFilmes = new ArrayList<>();
+    private final static ArrayList<ModelFilme> catalogoFilmes = new ArrayList<>();
     /**
      * Lista que armazena os roteiristas cadastrados no sistema.
      */
-    private static ArrayList<ModelRoteirista> catalogoRoteiristas = new ArrayList<>();
+    private final static ArrayList<ModelRoteirista> catalogoRoteiristas = new ArrayList<>();
 
 
     public static ArrayList<ModelAtor> getCatalogoAtores() {
@@ -50,6 +50,9 @@ public class Catalogo {
         System.out.println("Escolha o filme que gostaria de associar:");
         String informacao = Menu.sc.nextLine();
         ModelFilme filme = ServiceFilme.getFilmeByTitulo(informacao);
+        if (filme == null) {
+            return;
+        }
         int escolha;
         do {
             System.out.println("Qual entidade gostaria de vincular ao filme?");
@@ -58,9 +61,13 @@ public class Catalogo {
                     (2) - Diretor
                     (3) - Roteirista
                     (4) - Voltar ao menu anterior""");
+
+            while (!Menu.sc.hasNextInt()) {
+                System.out.println("Por favor, insira um número válido.");
+                Menu.sc.next(); // Limpa a entrada incorreta
+            }
             escolha = Menu.sc.nextInt();
             Menu.sc.nextLine();
-
             switch (escolha) {
 
                 case 1:
@@ -72,11 +79,17 @@ public class Catalogo {
                     filme.addPessoa(ator, papelAtor,filme);
                     break;
                 case 2:
+                    if(filme.getDiretor()==null){
+
                     ServiceDiretor.listarDiretores();
                     System.out.println("Escolha o Diretor que gostaria de associar:");
                     informacao = Menu.sc.nextLine();
                     ModelDiretor diretor = ServiceDiretor.getDiretorByName(informacao);
-                    filme.addPessoa(diretor,filme);
+                    AreaDiretor papelDiretor = ServiceDiretor.escolherAreaDiretor();
+                    filme.addPessoa(diretor,papelDiretor,filme);
+                    }else {
+                        System.out.println("Já existe um diretor associado a esse filme!");
+                    }
                     break;
                 case 3:
                     ServiceRoteirista.listarRoteiristas();
@@ -85,6 +98,9 @@ public class Catalogo {
                     ModelRoteirista roteirista = ServiceRoteirista.getRoteiristaByName(informacao);
                     AreaRoteirista area = ServiceRoteirista.escolherAreaRoteirista();
                     filme.addPessoa(roteirista,area,filme);
+                    break;
+                case 4:
+                    System.out.println("Voltando ao menu anterior..");
                     break;
                 default:
                     System.out.println("Escolha uma opção válida!!\n");

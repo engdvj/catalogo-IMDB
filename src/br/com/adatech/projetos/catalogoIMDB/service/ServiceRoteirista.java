@@ -25,7 +25,7 @@ public class ServiceRoteirista {
         System.out.print("Informe o CPF: ");
         dados[1] = Util.validarCPF();
         System.out.println("Digite a data de nascimento (formato DD/MM/YYYY):");
-        dados[2] = Util.validarDataNascimento();
+        dados[2] = Util.validarData();
         ModelRoteirista roterista = new ModelRoteirista(dados);
         Catalogo.getCatalogoRoteiristas().add(roterista);
         System.out.println("Roterista " + roterista.getNome() + " Cadastrado");
@@ -62,7 +62,7 @@ public class ServiceRoteirista {
                     break;
                 case 3:
                     System.out.println("Digite a nova data de nascimento:");
-                    informacao = Util.validarDataNascimento();
+                    informacao = Util.validarData();
                     roterista.setDataDeNascimento(informacao);
                     System.out.println("Data de nascimento alterada!");
                     break;

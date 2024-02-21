@@ -12,7 +12,7 @@ import java.util.*;
 public class ModelRoteirista extends ModelPessoa {
 
     private int quantidadeDeRoteirosEscritos;
-    private HashMap<ModelFilme, AreaRoteirista> area = new HashMap<>();
+    private HashMap<ModelFilme, Enum> area = new HashMap<>();
 
     public ModelRoteirista(String [] dados) {
         super.nome = dados [0];
@@ -24,16 +24,16 @@ public class ModelRoteirista extends ModelPessoa {
         return quantidadeDeRoteirosEscritos;
     }
 
-    public void novoRoteiro(AreaRoteirista area,ModelFilme filme) {
+    public void novaParticipacao(Enum area,ModelFilme filme) {
         quantidadeDeRoteirosEscritos++;
         super.participacoes.add(filme);
         this.area.put(filme,area);
     }
 
     public AreaRoteirista getAreaRoteirista(String tituloFilme) {
-        for (HashMap.Entry<ModelFilme, AreaRoteirista> entrada : this.area.entrySet()) {
+        for (HashMap.Entry<ModelFilme, Enum> entrada : this.area.entrySet()) {
             if (entrada.getKey().getTitulo().equals(tituloFilme)) {
-                return entrada.getValue();
+                return (AreaRoteirista) entrada.getValue();
             }
         }
         return null;
@@ -46,10 +46,10 @@ public class ModelRoteirista extends ModelPessoa {
             filmesStr.append(centerString("N/A", 50));
         } else {
             // Ordenando a lista de filmes baseada no título
-            List<Map.Entry<ModelFilme, AreaRoteirista>> sortedEntries = new ArrayList<>(area.entrySet());
+            List<Map.Entry<ModelFilme, Enum>> sortedEntries = new ArrayList<>(area.entrySet());
             sortedEntries.sort(Map.Entry.comparingByKey(Comparator.comparing(ModelFilme::getTitulo)));
 
-            for (Map.Entry<ModelFilme, AreaRoteirista> entry : sortedEntries) {
+            for (Map.Entry<ModelFilme, Enum> entry : sortedEntries) {
                 String line = "Filme: " + entry.getKey().getTitulo() + " / Papel: " + entry.getValue();
                 filmesStr.append(centerString(line, 50));
             }

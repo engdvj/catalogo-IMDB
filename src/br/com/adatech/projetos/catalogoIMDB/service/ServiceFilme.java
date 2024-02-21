@@ -1,10 +1,13 @@
 package br.com.adatech.projetos.catalogoIMDB.service;
 
 import br.com.adatech.projetos.catalogoIMDB.model.ModelFilme;
+import br.com.adatech.projetos.catalogoIMDB.util.Util;
 import br.com.adatech.projetos.catalogoIMDB.util.Util.*;
 import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 import br.com.adatech.projetos.catalogoIMDB.core.Catalogo;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.NoSuchElementException;
 
 
@@ -21,12 +24,29 @@ public class ServiceFilme {
         System.out.print("Informe o titulo do filme: ");
         String titulo = Menu.sc.nextLine();
 
+        System.out.println("Informe a descrição do filme: ");
+        String descricao = Menu.sc.nextLine();
+
         Genero generoEscolhido = escolherGenero();
 
         ClassificacaoIndicativa indicacao = escolherClassificacaoIndicativa();
 
-        ModelFilme filme = new ModelFilme(titulo, generoEscolhido, indicacao);
+        System.out.println("Informe a data de lançamento - (DD/MM/YYYY)");
+        String data = Util.validarData();
+
+        System.out.println("Informe a duração do filme: - (1h30m)");
+        String duracao = Menu.sc.nextLine();
+        duracao = "PT" + duracao.toUpperCase();
+
+        System.out.println("Informe o orçamento do filme: ");
+        Double orcamento = Menu.sc.nextDouble();
+
+        System.out.println("Informe a avaliacao do filme: ");
+        Double avaliacao = Menu.sc.nextDouble();
+
+        ModelFilme filme = new ModelFilme(titulo,descricao, generoEscolhido, indicacao, data,duracao, orcamento,avaliacao);
         Catalogo.getCatalogoFilmes().add(filme);
+        Menu.sc.nextLine();
         System.out.println("Filme " + filme.getTitulo() + " Cadastrado");
     }
     /**

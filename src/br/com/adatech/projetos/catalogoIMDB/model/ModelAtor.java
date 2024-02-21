@@ -11,7 +11,7 @@ import java.util.HashMap;
  */
 public class ModelAtor extends ModelPessoa {
     private int quantidadeDePapel;
-    private HashMap<ModelFilme, PapelAtor> area = new HashMap<ModelFilme, PapelAtor>();
+    private HashMap<ModelFilme, Enum> area = new HashMap<ModelFilme, Enum>();
 
     public ModelAtor(String [] dados) {
         super.nome = dados [0];
@@ -22,16 +22,16 @@ public class ModelAtor extends ModelPessoa {
     public int getQuantidadeDePapel() {
         return quantidadeDePapel;
     }
-
-    public void novoPapel(PapelAtor papelAtor, ModelFilme filme) {
+    @Override
+    public void novaParticipacao(Enum papelAtor, ModelFilme filme) {
         quantidadeDePapel++;
         super.participacoes.add(filme);
         area.put(filme,papelAtor);
     }
     public PapelAtor getPapelAtor(String tituloFilme) {
-        for (HashMap.Entry<ModelFilme, PapelAtor> entrada : this.area.entrySet()) {
+        for (HashMap.Entry<ModelFilme, Enum> entrada : this.area.entrySet()) {
             if (entrada.getKey().getTitulo().equals(tituloFilme)) {
-                return entrada.getValue();
+                return (PapelAtor) entrada.getValue();
             }
         }
         return null;
