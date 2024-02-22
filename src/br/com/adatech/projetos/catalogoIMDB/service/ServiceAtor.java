@@ -6,8 +6,6 @@ import br.com.adatech.projetos.catalogoIMDB.util.Util;
 import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 /**
@@ -28,10 +26,10 @@ public class ServiceAtor {
         System.out.print("Digite o CPF:");
         dados[1] = Util.validarCPF();
         System.out.println("Digite a data de nascimento (formato DD/MM/YYYY):");
-        dados[2] = Util.validarDataNascimento();
+        dados[2] = Util.validarData();
         ModelAtor ator = new ModelAtor(dados);
 
-        Catalogo.getAtores().put(ator, Catalogo.getCatalogo());
+        Catalogo.getCatalogoAtores().add(ator);
         System.out.println("O ator " + ator.getNome() + " foi adicionado com sucesso!!\n");
     }
 
@@ -39,14 +37,14 @@ public class ServiceAtor {
      * Edita os detalhes de um ator existente no sistema.
      */
     public static void editarAtor() {
-        HashMap<ModelAtor, ArrayList<ModelFilme>> listaDeAtores = Catalogo.getAtores();
+        ArrayList<ModelAtor> listaDeAtores = Catalogo.getCatalogoAtores();
         System.out.println(listarNomesAtores());
         System.out.print("Digite o nome do ator que gostaria de alterar: ");
         String nomeAtorEditar = Menu.sc.nextLine();
 
         // Busca o ator pelo nome fornecido
         ModelAtor atorParaEditar = null;
-        for (ModelAtor ator : listaDeAtores.keySet()) {
+        for (ModelAtor ator : listaDeAtores) {
             if (ator.getNome().equalsIgnoreCase(nomeAtorEditar)) {
                 atorParaEditar = ator;
                 break;
@@ -78,7 +76,7 @@ public class ServiceAtor {
                     break;
                 case 3:
                     System.out.print("Digite a nova data de nascimento (no formato YYYY-MM-DD): ");
-                    String novaDataNascimento = Util.validarDataNascimento();
+                    String novaDataNascimento = Util.validarData();
                     atorParaEditar.setDataDeNascimento(novaDataNascimento);
                     System.out.println("Data de nascimento alterada!");
                     break;
@@ -94,12 +92,12 @@ public class ServiceAtor {
      * Remove um ator do sistema.
      */
     public static void removerAtor() {
-        HashMap<ModelAtor, ArrayList<ModelFilme>> listaDeAtores = Catalogo.getAtores();
+        ArrayList<ModelAtor> listaDeAtores = Catalogo.getCatalogoAtores();
         System.out.println(listarNomesAtores());
         System.out.print("Qual ator deseja remover? ");
         String atorParaRemover = Menu.sc.nextLine();
 
-        listaDeAtores.keySet().removeIf(ator -> ator.getNome().equalsIgnoreCase(atorParaRemover));
+        listaDeAtores.removeIf(ator -> ator.getNome().equalsIgnoreCase(atorParaRemover));
 
         System.out.println("Ator " +atorParaRemover+ " removido com sucesso!");
     }
@@ -119,14 +117,14 @@ public class ServiceAtor {
      *
      */
     public static void fichaTecnicaAtor() {
-        HashMap<ModelAtor, ArrayList<ModelFilme>> listaDeAtores = Catalogo.getAtores();
+        ArrayList<ModelAtor> listaDeAtores = Catalogo.getCatalogoAtores();
         ModelAtor dadosAtor = null;
         System.out.println(listarNomesAtores());
         if (!listaDeAtores.isEmpty()) {
             System.out.print("Qual ator deseja pesquisar?");
             String nomeDoAtor = Menu.sc.nextLine();
 
-            for (ModelAtor ator : listaDeAtores.keySet()) {
+            for (ModelAtor ator : listaDeAtores) {
                 if (ator.getNome().equalsIgnoreCase(nomeDoAtor)) {
                     dadosAtor = ator;
                     break;
@@ -150,12 +148,12 @@ public class ServiceAtor {
 
 
     public static String listarNomesAtores() {
-        HashMap<ModelAtor, ArrayList<ModelFilme>> listaDeAtores = Catalogo.getAtores();
+        ArrayList<ModelAtor> listaDeAtores = Catalogo.getCatalogoAtores();
         StringBuilder nomesFormatados = new StringBuilder();
         int i = 0;
 
         if (!listaDeAtores.isEmpty()) {
-            for (ModelAtor ator : listaDeAtores.keySet()) {
+            for (ModelAtor ator : listaDeAtores) {
                 nomesFormatados.append(" - ").append(ator.getNome());
                 if ( i < listaDeAtores.size() - 1){
                     nomesFormatados.append("\n");
@@ -169,9 +167,9 @@ public class ServiceAtor {
     }
     public static ModelAtor getAtorByName(String nome) {
         try {
-            for (Map.Entry<ModelAtor, ArrayList<ModelFilme>> ator : Catalogo.getAtores().entrySet()) {
-                if (ator.getKey().getNome().equalsIgnoreCase(nome)) {
-                    return ator.getKey();
+            for (ModelAtor ator : Catalogo.getCatalogoAtores()) {
+                if (ator.getNome().equalsIgnoreCase(nome)) {
+                    return ator;
                 }
             }
             throw new NoSuchElementException("Ator com o nome '" + nome + "' não encontrado.");

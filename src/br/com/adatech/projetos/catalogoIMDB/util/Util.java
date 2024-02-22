@@ -3,14 +3,18 @@ package br.com.adatech.projetos.catalogoIMDB.util;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Classe de utilidades para o catálogo de filmes
  * Contém métodos específicos para todas as funcionalidades propostas
  */
 public class Util {
-
+     public static <T> List<T> getSortedCopy(List<T> originalList, Comparator<T> comparator) {
+         List<T> copy = new ArrayList<>(originalList);
+         copy.sort(comparator);
+         return copy;
+     }
     public enum ClassificacaoIndicativa {
         LIVRE("Livre"),
         R("R"),
@@ -46,6 +50,10 @@ public class Util {
         TERROR,
         INDEFINIDO
     }
+    public enum AreaDiretor {
+        GERAL,
+        INDEFINIDO
+    }
     public enum AreaRoteirista {
         ADAPTACAO,
         CRIACAO,
@@ -76,7 +84,7 @@ public class Util {
         }
         return cpf;
     }
-    public static String validarDataNascimento(){
+    public static String validarData(){
 
         LocalDate dataNascimento = null;
         Scanner sc = new Scanner(System.in);

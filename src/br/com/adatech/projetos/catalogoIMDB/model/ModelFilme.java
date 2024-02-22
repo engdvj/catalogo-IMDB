@@ -21,20 +21,40 @@ public class ModelFilme {
     private ClassificacaoIndicativa classificacaoIndicativa;
     private LocalDate dataDeLancamento;
     private Duration duracao;
-    private ModelDiretor diretor;
-    private ArrayList<ModelAtor> artistas = new ArrayList<>();
-    private ArrayList<ModelRoterista> roteiristas = new ArrayList<>();
     private double orcamento;
     private double avaliacao;
+    private ModelDiretor diretor;
+    private final ArrayList<ModelAtor> artistas = new ArrayList<>();
+    private final ArrayList<ModelRoteirista> roteiristas = new ArrayList<>();
 
-    public ModelFilme(String titulo, Genero genero, ClassificacaoIndicativa ci) {
+    public ModelFilme(String titulo, String descricao, Genero genero
+            , ClassificacaoIndicativa classificacaoIndicativa
+            , String dataDeLancamento, String duracao
+            , double orcamento, double avaliacao) {
         this.titulo = titulo;
+        this.descricao = descricao;
         this.genero = genero;
-        this.classificacaoIndicativa = ci;
+        this.classificacaoIndicativa = classificacaoIndicativa;
+        setDataDeLancamento(String.valueOf(dataDeLancamento));
+        setDuracao(String.valueOf(duracao));
+        this.orcamento = orcamento;
+        this.avaliacao = avaliacao;
     }
 
     public String getTitulo() {
         return titulo;
+    }
+
+    public ModelDiretor getDiretor() {
+        return diretor;
+    }
+
+    public ArrayList<ModelAtor> getArtistas() {
+        return artistas;
+    }
+
+    public ArrayList<ModelRoteirista> getRoteiristas() {
+        return roteiristas;
     }
 
     public void setTitulo(String titulo) {
@@ -59,8 +79,7 @@ public class ModelFilme {
     }
 
     public void setDuracao(String duracao) {
-        Duration fromString = Duration.parse(duracao);
-        this.duracao = fromString;
+        this.duracao = Duration.parse(duracao);
     }
 
     public void setOrcamento(double orcamento) {
@@ -71,17 +90,18 @@ public class ModelFilme {
         this.avaliacao = avaliacao;
     }
 
-    public void addPessoa(ModelAtor ator, PapelAtor papelAtor){
-        artistas.add(ator);
-        ator.novoPapel(papelAtor);
-    }
-    public void addPessoa(ModelDiretor diretor){
-        this.diretor = diretor;
-        diretor.novoFilme();
-    }
-    public void addPessoa(ModelRoterista roterista, AreaRoteirista area){
-        roteiristas.add(roterista);
-        roterista.novoRoteiro(area);
+    public void addPessoa(ModelPessoa pessoa, Enum<?> papel, ModelFilme filme){
+        if(pessoa instanceof ModelAtor) {
+            this.artistas.add((ModelAtor) pessoa);
+            pessoa.novaParticipacao(papel, filme);
+        }
+        else if(pessoa instanceof ModelDiretor){
+            this.diretor = (ModelDiretor) pessoa;
+            diretor.novaParticipacao(papel,filme);
+        }else{
+            this.roteiristas.add((ModelRoteirista) pessoa);
+            pessoa.novaParticipacao(papel,filme);
+        }
     }
     @Override
     public String toString() {
@@ -97,22 +117,24 @@ public class ModelFilme {
                 formatLine("- Classificação Indicativa -", classificacaoIndicativa != null ? classificacaoIndicativa.getValor() : "N/A") +
                 formatLine("- Data de Lançamento -", String.valueOf(dataDeLancamento)) +
                 formatLine("- Duração -", formatDuracao()) +
-                formatLine("- Orçamento -", String.valueOf(orcamento)) +
-                formatLine("- Avaliação -", String.valueOf(avaliacao)+"/10") +
-                formatLine("- Diretor -", String.valueOf(diretor.getNome())) +
+                formatLine("- Orçamento -",  "R$ "+ orcamento) +
+                formatLine("- Avaliação -", avaliacao+"/10") +
+                formatLine("- Diretor -", getDadosDiretor()) +
                 formatLine("- Artistas -", getDadosArtistas()) +
                 formatLine("- Roteiristas -", getDadosRoteiristas()) +
                 topBottomBorder + "\n";
 
     }
 
+
     private String centerString(String text, int width) {
         if (text == null) {
-            text = "N/A";
+            return "N/A";
+        } else {
+            int paddingSize = (width - text.length()) / 2;
+            String padding = " ".repeat(Math.max(0, paddingSize));
+            return padding + text + padding + (text.length() % 2 == 1 ? " " : "") + "\n";
         }
-        int paddingSize = (width - text.length()) / 2;
-        String padding = " ".repeat(Math.max(0, paddingSize));
-        return padding + text + padding + (text.length() % 2 == 1 ? " " : "") + "\n";
     }
 
     private String formatLine(String label, String content) {
@@ -129,41 +151,47 @@ public class ModelFilme {
         int minutos = duracao.toMinutesPart();
         return String.format("%02dh:%02dm", horas, minutos);
     }
+    private String getDadosDiretor() {
+        if (diretor == null) {
+            return "N/A";
+        } else {
+            StringBuilder nomes = new StringBuilder();
+            String infoDiretor = "Nome: " + diretor.getNome() + " / Area: " + diretor.getAreaDiretor(titulo);
+            nomes.append(centerString(infoDiretor, 50));
+            if (!nomes.isEmpty() && nomes.charAt(nomes.length() - 1) == '\n') {
+                nomes.deleteCharAt(nomes.length() - 1);
+            }
+            return nomes.toString();
+        }
+    }
     private String getDadosArtistas() {
-        StringBuilder nomes = new StringBuilder();
-        for (ModelAtor ator : artistas) {
-            if (nomes.length() > 0) {
-                nomes.append(", ");
+        if (artistas.isEmpty()) {
+            return "N/A";
+        }else {
+            StringBuilder nomes = new StringBuilder();
+            for (ModelAtor ator : artistas) {
+                String infoArtista = "Nome: " + ator.getNome() + " / Papel: " + ator.getPapelAtor(titulo);
+                nomes.append(centerString(infoArtista, 50));
             }
-            nomes.append(ator.getNome()).append(" - Papel: ");
-            nomes.append(papeisAtorToString(ator.getPapelAtor()));
+            if (!nomes.isEmpty() && nomes.charAt(nomes.length() - 1) == '\n') {
+                nomes.deleteCharAt(nomes.length() - 1);
+            }
+            return nomes.toString();
         }
-        return nomes.toString();
     }
-
-    private String papeisAtorToString(ArrayList<PapelAtor> papeis) {
-        StringBuilder papeisStr = new StringBuilder();
-        for (int i = 0; i < papeis.size(); i++) {
-            if (papeis.get(i) == PapelAtor.INDEFINIDO) {
-                continue; // Pula para a próxima iteração se o papel for INDEFINIDO
-            }
-
-            if (papeisStr.length() > 0) {
-                papeisStr.append(", ");
-            }
-            papeisStr.append(papeis.get(i));
-        }
-        return papeisStr.toString();
-    }
-
     private String getDadosRoteiristas() {
-        StringBuilder nomes = new StringBuilder();
-        for (ModelRoterista roteirista : roteiristas) {
-            if (nomes.length() > 0) {
-                nomes.append(", ");
+        if (roteiristas.isEmpty()) {
+            return "N/A";
+        } else {
+            StringBuilder nomes = new StringBuilder();
+            for (ModelRoteirista roteirista : roteiristas) {
+                String infoRoteirista = "Nome: " + roteirista.getNome() + " / Area: " + roteirista.getAreaRoteirista(titulo);
+                nomes.append(centerString(infoRoteirista, 50));
             }
-            nomes.append(roteirista.getNome()); // Supondo que ModelRoterista tem um método getNome
+            if (!nomes.isEmpty() && nomes.charAt(nomes.length() - 1) == '\n') {
+                nomes.deleteCharAt(nomes.length() - 1);
+            }
+            return nomes.toString();
         }
-        return nomes.toString();
     }
 }

@@ -2,36 +2,53 @@ package br.com.adatech.projetos.catalogoIMDB.model;
 
 import br.com.adatech.projetos.catalogoIMDB.util.Util.*;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Classe que representa um Roteirista de filme
  * Contém construtores, parâmetros, além de getters e setters
- * @ModelPessoa - Classe abstrata mãe que possui atributos e métodos próprios
  */
-public class ModelRoterista extends ModelPessoa {
+public class ModelRoteirista extends ModelPessoa {
 
-    private int quantidadeDeRoteirosEscritos;
-    private ArrayList<AreaRoteirista> area = new ArrayList<>();
+    private final HashMap<ModelFilme, Enum<?>> area = new HashMap<>();
 
-    public ModelRoterista(String [] dados) {
+    public ModelRoteirista(String [] dados) {
         super.nome = dados [0];
         super.cpf = dados[1];
         setDataDeNascimento(dados[2]);
-        area.add(AreaRoteirista.INDEFINIDO);
     }
 
-    public int getQuantidadeDeRoteirosEscritos() {
-        return quantidadeDeRoteirosEscritos;
+    public void novaParticipacao(Enum<?> area,ModelFilme filme) {
+        super.participacoes.add(filme);
+        this.area.put(filme,area);
     }
 
-    public void novoRoteiro(AreaRoteirista area) {
-        quantidadeDeRoteirosEscritos++;
-        this.area.add(area);
+    public AreaRoteirista getAreaRoteirista(String tituloFilme) {
+        for (HashMap.Entry<ModelFilme, Enum<?>> entrada : this.area.entrySet()) {
+            if (entrada.getKey().getTitulo().equals(tituloFilme)) {
+                return (AreaRoteirista) entrada.getValue();
+            }
+        }
+        return null;
     }
-
     @Override
     public String toString() {
+        StringBuilder filmesStr = new StringBuilder();
+
+        if (super.participacoes.isEmpty()) {
+            filmesStr.append(centerString("N/A", 50));
+        } else {
+            // Ordenando a lista de filmes baseada no título
+            List<Map.Entry<ModelFilme, Enum<?>>> sortedEntries = new ArrayList<>(area.entrySet());
+            sortedEntries.sort(Map.Entry.comparingByKey(Comparator.comparing(ModelFilme::getTitulo)));
+
+            for (Map.Entry<ModelFilme, Enum<?>> entry : sortedEntries) {
+                String line = "Filme: " + entry.getKey().getTitulo() + " / Papel: " + entry.getValue();
+                filmesStr.append(centerString(line, 50));
+            }
+        }
+
+        // Construindo o restante da string
         String topBottomBorder = "*".repeat(50);
         String middleBar = "-".repeat(50);
         String title = centerString("INFORMAÇÕES DO ROTERISTA", 50);
@@ -45,7 +62,9 @@ public class ModelRoterista extends ModelPessoa {
                 formatLine("- CPF -", cpf) +
                 formatLine("- Data de Nascimento -", String.valueOf(dataDeNascimento)) +
                 middleBar + "\n" +
-                formatLine("PARTICIPAÇÕES", String.valueOf(quantidadeDeRoteirosEscritos)) +
+                formatLine("PARTICIPAÇÕES", "*") +
+                middleBar + "\n" +
+                filmesStr +
                 topBottomBorder + "\n";
     }
 
@@ -53,7 +72,7 @@ public class ModelRoterista extends ModelPessoa {
         if (text == null || text.trim().isEmpty()) {
             text = "N/A";
         }
-        else if(text == "*"){
+        else if(text.equals("*")){
             return "";
         }
         int paddingSize = (width - text.length()) / 2;

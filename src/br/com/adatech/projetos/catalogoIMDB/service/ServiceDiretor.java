@@ -6,8 +6,6 @@ import br.com.adatech.projetos.catalogoIMDB.util.*;
 import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 /**
@@ -29,22 +27,22 @@ public class ServiceDiretor {
         System.out.print("Digite o CPF:");
         dados[1] = Util.validarCPF();
         System.out.println("Digite a data de nascimento (formato DD/MM/YYYY):");
-        dados[2] = Util.validarDataNascimento();
+        dados[2] = Util.validarData();
         ModelDiretor diretor = new ModelDiretor(dados);
 
-        Catalogo.getDiretores().put(diretor, Catalogo.getCatalogo());
+        Catalogo.getCatalogoDiretores().add(diretor);
         System.out.println("O diretor " + diretor.getNome() + " foi adicionado com sucesso!!\n");}
     /**
      * Edita os detalhes de um diretor existente no sistema.
      */
     public static void editarDiretor() {
-        HashMap<ModelDiretor, ArrayList<ModelFilme>> listaDeDiretores = Catalogo.getDiretores();
+        ArrayList<ModelDiretor> listaDeDiretores = Catalogo.getCatalogoDiretores();
         System.out.println(listarNomesDiretores());
         System.out.print("Digite o nome do Diretor que deseja editar: ");
         String nomeDiretorEditar = Menu.sc.nextLine();
 
         ModelDiretor diretorParaEditar = null;
-        for (ModelDiretor diretor : listaDeDiretores.keySet()) {
+        for (ModelDiretor diretor : listaDeDiretores) {
             if (diretor.getNome().equalsIgnoreCase(nomeDiretorEditar)) {
                 diretorParaEditar = diretor;
                 break;
@@ -76,7 +74,7 @@ public class ServiceDiretor {
                     break;
                 case 3:
                     System.out.print("Digite a nova data de nascimento (no formato YYYY-MM-DD): ");
-                    String novaDataNascimento = Util.validarDataNascimento();
+                    String novaDataNascimento = Util.validarData();
                     diretorParaEditar.setDataDeNascimento(novaDataNascimento);
                     System.out.println("Data de nascimento alterada!");
                     break;
@@ -91,12 +89,12 @@ public class ServiceDiretor {
      * Remove um diretor do sistema.
      */
     public static void removerDiretor() {
-        HashMap<ModelDiretor, ArrayList<ModelFilme>> listaDeDiretores = Catalogo.getDiretores();
+        ArrayList<ModelDiretor> listaDeDiretores = Catalogo.getCatalogoDiretores();
         System.out.println(listarNomesDiretores());
         System.out.print("Qual Diretor deseja remover? ");
         String diretorParaRemover = Menu.sc.nextLine();
 
-        listaDeDiretores.keySet().removeIf(diretor -> diretor.getNome().equalsIgnoreCase(diretorParaRemover));
+        listaDeDiretores.removeIf(diretor -> diretor.getNome().equalsIgnoreCase(diretorParaRemover));
 
         System.out.println("O diretor " +diretorParaRemover+ " removido com sucesso!");
     }
@@ -115,14 +113,14 @@ public class ServiceDiretor {
      */
     public static void fichaTecnicaDiretor() {
 
-        HashMap<ModelDiretor, ArrayList<ModelFilme>> listaDeDiretores = Catalogo.getDiretores();
+        ArrayList<ModelDiretor> listaDeDiretores = Catalogo.getCatalogoDiretores();
         ModelDiretor dadosDiretor = null;
         System.out.println(listarNomesDiretores());
         if (!listaDeDiretores.isEmpty()) {
             System.out.print("Qual diretor deseja pesquisar?");
             String nomeDoDiretor = Menu.sc.nextLine();
 
-            for (ModelDiretor diretor : listaDeDiretores.keySet()) {
+            for (ModelDiretor diretor : listaDeDiretores) {
                 if (diretor.getNome().equalsIgnoreCase(nomeDoDiretor)) {
                     dadosDiretor = diretor;
                     break;
@@ -143,12 +141,12 @@ public class ServiceDiretor {
         }}
 
     public static String listarNomesDiretores() {
-        HashMap<ModelDiretor, ArrayList<ModelFilme>> listaDeDiretores = Catalogo.getDiretores();
+        ArrayList<ModelDiretor> listaDeDiretores = Catalogo.getCatalogoDiretores();
         StringBuilder nomesFormatados = new StringBuilder();
         int i = 0;
 
         if (!listaDeDiretores.isEmpty()) {
-            for (ModelDiretor diretor : listaDeDiretores.keySet()) {
+            for (ModelDiretor diretor : listaDeDiretores) {
                 nomesFormatados.append(" - ").append(diretor.getNome());
                 if ( i < listaDeDiretores.size() -1){
                     nomesFormatados.append("\n");
@@ -162,9 +160,9 @@ public class ServiceDiretor {
     }
     public static ModelDiretor getDiretorByName(String nome) {
         try {
-            for (Map.Entry<ModelDiretor, ArrayList<ModelFilme>> diretor : Catalogo.getDiretores().entrySet()) {
-                if (diretor.getKey().getNome().equalsIgnoreCase(nome)) {
-                    return diretor.getKey();
+            for (ModelDiretor diretor : Catalogo.getCatalogoDiretores()) {
+                if (diretor.getNome().equalsIgnoreCase(nome)) {
+                    return diretor;
                 }
             }
             throw new NoSuchElementException("Ator com o nome '" + nome + "' não encontrado.");
@@ -172,6 +170,36 @@ public class ServiceDiretor {
             System.err.println(e.getMessage());
             return null;
         }
+    }
+    public static Util.AreaDiretor escolherAreaDiretor() {
+        Util.AreaDiretor papelEscolhido;
+        do {
+            listarAreas();
+            System.out.println("Escolha a Area do Diretor");
+            try {
+                String papelInput = Menu.sc.nextLine();
+                papelEscolhido = Util.AreaDiretor.valueOf(papelInput.toUpperCase());
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Area inválida! Tente novamente.");
+            }
+        } while (true);
+        return papelEscolhido;
+    }
+    public static void listarAreas() {
+        System.out.println("\nArea disponíveis:");
+        Util.AreaDiretor[] areas = Util.AreaDiretor.values();
+        for (int i = 0; i < areas.length; i++) {
+            if (areas[i] != Util.AreaDiretor.INDEFINIDO) {
+                String nome = areas[i].name().toLowerCase();
+                nome = Character.toUpperCase(nome.charAt(0)) + nome.substring(1);
+                System.out.print(nome);
+                if (i < areas.length - 2) {
+                    System.out.print(" - ");
+                }
+            }
+        }
+        System.out.println();
     }
 
 }

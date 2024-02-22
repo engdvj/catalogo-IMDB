@@ -1,40 +1,47 @@
 package br.com.adatech.projetos.catalogoIMDB.model;
 
 
+import br.com.adatech.projetos.catalogoIMDB.util.Util;
+
+import java.util.HashMap;
+
 /**
  * Classe que representa um Diretor de filme
  * Contém construtores, parâmetros, além de getters e setters
- * @ModelPessoa - Classe abstrata mãe que possui atributos e métodos próprios
  */
 public class ModelDiretor extends ModelPessoa {
 
     private int quantidadeDeFilmesDirigidos;
-    private String area;
+    private final HashMap<ModelFilme, Enum<?>> area = new HashMap<>();
+
 
     public ModelDiretor(String [] dados) {
         super.nome = dados [0];
         super.cpf = dados[1];
         setDataDeNascimento(dados[2]);
-        this.area = "não definida";
     }
 
     public int getQuantidadeDeFilmesDirigidos() {
         return quantidadeDeFilmesDirigidos;
     }
 
-    public void novoFilme() {
+    @Override
+    public void novaParticipacao(Enum<?> areaDiretor, ModelFilme filme) {
         quantidadeDeFilmesDirigidos++;
+        super.participacoes.add(filme);
+        area.put(filme,areaDiretor);
+    }
+    public Util.AreaDiretor getAreaDiretor(String tituloFilme) {
+        for (HashMap.Entry<ModelFilme, Enum<?>> entrada : this.area.entrySet()) {
+            if (entrada.getKey().getTitulo().equals(tituloFilme)) {
+                return (Util.AreaDiretor) entrada.getValue();
+            }
+        }
+        return null;
     }
 
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
     @Override
     public String toString() {
-        return  "\n   Nome:'" + nome + "'\'   Area:'" + area;
+        return  "\n   Nome:'" + nome;
     }
 }
