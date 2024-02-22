@@ -28,6 +28,11 @@ public class ModelAtor extends ModelPessoa {
         super.participacoes.add(filme);
         area.put(filme,papelAtor);
     }
+    public void removeParticipacao(Enum<?> papelAtor, ModelFilme filme) {
+        quantidadeDePapel--;
+        super.participacoes.remove(filme);
+        area.remove(filme,papelAtor);
+    }
     public PapelAtor getPapelAtor(String tituloFilme) {
         for (HashMap.Entry<ModelFilme, Enum<?>> entrada : this.area.entrySet()) {
             if (entrada.getKey().getTitulo().equals(tituloFilme)) {

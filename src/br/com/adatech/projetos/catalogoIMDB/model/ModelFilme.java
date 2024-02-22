@@ -1,5 +1,6 @@
 package br.com.adatech.projetos.catalogoIMDB.model;
 
+import br.com.adatech.projetos.catalogoIMDB.util.Util;
 import br.com.adatech.projetos.catalogoIMDB.util.Util.*;
 
 import java.time.Duration;
@@ -101,6 +102,19 @@ public class ModelFilme {
         }else{
             this.roteiristas.add((ModelRoteirista) pessoa);
             pessoa.novaParticipacao(papel,filme);
+        }
+    }
+    public void removePessoa(ModelPessoa pessoa, Enum<?> papel, ModelFilme filme) {
+        if(pessoa instanceof ModelAtor) {
+            this.artistas.remove((ModelAtor) pessoa);
+            pessoa.removeParticipacao(papel, filme);
+        }
+        else if(pessoa instanceof ModelDiretor){
+            diretor.removeParticipacao(papel,filme);
+            this.diretor = null;
+        }else{
+            this.roteiristas.remove((ModelRoteirista) pessoa);
+            pessoa.removeParticipacao(papel,filme);
         }
     }
     @Override

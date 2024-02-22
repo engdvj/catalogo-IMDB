@@ -22,6 +22,10 @@ public class ModelRoteirista extends ModelPessoa {
         super.participacoes.add(filme);
         this.area.put(filme,area);
     }
+    public void removeParticipacao(Enum<?> areaRoteirista, ModelFilme filme) {
+        super.participacoes.remove(filme);
+        area.remove(filme,areaRoteirista);
+    }
 
     public AreaRoteirista getAreaRoteirista(String tituloFilme) {
         for (HashMap.Entry<ModelFilme, Enum<?>> entrada : this.area.entrySet()) {

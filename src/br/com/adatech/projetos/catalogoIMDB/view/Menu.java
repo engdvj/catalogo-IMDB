@@ -219,7 +219,7 @@ public class Menu {
     private static void alterarInformacoes() {
         String[] opcoesMenu = new String[]{"Editar uma Informação"
                 , "Remover uma Informação"
-                , "Vincular uma Informação"
+                , "Alterar Relações de Vínculo"
                 , "Voltar para o Menu Anterior"};
         titulo = "Menu Escolha";
         boolean continuarNoMenu = true;

@@ -16,6 +16,9 @@ public class ModelDiretor extends ModelPessoa {
 
 
     public ModelDiretor(String [] dados) {
+        if(dados.equals(null)){
+
+        }
         super.nome = dados [0];
         super.cpf = dados[1];
         setDataDeNascimento(dados[2]);
@@ -31,6 +34,12 @@ public class ModelDiretor extends ModelPessoa {
         super.participacoes.add(filme);
         area.put(filme,areaDiretor);
     }
+
+    public void removeParticipacao(Enum<?> areaDiretor, ModelFilme filme) {
+        quantidadeDeFilmesDirigidos--;
+        super.participacoes.remove(filme);
+        area.remove(filme,areaDiretor);
+    }
     public Util.AreaDiretor getAreaDiretor(String tituloFilme) {
         for (HashMap.Entry<ModelFilme, Enum<?>> entrada : this.area.entrySet()) {
             if (entrada.getKey().getTitulo().equals(tituloFilme)) {
@@ -44,4 +53,5 @@ public class ModelDiretor extends ModelPessoa {
     public String toString() {
         return  "\n   Nome:'" + nome;
     }
+
 }

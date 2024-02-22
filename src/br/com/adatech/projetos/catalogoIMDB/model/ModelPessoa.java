@@ -43,4 +43,5 @@ public abstract class ModelPessoa {
         this.dataDeNascimento = LocalDate.parse(dataNascimento, formatter);
     }
     public abstract void novaParticipacao(Enum<?> variavel, ModelFilme filme);
+    public abstract void removeParticipacao(Enum<?> papel, ModelFilme filme);
 }
