@@ -32,7 +32,9 @@ public class ServiceDiretor {
         ModelDiretor diretor = new ModelDiretor(dados);
 
         Catalogo.getCatalogoDiretores().add(diretor);
-        System.out.println("O diretor " + diretor.getNome() + " foi adicionado com sucesso!!\n");}
+        System.out.println("O diretor " + diretor.getNome() + " foi adicionado com sucesso!!\n");
+    }
+
     /**
      * Edita os detalhes de um diretor existente no sistema.
      */
@@ -53,9 +55,9 @@ public class ServiceDiretor {
         if (diretorParaEditar != null) {
             System.out.println("O que deseja editar?");
             System.out.println("""
-                (1)- Nome
-                (2)- CPF
-                (3)- Data de Nascimento""");
+                    (1)- Nome
+                    (2)- CPF
+                    (3)- Data de Nascimento""");
             System.out.print("->");
             int opcao = Menu.sc.nextInt();
             Menu.sc.nextLine();
@@ -86,6 +88,7 @@ public class ServiceDiretor {
             System.out.println("Diretor não encontrado.");
         }
     }
+
     /**
      * Remove um diretor do sistema.
      */
@@ -97,14 +100,14 @@ public class ServiceDiretor {
 
         listaDeDiretores.removeIf(diretor -> diretor.getNome().equalsIgnoreCase(diretorParaRemover));
 
-        System.out.println("O diretor " +diretorParaRemover+ " removido com sucesso!");
+        System.out.println("O diretor " + diretorParaRemover + " removido com sucesso!");
     }
 
     /**
      * Lista todos os diretores cadastrados no sistema.
      */
     public static void listarDiretores() {
-        if(!listarNomesDiretores().isEmpty()){
+        if (!listarNomesDiretores().isEmpty()) {
             System.out.println(listarNomesDiretores());
         }
     }
@@ -127,13 +130,14 @@ public class ServiceDiretor {
                     break;
                 }
             }
-
             if (dadosDiretor != null) {
                 System.out.print(getDiretorByName(nomeDoDiretor));
             } else {
                 System.out.println("Diretor não encontrado.");
             }
-        }}
+        }
+    }
+
     public static String listarNomesDiretores() {
         StringBuilder nomesFormatados = new StringBuilder("Diretores Cadastrados:\n");
 
@@ -151,19 +155,16 @@ public class ServiceDiretor {
         }
         return nomesFormatados.toString();
     }
+
     public static ModelDiretor getDiretorByName(String nome) {
-        try {
-            for (ModelDiretor diretor : Catalogo.getCatalogoDiretores()) {
-                if (diretor.getNome().equalsIgnoreCase(nome)) {
-                    return diretor;
-                }
+        for (ModelDiretor diretor : Catalogo.getCatalogoDiretores()) {
+            if (diretor.getNome().equalsIgnoreCase(nome)) {
+                return diretor;
             }
-            throw new NoSuchElementException("Ator com o nome '" + nome + "' não encontrado.");
-        } catch (NoSuchElementException e) {
-            System.err.println(e.getMessage());
-            return null;
         }
+        return null;
     }
+
     public static Util.AreaDiretor escolherAreaDiretor() {
         Util.AreaDiretor papelEscolhido;
         do {
@@ -179,6 +180,7 @@ public class ServiceDiretor {
         } while (true);
         return papelEscolhido;
     }
+
     public static void listarAreas() {
         System.out.println("\nArea disponíveis:");
         Util.AreaDiretor[] areas = Util.AreaDiretor.values();

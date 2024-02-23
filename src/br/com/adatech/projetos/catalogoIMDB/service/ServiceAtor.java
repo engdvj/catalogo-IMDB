@@ -55,9 +55,9 @@ public class ServiceAtor {
         if (atorParaEditar != null) {
             System.out.println("Qual informação gostaria de editar?");
             System.out.println("""
-            (1)- Nome
-            (2)- CPF
-            (3)- Data de Nascimento""");
+                    (1)- Nome
+                    (2)- CPF
+                    (3)- Data de Nascimento""");
             System.out.print("->");
             int opcao = Menu.sc.nextInt();
             Menu.sc.nextLine();
@@ -100,22 +100,21 @@ public class ServiceAtor {
 
         listaDeAtores.removeIf(ator -> ator.getNome().equalsIgnoreCase(atorParaRemover));
 
-        System.out.println("Ator " +atorParaRemover+ " removido com sucesso!");
+        System.out.println("Ator " + atorParaRemover + " removido com sucesso!");
     }
 
     /**
      * Lista todos os atores cadastrados no sistema.
      */
     public static void listarAtores() {
-        if(!listarNomesAtores().isEmpty()){
-        System.out.println(listarNomesAtores());
+        if (!listarNomesAtores().isEmpty()) {
+            System.out.println(listarNomesAtores());
         }
     }
 
 
     /**
      * Fornece os dados de um ator específico.
-     *
      */
     public static void fichaTecnicaAtor() {
         ArrayList<ModelAtor> listaDeAtores = Catalogo.getCatalogoAtores();
@@ -131,14 +130,12 @@ public class ServiceAtor {
                     break;
                 }
             }
-
             if (dadosAtor != null) {
                 System.out.print(getAtorByName(nomeDoAtor));
             } else {
                 System.out.println("Ator não encontrado.");
             }
         }
-
     }
 
 
@@ -159,19 +156,16 @@ public class ServiceAtor {
         }
         return nomesFormatados.toString();
     }
+
     public static ModelAtor getAtorByName(String nome) {
-        try {
-            for (ModelAtor ator : Catalogo.getCatalogoAtores()) {
-                if (ator.getNome().equalsIgnoreCase(nome)) {
-                    return ator;
-                }
+        for (ModelAtor ator : Catalogo.getCatalogoAtores()) {
+            if (ator.getNome().equalsIgnoreCase(nome)) {
+                return ator;
             }
-            throw new NoSuchElementException("Ator com o nome '" + nome + "' não encontrado.");
-        } catch (NoSuchElementException e) {
-            System.err.println(e.getMessage());
-            return null;
         }
+        return null;
     }
+
     public static Util.PapelAtor escolherPapelAtor() {
         Util.PapelAtor papelEscolhido;
         do {
@@ -187,6 +181,7 @@ public class ServiceAtor {
         } while (true);
         return papelEscolhido;
     }
+
     public static void listarPapeis() {
         System.out.println("\nPapeis disponíveis:");
         Util.PapelAtor[] papeis = Util.PapelAtor.values();

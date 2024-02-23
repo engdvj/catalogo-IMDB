@@ -108,7 +108,7 @@ public class ServiceFilme {
         System.out.print("Digite o titulo do filme que gostaria de alterar: ");
         String informacao = Menu.sc.nextLine();
         ModelFilme filme = getFilmeByTitulo(informacao);
-        if(filme==null){
+        if (filme == null) {
             System.out.println("\n");
             return;
         }
@@ -215,7 +215,11 @@ public class ServiceFilme {
         listarFilmes();
         System.out.println("Digite o titulo do Filme:");
         String titulo = Menu.sc.nextLine();
-        System.out.println(getFilmeByTitulo(titulo));
+        if (getFilmeByTitulo(titulo) != null) {
+            System.out.print(getFilmeByTitulo(titulo));
+        } else {
+            System.out.println("Filme não encontrado.");
+        }
     }
 
     public static void listarGeneros() {
@@ -248,18 +252,14 @@ public class ServiceFilme {
     }
 
     public static ModelFilme getFilmeByTitulo(String titulo) {
-        try {
-            for (ModelFilme catalogo : Catalogo.getCatalogoFilmes()) {
-                if (catalogo.getTitulo().equalsIgnoreCase(titulo)) {
-                    return catalogo;
-                }
+        for (ModelFilme catalogo : Catalogo.getCatalogoFilmes()) {
+            if (catalogo.getTitulo().equalsIgnoreCase(titulo)) {
+                return catalogo;
             }
-            throw new NoSuchElementException("Filme com o titulo '" + titulo + "' não encontrado.");
-        } catch (NoSuchElementException e) {
-            System.err.println(e.getMessage());
-            return null;
         }
+        return null;
     }
+
     private static Genero escolherGenero() {
         Genero generoEscolhido;
         do {

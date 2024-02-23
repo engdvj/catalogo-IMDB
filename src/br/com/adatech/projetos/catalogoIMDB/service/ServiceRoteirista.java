@@ -42,9 +42,9 @@ public class ServiceRoteirista {
         if (roterista != null) {
             System.out.println("Qual informação gostaria de editar?");
             System.out.println("""
-                (1) - Nome
-                (2) - CPF
-                (3) - Data de Nascimento""");
+                    (1) - Nome
+                    (2) - CPF
+                    (3) - Data de Nascimento""");
             int escolha = Menu.sc.nextInt();
             Menu.sc.nextLine();
             switch (escolha) {
@@ -109,22 +109,22 @@ public class ServiceRoteirista {
         listarRoteiristas();
         System.out.println("Digite o nome do roterista:");
         String nome = Menu.sc.nextLine();
-        System.out.println(getRoteiristaByName(nome));
+        if (getRoteiristaByName(nome) != null) {
+            System.out.print(getRoteiristaByName(nome));
+        } else {
+            System.out.println("Roteirista não encontrado.");
+        }
     }
 
     public static ModelRoteirista getRoteiristaByName(String nome) {
-        try {
-            for (ModelRoteirista roteirista : Catalogo.getCatalogoRoteiristas()) {
-                if (roteirista.getNome().equalsIgnoreCase(nome)) {
-                    return roteirista;
-                }
+        for (ModelRoteirista roteirista : Catalogo.getCatalogoRoteiristas()) {
+            if (roteirista.getNome().equalsIgnoreCase(nome)) {
+                return roteirista;
             }
-            throw new NoSuchElementException("Roterista com o nome '" + nome + "' não encontrado.");
-        } catch (NoSuchElementException e) {
-            System.err.println(e.getMessage());
-            return null;
         }
+        return null;
     }
+
     public static Util.AreaRoteirista escolherAreaRoteirista() {
         Util.AreaRoteirista areaRoteirista;
         do {
@@ -140,6 +140,7 @@ public class ServiceRoteirista {
         } while (true);
         return areaRoteirista;
     }
+
     public static void listarAreas() {
         System.out.println("\nAreas disponíveis:");
         Util.AreaRoteirista[] areas = Util.AreaRoteirista.values();
