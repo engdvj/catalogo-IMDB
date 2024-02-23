@@ -45,6 +45,7 @@ public class ServiceRoteirista {
                     (1) - Nome
                     (2) - CPF
                     (3) - Data de Nascimento""");
+            System.out.print("-> ");
             int escolha = Menu.sc.nextInt();
             Menu.sc.nextLine();
             switch (escolha) {
@@ -67,9 +68,11 @@ public class ServiceRoteirista {
                     System.out.println("Data de nascimento alterada!");
                     break;
                 default:
-                    System.out.println("Escolha uma opção valida!!\n");
+                    System.out.println("Escolha uma opção válida!");
                     break;
             }
+        } else {
+            System.out.println("Roteirista não encontrado.");
         }
     }
 
