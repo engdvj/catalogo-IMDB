@@ -93,7 +93,11 @@ public class ServiceRoteirista {
      */
     public static void listarRoteiristas() {
         System.out.println("Roteiristas Cadastrados:");
-        for (ModelRoteirista roteirista : Catalogo.getCatalogoRoteiristas()) {
+
+        List<ModelRoteirista> roteiristas = new ArrayList<>(Catalogo.getCatalogoRoteiristas());
+        roteiristas.sort(Comparator.comparing(ModelRoteirista::getNome));
+
+        for (ModelRoteirista roteirista : roteiristas) {
             System.out.println(" - " + roteirista.getNome());
         }
     }

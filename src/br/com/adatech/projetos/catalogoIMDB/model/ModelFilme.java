@@ -3,10 +3,12 @@ package br.com.adatech.projetos.catalogoIMDB.model;
 import br.com.adatech.projetos.catalogoIMDB.util.Util;
 import br.com.adatech.projetos.catalogoIMDB.util.Util.*;
 
+import java.text.NumberFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Classe que representa um Filme
@@ -129,9 +131,9 @@ public class ModelFilme {
                 formatLine("- Descrição -", descricao) +
                 formatLine("- Gênero -", genero != null ? genero.toString() : "N/A") +
                 formatLine("- Classificação Indicativa -", classificacaoIndicativa != null ? classificacaoIndicativa.getValor() : "N/A") +
-                formatLine("- Data de Lançamento -", String.valueOf(dataDeLancamento)) +
+                formatLine("- Data de Lançamento -", Util.dataFormatada(dataDeLancamento)) +
                 formatLine("- Duração -", formatDuracao()) +
-                formatLine("- Orçamento -",  "R$ "+ orcamento) +
+                formatLine("- Orçamento -", formatarOrcamento()) +
                 formatLine("- Avaliação -", avaliacao+"/10") +
                 formatLine("- Diretor -", getDadosDiretor()) +
                 formatLine("- Artistas -", getDadosArtistas()) +
@@ -207,5 +209,9 @@ public class ModelFilme {
             }
             return nomes.toString();
         }
+    }
+    private String formatarOrcamento() {
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        return formatter.format(orcamento);
     }
 }

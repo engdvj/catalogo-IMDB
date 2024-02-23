@@ -1,5 +1,10 @@
 package br.com.adatech.projetos.catalogoIMDB.util;
 
+import br.com.adatech.projetos.catalogoIMDB.model.ModelAtor;
+import br.com.adatech.projetos.catalogoIMDB.model.ModelDiretor;
+import br.com.adatech.projetos.catalogoIMDB.model.ModelFilme;
+import br.com.adatech.projetos.catalogoIMDB.model.ModelRoteirista;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,11 +15,13 @@ import java.util.*;
  * Contém métodos específicos para todas as funcionalidades propostas
  */
 public class Util {
-     public static <T> List<T> getSortedCopy(List<T> originalList, Comparator<T> comparator) {
-         List<T> copy = new ArrayList<>(originalList);
-         copy.sort(comparator);
-         return copy;
-     }
+    public static <T> List<T> getSortedCopy(Set<Map.Entry<ModelFilme, Enum<?>>> originalSet,
+                                            Comparator<Map.Entry<ModelFilme, Enum<?>>> comparator) {
+        List<Map.Entry<ModelFilme, Enum<?>>> copy = new ArrayList<>(originalSet);
+        copy.sort(comparator);
+        return (List<T>) copy;
+    }
+
     public enum ClassificacaoIndicativa {
         LIVRE("Livre"),
         R("R"),
@@ -102,5 +109,9 @@ public class Util {
             }
         }
         return dataNascimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+    public static String dataFormatada(LocalDate data) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return data.format(formatter);
     }
 }

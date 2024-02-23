@@ -1,7 +1,9 @@
 package br.com.adatech.projetos.catalogoIMDB.model;
 
+import br.com.adatech.projetos.catalogoIMDB.util.Util;
 import br.com.adatech.projetos.catalogoIMDB.util.Util.*;
 
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -43,8 +45,8 @@ public class ModelRoteirista extends ModelPessoa {
             filmesStr.append(centerString("N/A", 50));
         } else {
             // Ordenando a lista de filmes baseada no título
-            List<Map.Entry<ModelFilme, Enum<?>>> sortedEntries = new ArrayList<>(area.entrySet());
-            sortedEntries.sort(Map.Entry.comparingByKey(Comparator.comparing(ModelFilme::getTitulo)));
+            List<Map.Entry<ModelFilme, Enum<?>>> sortedEntries = Util.getSortedCopy(area.entrySet(),
+                    Map.Entry.comparingByKey(Comparator.comparing(ModelFilme::getTitulo)));
 
             for (Map.Entry<ModelFilme, Enum<?>> entry : sortedEntries) {
                 String line = "Filme: " + entry.getKey().getTitulo() + " / Papel: " + entry.getValue();
@@ -63,8 +65,8 @@ public class ModelRoteirista extends ModelPessoa {
                 formatLine("DADOS PESSOAIS", "*") +
                 middleBar + "\n" +
                 formatLine("- Nome -", nome) +
-                formatLine("- CPF -", cpf) +
-                formatLine("- Data de Nascimento -", String.valueOf(dataDeNascimento)) +
+                formatLine("- CPF -", formatoCPF()) +
+                formatLine("- Data de Nascimento -", Util.dataFormatada(dataDeNascimento)) +
                 middleBar + "\n" +
                 formatLine("PARTICIPAÇÕES", "*") +
                 middleBar + "\n" +
@@ -83,7 +85,6 @@ public class ModelRoteirista extends ModelPessoa {
         String padding = " ".repeat(Math.max(0, paddingSize));
         return padding + text + padding + (text.length() % 2 == 1 ? " " : "") + "\n";
     }
-
     private String formatLine(String label, String content) {
         String centeredLabel = centerString(label, 50);
         String centeredContent = centerString(content != null ? content : "N/A", 50);

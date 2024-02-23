@@ -42,6 +42,18 @@ public abstract class ModelPessoa {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.dataDeNascimento = LocalDate.parse(dataNascimento, formatter);
     }
+    public String formatoCPF() {
+        StringBuilder sb = new StringBuilder(cpf);
+
+        sb.insert(3, '.');
+        sb.insert(7, '.');
+        sb.insert(11, '-');
+
+        return sb.toString();
+    }
+    public int compareTo(ModelPessoa pessoa) {
+        return this.getNome().compareTo(pessoa.getNome());
+    }
     public abstract void novaParticipacao(Enum<?> variavel, ModelFilme filme);
     public abstract void removeParticipacao(Enum<?> papel, ModelFilme filme);
 }

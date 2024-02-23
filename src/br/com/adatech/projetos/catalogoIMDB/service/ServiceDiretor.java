@@ -6,6 +6,8 @@ import br.com.adatech.projetos.catalogoIMDB.util.*;
 import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -139,21 +141,19 @@ public class ServiceDiretor {
                 System.out.println("Diretor não encontrado.");
             }
         }}
-
     public static String listarNomesDiretores() {
-        ArrayList<ModelDiretor> listaDeDiretores = Catalogo.getCatalogoDiretores();
-        StringBuilder nomesFormatados = new StringBuilder();
-        int i = 0;
+        StringBuilder nomesFormatados = new StringBuilder("Diretores Cadastrados:\n");
 
-        if (!listaDeDiretores.isEmpty()) {
-            for (ModelDiretor diretor : listaDeDiretores) {
-                nomesFormatados.append(" - ").append(diretor.getNome());
-                if ( i < listaDeDiretores.size() -1){
-                    nomesFormatados.append("\n");
-                }
-                i++;
+        ArrayList<ModelDiretor> diretores = new ArrayList<>(Catalogo.getCatalogoDiretores());
+        diretores.sort(Comparator.comparing(ModelDiretor::getNome));
+
+        for (int i = 0; i < diretores.size(); i++) {
+            nomesFormatados.append(" - ").append(diretores.get(i).getNome());
+            if (i < diretores.size() - 1) {
+                nomesFormatados.append("\n");
             }
-        } else {
+        }
+        if (diretores.isEmpty()) {
             nomesFormatados.append("A lista de diretores está vazia");
         }
         return nomesFormatados.toString();

@@ -1,11 +1,15 @@
 package br.com.adatech.projetos.catalogoIMDB.service;
 
 import br.com.adatech.projetos.catalogoIMDB.model.ModelFilme;
+import br.com.adatech.projetos.catalogoIMDB.model.ModelRoteirista;
 import br.com.adatech.projetos.catalogoIMDB.util.Util;
 import br.com.adatech.projetos.catalogoIMDB.util.Util.*;
 import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 import br.com.adatech.projetos.catalogoIMDB.core.Catalogo;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 
@@ -195,7 +199,11 @@ public class ServiceFilme {
      */
     public static void listarFilmes() {
         System.out.println("Filmes Cadastrados:");
-        for (ModelFilme catalogo : Catalogo.getCatalogoFilmes()) {
+
+        List<ModelFilme> filmes = new ArrayList<>(Catalogo.getCatalogoFilmes());
+        filmes.sort(Comparator.comparing(ModelFilme::getTitulo));
+
+        for (ModelFilme catalogo : filmes) {
             System.out.println(" - " + catalogo.getTitulo());
         }
     }

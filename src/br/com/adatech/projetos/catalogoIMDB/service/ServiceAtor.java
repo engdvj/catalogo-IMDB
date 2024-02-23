@@ -6,6 +6,7 @@ import br.com.adatech.projetos.catalogoIMDB.util.Util;
 import br.com.adatech.projetos.catalogoIMDB.view.Menu;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.NoSuchElementException;
 
 /**
@@ -148,19 +149,18 @@ public class ServiceAtor {
 
 
     public static String listarNomesAtores() {
-        ArrayList<ModelAtor> listaDeAtores = Catalogo.getCatalogoAtores();
-        StringBuilder nomesFormatados = new StringBuilder();
-        int i = 0;
+        StringBuilder nomesFormatados = new StringBuilder("Atores Cadastrados:\n");
 
-        if (!listaDeAtores.isEmpty()) {
-            for (ModelAtor ator : listaDeAtores) {
-                nomesFormatados.append(" - ").append(ator.getNome());
-                if ( i < listaDeAtores.size() - 1){
-                    nomesFormatados.append("\n");
-                }
-                i++;
+        ArrayList<ModelAtor> listaDeAtores = Catalogo.getCatalogoAtores();
+        listaDeAtores.sort(Comparator.comparing(ModelAtor::getNome));
+
+        for (int i = 0; i < listaDeAtores.size(); i++) {
+            nomesFormatados.append(" - ").append(listaDeAtores.get(i).getNome());
+            if (i < listaDeAtores.size() - 1) {
+                nomesFormatados.append("\n");
             }
-        } else {
+        }
+        if (listaDeAtores.isEmpty()) {
             nomesFormatados.append("A lista de atores está vazia");
         }
         return nomesFormatados.toString();
