@@ -59,6 +59,8 @@ public abstract class ModelPessoa {
     public abstract void novaParticipacao(Enum<?> variavel, ModelFilme filme);
     public abstract void removeParticipacao(Enum<?> papel, ModelFilme filme);
 
+    protected abstract String getTitle();
+
     public String toString() {
         StringBuilder filmesStr = new StringBuilder();
 
@@ -78,7 +80,7 @@ public abstract class ModelPessoa {
         // Construindo o restante da string
         String topBottomBorder = "*".repeat(50);
         String middleBar = "-".repeat(50);
-        String title = centerString("INFORMAÇÕES DO ROTERISTA", 50);
+        String title = centerString(getTitle(), 50);
 
         return topBottomBorder + "\n" +
                 title +
@@ -95,7 +97,7 @@ public abstract class ModelPessoa {
                 topBottomBorder + "\n";
     }
 
-    private String centerString(String text, int width) {
+    protected String centerString(String text, int width) {
         if (text == null || text.trim().isEmpty()) {
             text = "N/A";
         }

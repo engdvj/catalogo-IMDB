@@ -47,6 +47,12 @@ public class ModelDiretor extends ModelPessoa {
         }
         return null;
     }
+
+    @Override
+    protected String getTitle() {
+        return "INFORMAÇÕES DO DIRETOR";
+    }
+
     public String toString(){
         return super.toString();
     }

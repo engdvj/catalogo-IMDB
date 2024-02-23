@@ -32,6 +32,12 @@ public class ModelRoteirista extends ModelPessoa {
         }
         return null;
     }
+
+    @Override
+    protected String getTitle() {
+        return "INFORMAÇÕES DO ROTERISTA";
+    }
+
     @Override
     public String toString(){
         return super.toString();

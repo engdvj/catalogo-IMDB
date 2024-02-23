@@ -40,7 +40,9 @@ public class ModelAtor extends ModelPessoa {
         }
         return null;
     }
-
+    protected String getTitle() {
+        return "INFORMAÇÕES DO ATOR";
+    }
     @Override
     public String toString(){
         return super.toString();
