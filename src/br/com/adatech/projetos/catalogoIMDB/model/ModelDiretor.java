@@ -2,7 +2,6 @@ package br.com.adatech.projetos.catalogoIMDB.model;
 
 
 import br.com.adatech.projetos.catalogoIMDB.util.Util;
-
 import java.util.HashMap;
 
 /**
@@ -48,10 +47,7 @@ public class ModelDiretor extends ModelPessoa {
         }
         return null;
     }
-
-    @Override
-    public String toString() {
-        return  "\n   Nome:'" + nome;
+    public String toString(){
+        return super.toString();
     }
-
 }

@@ -133,13 +133,7 @@ public class ServiceAtor {
             }
 
             if (dadosAtor != null) {
-                System.out.print("\nDetalhes do ator\n" +
-                        "\nNome: " + dadosAtor.getNome() +
-                        "\nCPF: " + dadosAtor.getCpf() +
-                        "\nData de nascimento: " + dadosAtor.getDataDeNascimento() +
-                        "\nQuantidade de papeis: " + dadosAtor.getQuantidadeDePapel() +
-                        "\n\n"
-                );
+                System.out.print(getAtorByName(nomeDoAtor));
             } else {
                 System.out.println("Ator não encontrado.");
             }

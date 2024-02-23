@@ -1,7 +1,6 @@
 package br.com.adatech.projetos.catalogoIMDB.model;
 
 import br.com.adatech.projetos.catalogoIMDB.util.Util.*;
-
 import java.util.HashMap;
 
 
@@ -43,6 +42,7 @@ public class ModelAtor extends ModelPessoa {
     }
 
     @Override
-    public String toString() {
-        return "\nNome: " + nome + "\nCPF: "+ cpf + "\nData de nascimento: "+dataDeNascimento+"\nPapel: " + quantidadeDePapel +"\n" ;  }
+    public String toString(){
+        return super.toString();
+    }
 }

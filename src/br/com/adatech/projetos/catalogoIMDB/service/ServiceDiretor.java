@@ -129,13 +129,7 @@ public class ServiceDiretor {
             }
 
             if (dadosDiretor != null) {
-                System.out.print("Detalhes do diretor\n" +
-                        "Nome: " + dadosDiretor.getNome() +
-                        "\nCPF: " + dadosDiretor.getCpf() +
-                        "\nData de nascimento: " + dadosDiretor.getDataDeNascimento() +
-                        "\nQuantidade de papeis: " + dadosDiretor.getQuantidadeDeFilmesDirigidos() +
-                        "\n"
-                );
+                System.out.print(getDiretorByName(nomeDoDiretor));
             } else {
                 System.out.println("Diretor não encontrado.");
             }

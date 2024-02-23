@@ -25,7 +25,6 @@ public class ServiceFilme {
     public static void adicionarFilme() {
         String titulo;
 
-        System.out.print("Informe o titulo do filme: ");
         titulo = verificaTituloFilme();
 
         System.out.print("Informe a descrição do filme: ");
