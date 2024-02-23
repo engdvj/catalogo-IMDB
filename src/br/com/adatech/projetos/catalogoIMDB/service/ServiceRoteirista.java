@@ -115,7 +115,7 @@ public class ServiceRoteirista {
     public static ModelRoteirista getRoteiristaByName(String nome) {
         try {
             for (ModelRoteirista roteirista : Catalogo.getCatalogoRoteiristas()) {
-                if (roteirista.getNome().equals(nome)) {
+                if (roteirista.getNome().equalsIgnoreCase(nome)) {
                     return roteirista;
                 }
             }

@@ -251,7 +251,7 @@ public class ServiceFilme {
     public static ModelFilme getFilmeByTitulo(String titulo) {
         try {
             for (ModelFilme catalogo : Catalogo.getCatalogoFilmes()) {
-                if (catalogo.getTitulo().equals(titulo)) {
+                if (catalogo.getTitulo().equalsIgnoreCase(titulo)) {
                     return catalogo;
                 }
             }

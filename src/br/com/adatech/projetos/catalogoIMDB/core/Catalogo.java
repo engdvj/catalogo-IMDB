@@ -151,7 +151,7 @@ public class Catalogo {
                 case 1:
                     ArrayList<? extends ModelPessoa> atores = filme.getArtistas();
                     if (!atores.isEmpty()) {
-                        listarNomes(atores, filme);
+                        System.out.println(listarNomes(atores));
                         System.out.println("Escolha o Ator que gostaria de desassociar:");
                         informacao = Menu.sc.nextLine();
                         ModelAtor ator = ServiceAtor.getAtorByName(informacao);
@@ -181,7 +181,7 @@ public class Catalogo {
                 case 3:
                     ArrayList<? extends ModelPessoa> roteiristas = filme.getRoteiristas();
                     if (!roteiristas.isEmpty()) {
-                        listarNomes(roteiristas, filme);
+                        System.out.println(listarNomes(roteiristas));
                         System.out.println("Escolha o Roteirista que gostaria de desassociar:");
                         informacao = Menu.sc.nextLine();
                         ModelRoteirista roteirista = ServiceRoteirista.getRoteiristaByName(informacao);
@@ -207,7 +207,7 @@ public class Catalogo {
         } while (escolha != 4);
     }
 
-    public static String listarNomes(ArrayList<? extends ModelPessoa> list, ModelFilme filme) {
+    public static String listarNomes(ArrayList<? extends ModelPessoa> list) {
         StringBuilder nomesFormatados = new StringBuilder();
         int i = 0;
 

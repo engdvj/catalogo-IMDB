@@ -1,9 +1,6 @@
 package br.com.adatech.projetos.catalogoIMDB.util;
 
-import br.com.adatech.projetos.catalogoIMDB.model.ModelAtor;
-import br.com.adatech.projetos.catalogoIMDB.model.ModelDiretor;
 import br.com.adatech.projetos.catalogoIMDB.model.ModelFilme;
-import br.com.adatech.projetos.catalogoIMDB.model.ModelRoteirista;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
