@@ -78,23 +78,26 @@ public class Catalogo {
                     System.out.println("Escolha o Ator que gostaria de associar:");
                     informacao = Menu.sc.nextLine();
                     ModelAtor ator = ServiceAtor.getAtorByName(informacao);
-                    if (!filme.getArtistas().contains(ator)) {
+                    if (!filme.getArtistas().contains(ator) && catalogoAtores.contains(ator)) {
                         PapelAtor papelAtor = ServiceAtor.escolherPapelAtor();
                         filme.addPessoa(ator, papelAtor, filme);
-                    } else {
+                    } else if (!catalogoAtores.contains(ator)){
+                        System.out.println("Autor não cadastrado!");
+                    } else{
                         System.out.println("O Artista escolhido já está vinculado nesse filme!");
                     }
                     break;
                 case 2:
-                    if (filme.getDiretor() == null) {
-
-                        ServiceDiretor.listarDiretores();
-                        System.out.println("Escolha o Diretor que gostaria de associar:");
-                        informacao = Menu.sc.nextLine();
-                        ModelDiretor diretor = ServiceDiretor.getDiretorByName(informacao);
+                    ServiceDiretor.listarDiretores();
+                    System.out.println("Escolha o Diretor que gostaria de associar:");
+                    informacao = Menu.sc.nextLine();
+                    ModelDiretor diretor = ServiceDiretor.getDiretorByName(informacao);
+                    if (filme.getDiretor() == null && catalogoDiretores.contains(diretor)) {
                         AreaDiretor papelDiretor = ServiceDiretor.escolherAreaDiretor();
                         filme.addPessoa(diretor, papelDiretor, filme);
-                    } else {
+                    } else if (!catalogoDiretores.contains(diretor)){
+                        System.out.println("Diretor não cadastrado!");
+                    }else {
                         System.out.println("Já existe um diretor associado a esse filme!");
                     }
                     break;
@@ -103,9 +106,11 @@ public class Catalogo {
                     System.out.println("Escolha o Roteirista que gostaria de associar:");
                     informacao = Menu.sc.nextLine();
                     ModelRoteirista roteirista = ServiceRoteirista.getRoteiristaByName(informacao);
-                    if (!filme.getRoteiristas().contains(roteirista)) {
+                    if (!filme.getRoteiristas().contains(roteirista) && catalogoRoteiristas.contains(roteirista)) {
                         AreaRoteirista area = ServiceRoteirista.escolherAreaRoteirista();
                         filme.addPessoa(roteirista, area, filme);
+                    } else if (!catalogoRoteiristas.contains(roteirista)) {
+                        System.out.println("Roteirista não cadastrado!");
                     } else {
                         System.out.println("O Roteirista escolhido já está vinculado nesse filme!");
                     }
