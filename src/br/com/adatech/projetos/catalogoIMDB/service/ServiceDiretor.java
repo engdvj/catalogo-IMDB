@@ -58,7 +58,7 @@ public class ServiceDiretor {
                     (1)- Nome
                     (2)- CPF
                     (3)- Data de Nascimento""");
-            System.out.print("->");
+            System.out.print("-> ");
             int opcao = Menu.sc.nextInt();
             Menu.sc.nextLine();
 
@@ -82,7 +82,7 @@ public class ServiceDiretor {
                     System.out.println("Data de nascimento alterada!");
                     break;
                 default:
-                    System.out.println("Opção inválida.");
+                    System.out.println("Escolha uma opção válida!");
             }
         } else {
             System.out.println("Diretor não encontrado.");
