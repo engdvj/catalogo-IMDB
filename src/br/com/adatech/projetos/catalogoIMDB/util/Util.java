@@ -3,6 +3,7 @@ package br.com.adatech.projetos.catalogoIMDB.util;
 import br.com.adatech.projetos.catalogoIMDB.model.ModelFilme;
 
 import java.time.DateTimeException;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -47,6 +48,7 @@ public class Util {
             return INDEFINIDA;
         }
     }
+
     public enum Genero {
         COMEDIA,
         DRAMA,
@@ -54,10 +56,12 @@ public class Util {
         TERROR,
         INDEFINIDO
     }
+
     public enum AreaDiretor {
         GERAL,
         INDEFINIDO
     }
+
     public enum AreaRoteirista {
         ADAPTACAO,
         CRIACAO,
@@ -66,12 +70,14 @@ public class Util {
         REVISAO,
         INDEFINIDO
     }
+
     public enum PapelAtor {
         COADJUVANTE,
         PRINCIPAL,
         DUBLE,
         INDEFINIDO
     }
+
     public static int escolhaUsuario() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Qual sua escolha -> ");
@@ -79,16 +85,18 @@ public class Util {
         sc.nextLine();
         return escolha;
     }
-    public static String validarCPF(){
+
+    public static String validarCPF() {
         Scanner sc = new Scanner(System.in);
         String cpf = sc.nextLine();
-        while (cpf.length() != 11){
+        while (cpf.length() != 11) {
             System.out.println("O CPF é inválido! Digite novamente.");
             cpf = sc.nextLine();
         }
         return cpf;
     }
-    public static String validarData(){
+
+    public static String validarData() {
 
         LocalDate dataNascimento = null;
         Scanner sc = new Scanner(System.in);
@@ -101,14 +109,32 @@ public class Util {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 dataNascimento = LocalDate.parse(validacao, formatter);
                 entradaValida = true;
-            } catch (DateTimeException e){
-                System.out.println("Formato de data inválido. Por favor, tente novamente.");
+            } catch (DateTimeException e) {
+                System.out.println("Formato de data inválido. Insira no formato DD/MM/YYYY.");
             }
         }
         return dataNascimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
+
     public static String dataFormatada(LocalDate data) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return data.format(formatter);
+    }
+
+    public static String validarDuracao() {
+        Duration duracao = null;
+        Scanner sc = new Scanner(System.in);
+        boolean entradaValida = false;
+
+        while (!entradaValida) {
+            String validacao = sc.nextLine().trim();
+            try {
+                duracao = Duration.parse("PT" + validacao);
+                entradaValida = true;
+            } catch (DateTimeException e) {
+                System.out.println("Formato de duração inválido! Insira no formato 0h00m!");
+            }
+        }
+        return String.valueOf(duracao);
     }
 }

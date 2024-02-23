@@ -35,12 +35,12 @@ public class ServiceFilme {
 
         ClassificacaoIndicativa indicacao = escolherClassificacaoIndicativa(); // Supondo que escolherClassificacaoIndicativa pode lidar com escolhas inválidas
 
-        System.out.print("Informe a data de lançamento: - (DD/MM/YYYY) ");
+        System.out.print("Informe a data de lançamento (DD/MM/YYYY): ");
         String data = Util.validarData(); // Supondo que validarData retorna "N/A" para datas inválidas
 
-        System.out.print("Informe a duração do filme: - (Ex. 1h30m) ");
-        String duracao = Menu.sc.nextLine().trim();
-        duracao = duracao.isEmpty() ? "PT00H00M" : "PT" + duracao.toUpperCase();
+        System.out.print("Informe a duração do filme (Ex. 1h30m): ");
+        String duracao = Util.validarDuracao();
+        duracao = duracao.isEmpty() ? "PT00H00M" : duracao.toUpperCase();
 
         System.out.print("Informe o orçamento do filme: ");
         String orcamentoInput = Menu.sc.nextLine().trim();
@@ -73,7 +73,6 @@ public class ServiceFilme {
         ModelFilme filme = new ModelFilme(titulo, descricao, generoEscolhido, indicacao, data, duracao, orcamento, avaliacao);
         Catalogo.getCatalogoFilmes().add(filme);
         System.out.println("Filme " + filme.getTitulo() + " Cadastrado");
-        Menu.sc.nextLine();
     }
 
     private static String verificaTituloFilme() {
@@ -108,12 +107,9 @@ public class ServiceFilme {
         System.out.print("Digite o titulo do filme que gostaria de alterar: ");
         String informacao = Menu.sc.nextLine();
         ModelFilme filme = getFilmeByTitulo(informacao);
-        if (filme == null) {
-            System.out.println("\n");
-            return;
-        }
-        System.out.println("Qual informação gostaria de editar?");
-        System.out.println("""
+        if (filme != null) {
+            System.out.println("Qual informação gostaria de editar?");
+            System.out.println("""
                 (1) - Titulo
                 (2) - Descrição
                 (3) - Gênero
@@ -121,61 +117,64 @@ public class ServiceFilme {
                 (5) - Data de lançamento
                 (6) - Duração
                 (7) - Orçamento
-                (8) - Avaliação
-                """);
-        int escolha = Menu.sc.nextInt();
-        Menu.sc.nextLine();
-        switch (escolha) {
-            case 1:
-                System.out.println("Digite o novo titulo:");
-                informacao = verificaTituloFilme();
-                filme.setTitulo(informacao);
-                System.out.println("Titulo alterado!");
-                break;
-            case 2:
-                System.out.println("Digite a nova descrição:");
-                informacao = Menu.sc.nextLine();
-                filme.setDescricao(informacao);
-                System.out.println("Descrição do filme alterada!");
-                break;
-            case 3:
-                Genero generoEscolhido = escolherGenero();
-                filme.setGenero(generoEscolhido);
-                System.out.println("Genero do filme alterado!");
-                break;
-            case 4:
-                ClassificacaoIndicativa indicacao = escolherClassificacaoIndicativa();
-                filme.setClassificacaoIndicativa(indicacao);
-                System.out.println("Classificação Indicativa do filme alterada!");
-                break;
-            case 5:
-                System.out.println("Digite a nova data de lançamento:");
-                informacao = Menu.sc.nextLine();
-                filme.setDataDeLancamento(informacao);
-                System.out.println("Data de lançamento do filme alterada!");
-                break;
-            case 6:
-                System.out.println("Digite a nova duração do filme: (Ex. 1h30m)");
-                informacao = Menu.sc.nextLine();
-                informacao = "PT" + informacao.toUpperCase();
-                filme.setDuracao(informacao);
-                System.out.println("Data de lançamento do filme alterada!");
-                break;
-            case 7:
-                System.out.println("Digite o novo orçamento do filme: (Ex. 5350000");
-                informacao = Menu.sc.nextLine();
-                filme.setOrcamento(Double.parseDouble(informacao));
-                System.out.println("Orçamento do filme alterado!");
-                break;
-            case 8:
-                System.out.println("Digite a nova avaliação do filme: (Ex 8.3 ");
-                informacao = Menu.sc.nextLine();
-                filme.setAvaliacao(Double.parseDouble(informacao));
-                System.out.println("Avaliação do filme alterada!");
-                break;
-            default:
-                System.out.println("Escolha uma opção valida!!\n");
-                break;
+                (8) - Avaliação""");
+            System.out.print("-> ");
+            int escolha = Menu.sc.nextInt();
+            Menu.sc.nextLine();
+            switch (escolha) {
+                case 1:
+                    System.out.println("Digite o novo titulo:");
+                    informacao = verificaTituloFilme();
+                    filme.setTitulo(informacao);
+                    System.out.println("Titulo alterado!");
+                    break;
+                case 2:
+                    System.out.println("Digite a nova descrição:");
+                    informacao = Menu.sc.nextLine();
+                    filme.setDescricao(informacao);
+                    System.out.println("Descrição do filme alterada!");
+                    break;
+                case 3:
+                    Genero generoEscolhido = escolherGenero();
+                    filme.setGenero(generoEscolhido);
+                    System.out.println("Genero do filme alterado!");
+                    break;
+                case 4:
+                    ClassificacaoIndicativa indicacao = escolherClassificacaoIndicativa();
+                    filme.setClassificacaoIndicativa(indicacao);
+                    System.out.println("Classificação Indicativa do filme alterada!");
+                    break;
+                case 5:
+                    System.out.println("Digite a nova data de lançamento:");
+                    informacao = Menu.sc.nextLine();
+                    filme.setDataDeLancamento(informacao);
+                    System.out.println("Data de lançamento do filme alterada!");
+                    break;
+                case 6:
+                    System.out.println("Digite a nova duração do filme: (Ex. 1h30m)");
+
+                    informacao = Util.validarDuracao();
+                    filme.setDuracao(informacao);
+                    System.out.println("Data de lançamento do filme alterada!");
+                    break;
+                case 7:
+                    System.out.println("Digite o novo orçamento do filme: (Ex. 5350000");
+                    informacao = Menu.sc.nextLine();
+                    filme.setOrcamento(Double.parseDouble(informacao));
+                    System.out.println("Orçamento do filme alterado!");
+                    break;
+                case 8:
+                    System.out.println("Digite a nova avaliação do filme: (Ex 8.3 ");
+                    informacao = Menu.sc.nextLine();
+                    filme.setAvaliacao(Double.parseDouble(informacao));
+                    System.out.println("Avaliação do filme alterada!");
+                    break;
+                default:
+                    System.out.println("Escolha uma opção valida!!\n");
+                    break;
+            }
+        } else {
+            System.out.println("Filme não encontrado!");
         }
     }
 
