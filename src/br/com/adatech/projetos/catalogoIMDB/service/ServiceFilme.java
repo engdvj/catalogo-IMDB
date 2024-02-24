@@ -41,7 +41,7 @@ public class ServiceFilme {
         duracao = duracao.isEmpty() ? "PT00H00M" : duracao.toUpperCase();
 
         System.out.print("Informe o orçamento do filme: ");
-        String orcamentoInput = Menu.sc.nextLine().trim();
+        String orcamentoInput = Menu.sc.nextLine().replaceAll("[.,]","").trim();
         double orcamento;
         if (orcamentoInput.isEmpty()) {
             orcamento = 0.0; // Valor padrão
@@ -145,8 +145,8 @@ public class ServiceFilme {
                     System.out.println("Data de lançamento do filme alterada!");
                     break;
                 case 7:
-                    System.out.println("Digite o novo orçamento do filme (Ex. 5350000): ");
-                    informacao = Menu.sc.nextLine();
+                    System.out.println("Digite o novo orçamento do filme: ");
+                    informacao = Menu.sc.nextLine().replaceAll("[.,]","").trim();
                     filme.setOrcamento(Double.parseDouble(informacao));
                     System.out.println("Orçamento do filme alterado!");
                     break;
