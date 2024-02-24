@@ -53,76 +53,77 @@ public class Catalogo {
         System.out.println("Escolha o filme que gostaria de associar:");
         String informacao = Menu.sc.nextLine();
         ModelFilme filme = ServiceFilme.getFilmeByTitulo(informacao);
-        if (filme == null) {
-            return;
-        }
-        int escolha;
-        do {
-            System.out.println("Qual entidade gostaria de vincular ao filme?");
-            System.out.println("""
+        if (filme != null && catalogoFilmes.contains(filme)) {
+            int escolha;
+            do {
+                System.out.println("Qual entidade gostaria de vincular ao filme?");
+                System.out.println("""
                     (1) - Ator
                     (2) - Diretor
                     (3) - Roteirista
                     (4) - Voltar ao menu anterior""");
 
-            while (!Menu.sc.hasNextInt()) {
-                System.out.println("Por favor, insira um número válido.");
-                Menu.sc.next(); // Limpa a entrada incorreta
-            }
-            escolha = Menu.sc.nextInt();
-            Menu.sc.nextLine();
-            switch (escolha) {
+                while (!Menu.sc.hasNextInt()) {
+                    System.out.println("Por favor, insira um número válido.");
+                    Menu.sc.next(); // Limpa a entrada incorreta
+                }
+                escolha = Menu.sc.nextInt();
+                Menu.sc.nextLine();
+                switch (escolha) {
 
-                case 1:
-                    ServiceAtor.listarAtores();
-                    System.out.println("Escolha o Ator que gostaria de associar:");
-                    informacao = Menu.sc.nextLine();
-                    ModelAtor ator = ServiceAtor.getAtorByName(informacao);
-                    if (!filme.getArtistas().contains(ator) && catalogoAtores.contains(ator)) {
-                        PapelAtor papelAtor = ServiceAtor.escolherPapelAtor();
-                        filme.addPessoa(ator, papelAtor, filme);
-                    } else if (!catalogoAtores.contains(ator)){
-                        System.out.println("Autor não cadastrado!");
-                    } else{
-                        System.out.println("O Artista escolhido já está vinculado nesse filme!");
-                    }
-                    break;
-                case 2:
-                    ServiceDiretor.listarDiretores();
-                    System.out.println("Escolha o Diretor que gostaria de associar:");
-                    informacao = Menu.sc.nextLine();
-                    ModelDiretor diretor = ServiceDiretor.getDiretorByName(informacao);
-                    if (filme.getDiretor() == null && catalogoDiretores.contains(diretor)) {
-                        AreaDiretor papelDiretor = ServiceDiretor.escolherAreaDiretor();
-                        filme.addPessoa(diretor, papelDiretor, filme);
-                    } else if (!catalogoDiretores.contains(diretor)){
-                        System.out.println("Diretor não cadastrado!");
-                    }else {
-                        System.out.println("Já existe um diretor associado a esse filme!");
-                    }
-                    break;
-                case 3:
-                    ServiceRoteirista.listarRoteiristas();
-                    System.out.println("Escolha o Roteirista que gostaria de associar:");
-                    informacao = Menu.sc.nextLine();
-                    ModelRoteirista roteirista = ServiceRoteirista.getRoteiristaByName(informacao);
-                    if (!filme.getRoteiristas().contains(roteirista) && catalogoRoteiristas.contains(roteirista)) {
-                        AreaRoteirista area = ServiceRoteirista.escolherAreaRoteirista();
-                        filme.addPessoa(roteirista, area, filme);
-                    } else if (!catalogoRoteiristas.contains(roteirista)) {
-                        System.out.println("Roteirista não cadastrado!");
-                    } else {
-                        System.out.println("O Roteirista escolhido já está vinculado nesse filme!");
-                    }
-                    break;
-                case 4:
-                    System.out.println("Voltando ao menu anterior..");
-                    break;
-                default:
-                    System.out.println("Escolha uma opção válida!!\n");
-                    break;
-            }
-        } while (escolha != 4);
+                    case 1:
+                        ServiceAtor.listarAtores();
+                        System.out.println("Escolha o Ator que gostaria de associar:");
+                        informacao = Menu.sc.nextLine();
+                        ModelAtor ator = ServiceAtor.getAtorByName(informacao);
+                        if (!filme.getArtistas().contains(ator) && catalogoAtores.contains(ator)) {
+                            PapelAtor papelAtor = ServiceAtor.escolherPapelAtor();
+                            filme.addPessoa(ator, papelAtor, filme);
+                        } else if (!catalogoAtores.contains(ator)){
+                            System.out.println("Autor não cadastrado!");
+                        } else{
+                            System.out.println("O Artista escolhido já está vinculado nesse filme!");
+                        }
+                        break;
+                    case 2:
+                        ServiceDiretor.listarDiretores();
+                        System.out.println("Escolha o Diretor que gostaria de associar:");
+                        informacao = Menu.sc.nextLine();
+                        ModelDiretor diretor = ServiceDiretor.getDiretorByName(informacao);
+                        if (filme.getDiretor() == null && catalogoDiretores.contains(diretor)) {
+                            AreaDiretor papelDiretor = ServiceDiretor.escolherAreaDiretor();
+                            filme.addPessoa(diretor, papelDiretor, filme);
+                        } else if (!catalogoDiretores.contains(diretor)){
+                            System.out.println("Diretor não cadastrado!");
+                        }else {
+                            System.out.println("Já existe um diretor associado a esse filme!");
+                        }
+                        break;
+                    case 3:
+                        ServiceRoteirista.listarRoteiristas();
+                        System.out.println("Escolha o Roteirista que gostaria de associar:");
+                        informacao = Menu.sc.nextLine();
+                        ModelRoteirista roteirista = ServiceRoteirista.getRoteiristaByName(informacao);
+                        if (!filme.getRoteiristas().contains(roteirista) && catalogoRoteiristas.contains(roteirista)) {
+                            AreaRoteirista area = ServiceRoteirista.escolherAreaRoteirista();
+                            filme.addPessoa(roteirista, area, filme);
+                        } else if (!catalogoRoteiristas.contains(roteirista)) {
+                            System.out.println("Roteirista não cadastrado!");
+                        } else {
+                            System.out.println("O Roteirista escolhido já está vinculado nesse filme!");
+                        }
+                        break;
+                    case 4:
+                        System.out.println("Voltando ao menu anterior..");
+                        break;
+                    default:
+                        System.out.println("Escolha uma opção válida!!\n");
+                        break;
+                }
+            } while (escolha != 4);
+        } else {
+            System.out.println("Filme não encontrado!");
+        }
     }
 
     /**
@@ -133,83 +134,84 @@ public class Catalogo {
         System.out.println("Escolha o filme que gostaria de desaassociar:");
         String informacao = Menu.sc.nextLine();
         ModelFilme filme = ServiceFilme.getFilmeByTitulo(informacao);
-        if (filme == null) {
-            return;
-        }
-        int escolha;
-        do {
-            System.out.println("Qual entidade gostaria de desvincular do filme?");
-            System.out.println("""
+        if (filme != null && catalogoFilmes.contains(filme)) {
+            int escolha;
+            do {
+                System.out.println("Qual entidade gostaria de desvincular do filme?");
+                System.out.println("""
                     (1) - Ator
                     (2) - Diretor
                     (3) - Roteirista
                     (4) - Voltar ao menu anterior""");
 
-            while (!Menu.sc.hasNextInt()) {
-                System.out.println("Por favor, insira um número válido.");
-                Menu.sc.next(); // Limpa a entrada incorreta
-            }
-            escolha = Menu.sc.nextInt();
-            Menu.sc.nextLine();
-            switch (escolha) {
+                while (!Menu.sc.hasNextInt()) {
+                    System.out.println("Por favor, insira um número válido.");
+                    Menu.sc.next(); // Limpa a entrada incorreta
+                }
+                escolha = Menu.sc.nextInt();
+                Menu.sc.nextLine();
+                switch (escolha) {
 
-                case 1:
-                    ArrayList<? extends ModelPessoa> atores = filme.getArtistas();
-                    if (!atores.isEmpty()) {
-                        System.out.println(listarNomes(atores));
-                        System.out.println("Escolha o Ator que gostaria de desassociar:");
-                        informacao = Menu.sc.nextLine();
-                        ModelAtor ator = ServiceAtor.getAtorByName(informacao);
-                        if (filme.getArtistas().contains(ator)) {
-                            PapelAtor papelAtor = ator.getPapelAtor(filme.getTitulo());
-                            filme.removePessoa(ator, papelAtor, filme);
-                            System.out.println("O Ator " + ator.getNome() + " foi desvinculado do filme!");
+                    case 1:
+                        ArrayList<? extends ModelPessoa> atores = filme.getArtistas();
+                        if (!atores.isEmpty()) {
+                            System.out.println(listarNomes(atores));
+                            System.out.println("Escolha o Ator que gostaria de desassociar:");
+                            informacao = Menu.sc.nextLine();
+                            ModelAtor ator = ServiceAtor.getAtorByName(informacao);
+                            if (filme.getArtistas().contains(ator)) {
+                                PapelAtor papelAtor = ator.getPapelAtor(filme.getTitulo());
+                                filme.removePessoa(ator, papelAtor, filme);
+                                System.out.println("O Ator " + ator.getNome() + " foi desvinculado do filme!");
 
+                            } else {
+                                System.out.println("O Ator escolhido não está vinculado nesse filme!");
+                            }
                         } else {
-                            System.out.println("O Ator escolhido não está vinculado nesse filme!");
+                            System.out.println("Não existe nenhum ator vinculado nesse filme!");
                         }
-                    } else {
-                        System.out.println("Não existe nenhum ator vinculado nesse filme!");
-                    }
 
-                    break;
-                case 2:
-                    ModelDiretor diretor = filme.getDiretor();
-                    if (diretor != null) {
-                        AreaDiretor area = diretor.getAreaDiretor(filme.getTitulo());
-                        filme.removePessoa(diretor, area, filme);
-                        System.out.println("O Diretor " + diretor.getNome() + " foi desvinculado do filme!");
-                    } else {
-                        System.out.println("Não existe nenhum diretor vinculado nesse filme!");
-                    }
-                    break;
-                case 3:
-                    ArrayList<? extends ModelPessoa> roteiristas = filme.getRoteiristas();
-                    if (!roteiristas.isEmpty()) {
-                        System.out.println(listarNomes(roteiristas));
-                        System.out.println("Escolha o Roteirista que gostaria de desassociar:");
-                        informacao = Menu.sc.nextLine();
-                        ModelRoteirista roteirista = ServiceRoteirista.getRoteiristaByName(informacao);
-                        if (filme.getRoteiristas().contains(roteirista)) {
-                            AreaRoteirista areaRoteirista = roteirista.getAreaRoteirista(filme.getTitulo());
-                            filme.removePessoa(roteirista, areaRoteirista, filme);
-                            System.out.println("O Roteirista " + roteirista.getNome() + " foi desvinculado do filme!");
-
+                        break;
+                    case 2:
+                        ModelDiretor diretor = filme.getDiretor();
+                        if (diretor != null) {
+                            AreaDiretor area = diretor.getAreaDiretor(filme.getTitulo());
+                            filme.removePessoa(diretor, area, filme);
+                            System.out.println("O Diretor " + diretor.getNome() + " foi desvinculado do filme!");
                         } else {
-                            System.out.println("O Roteirista escolhido não está vinculado nesse filme!");
+                            System.out.println("Não existe nenhum diretor vinculado nesse filme!");
                         }
-                    } else {
-                        System.out.println("Não existe nenhum roteirista vinculado nesse filme!");
-                    }
-                    break;
-                case 4:
-                    System.out.println("Voltando ao menu anterior..");
-                    break;
-                default:
-                    System.out.println("Escolha uma opção válida!!\n");
-                    break;
-            }
-        } while (escolha != 4);
+                        break;
+                    case 3:
+                        ArrayList<? extends ModelPessoa> roteiristas = filme.getRoteiristas();
+                        if (!roteiristas.isEmpty()) {
+                            System.out.println(listarNomes(roteiristas));
+                            System.out.println("Escolha o Roteirista que gostaria de desassociar:");
+                            informacao = Menu.sc.nextLine();
+                            ModelRoteirista roteirista = ServiceRoteirista.getRoteiristaByName(informacao);
+                            if (filme.getRoteiristas().contains(roteirista)) {
+                                AreaRoteirista areaRoteirista = roteirista.getAreaRoteirista(filme.getTitulo());
+                                filme.removePessoa(roteirista, areaRoteirista, filme);
+                                System.out.println("O Roteirista " + roteirista.getNome() + " foi desvinculado do filme!");
+
+                            } else {
+                                System.out.println("O Roteirista escolhido não está vinculado nesse filme!");
+                            }
+                        } else {
+                            System.out.println("Não existe nenhum roteirista vinculado nesse filme!");
+                        }
+                        break;
+                    case 4:
+                        System.out.println("Voltando ao menu anterior..");
+                        break;
+                    default:
+                        System.out.println("Escolha uma opção válida!!\n");
+                        break;
+                }
+            } while (escolha != 4);
+        } else {
+            System.out.println("Filme não encontrado!");
+        }
     }
 
     public static String listarNomes(ArrayList<? extends ModelPessoa> list) {

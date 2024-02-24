@@ -88,10 +88,10 @@ public class Util {
 
     public static String validarCPF() {
         Scanner sc = new Scanner(System.in);
-        String cpf = sc.nextLine();
+        String cpf = sc.nextLine().replaceAll("[.-]","");
         while (cpf.length() != 11) {
             System.out.println("O CPF é inválido! Digite novamente.");
-            cpf = sc.nextLine();
+            cpf = sc.nextLine().replaceAll("[.-]","");
         }
         return cpf;
     }
