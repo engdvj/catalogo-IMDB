@@ -125,7 +125,6 @@ public class Util {
         Duration duracao = null;
         Scanner sc = new Scanner(System.in);
         boolean entradaValida = false;
-
         while (!entradaValida) {
             String validacao = sc.nextLine().trim();
             try {
@@ -136,5 +135,25 @@ public class Util {
             }
         }
         return String.valueOf(duracao);
+    }
+
+    public static String validarAvaliacao() {
+        String avaliacao = "";
+        boolean entradaValida = false;
+        Scanner sc = new Scanner(System.in);
+        while (!entradaValida) {
+            String avaliacaoInput = sc.nextLine().replace(',','.').trim();
+
+            if (avaliacaoInput.isEmpty()) {
+                avaliacao = "0.0"; // Valor padrão
+                entradaValida = true;
+            } else if (Double.parseDouble(avaliacaoInput) >= 0 && Double.parseDouble(avaliacaoInput) <= 10) {
+                avaliacao = avaliacaoInput;
+                entradaValida = true;
+            } else {
+                System.out.println("Valor da avaliação inválido. Insira novamente !");
+            }
+        }
+        return avaliacao;
     }
 }

@@ -1,7 +1,6 @@
 package br.com.adatech.projetos.catalogoIMDB.service;
 
 import br.com.adatech.projetos.catalogoIMDB.model.ModelFilme;
-import br.com.adatech.projetos.catalogoIMDB.model.ModelRoteirista;
 import br.com.adatech.projetos.catalogoIMDB.util.Util;
 import br.com.adatech.projetos.catalogoIMDB.util.Util.*;
 import br.com.adatech.projetos.catalogoIMDB.view.Menu;
@@ -10,7 +9,6 @@ import br.com.adatech.projetos.catalogoIMDB.core.Catalogo;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 
 /**
@@ -57,23 +55,13 @@ public class ServiceFilme {
         }
 
         System.out.print("Informe a avaliacao do filme: ");
-        String avaliacaoInput = Menu.sc.nextLine().trim();
-        double avaliacao;
-        if (avaliacaoInput.isEmpty()) {
-            avaliacao = 0.0; // Valor padrão
-        } else {
-            try {
-                avaliacao = Double.parseDouble(avaliacaoInput);
-            } catch (NumberFormatException e) {
-                System.out.println("Entrada inválida. Avaliação definida como 0.");
-                avaliacao = 0.0;
-            }
-        }
+        double avaliacao = Double.parseDouble(Util.validarAvaliacao());
 
         ModelFilme filme = new ModelFilme(titulo, descricao, generoEscolhido, indicacao, data, duracao, orcamento, avaliacao);
         Catalogo.getCatalogoFilmes().add(filme);
         System.out.println("Filme " + filme.getTitulo() + " Cadastrado");
     }
+
 
     private static String verificaTituloFilme() {
         String titulo;
@@ -102,7 +90,7 @@ public class ServiceFilme {
     /**
      * Edita os detalhes de um filme existente no sistema.
      */
-    public static void editarFilme() {
+        public static void editarFilme() {
         listarFilmes();
         System.out.print("Digite o titulo do filme que gostaria de alterar: ");
         String informacao = Menu.sc.nextLine();
@@ -110,14 +98,14 @@ public class ServiceFilme {
         if (filme != null) {
             System.out.println("Qual informação gostaria de editar?");
             System.out.println("""
-                (1) - Titulo
-                (2) - Descrição
-                (3) - Gênero
-                (4) - Classificação Indicativa
-                (5) - Data de lançamento
-                (6) - Duração
-                (7) - Orçamento
-                (8) - Avaliação""");
+                    (1) - Titulo
+                    (2) - Descrição
+                    (3) - Gênero
+                    (4) - Classificação Indicativa
+                    (5) - Data de lançamento
+                    (6) - Duração
+                    (7) - Orçamento
+                    (8) - Avaliação""");
             System.out.print("-> ");
             int escolha = Menu.sc.nextInt();
             Menu.sc.nextLine();
@@ -152,20 +140,19 @@ public class ServiceFilme {
                     break;
                 case 6:
                     System.out.println("Digite a nova duração do filme: (Ex. 1h30m)");
-
                     informacao = Util.validarDuracao();
                     filme.setDuracao(informacao);
                     System.out.println("Data de lançamento do filme alterada!");
                     break;
                 case 7:
-                    System.out.println("Digite o novo orçamento do filme: (Ex. 5350000");
+                    System.out.println("Digite o novo orçamento do filme (Ex. 5350000): ");
                     informacao = Menu.sc.nextLine();
                     filme.setOrcamento(Double.parseDouble(informacao));
                     System.out.println("Orçamento do filme alterado!");
                     break;
                 case 8:
-                    System.out.println("Digite a nova avaliação do filme: (Ex 8.3 ");
-                    informacao = Menu.sc.nextLine();
+                    System.out.println("Digite a nova avaliação do filme (Ex 8.3):  ");
+                    informacao = Util.validarAvaliacao();
                     filme.setAvaliacao(Double.parseDouble(informacao));
                     System.out.println("Avaliação do filme alterada!");
                     break;
